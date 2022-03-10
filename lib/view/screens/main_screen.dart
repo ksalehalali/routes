@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
@@ -123,9 +124,10 @@ class _MainScreenState extends State<MainScreen> {
                       labelTextStyle:
                       MaterialStateProperty.all(TextStyle(fontSize: 14))),
                   child: NavigationDestination(
-                    icon: Icon(Icons.home_outlined,color: Colors.blue[900]),
+//                    icon: Icon(Icons.home_outlined,color: Colors.blue[900]),
                     label: 'Home',
-                    selectedIcon: Icon(Icons.home,color: Colors.blue[900],),
+                    icon: SvgPicture.asset("${assetsDir}home_svg.svg", width: 25, color: Colors.grey[600],),
+                    selectedIcon: SvgPicture.asset("${assetsDir}home_svg.svg", width: 25, color: Colors.blue[900],),
                   )),
               NavigationBarTheme(
                   data: NavigationBarThemeData(
@@ -133,9 +135,9 @@ class _MainScreenState extends State<MainScreen> {
                       labelTextStyle:
                       MaterialStateProperty.all(TextStyle(fontSize: 14))),
                   child: NavigationDestination(
-                    icon: Icon(Icons.payments_outlined ,color: Colors.blue[900]),
+                    icon: SvgPicture.asset("${assetsDir}pay.svg", width: 25, color: Colors.grey[600],),
                     label: 'Pay',
-                    selectedIcon: Icon(Icons.payments, color: Colors.blue[900],),
+                    selectedIcon: SvgPicture.asset("${assetsDir}pay.svg", width: 25, color: Colors.blue[900],),
                   )),
               NavigationBarTheme(
                   data: NavigationBarThemeData(
@@ -143,9 +145,9 @@ class _MainScreenState extends State<MainScreen> {
                       labelTextStyle:
                       MaterialStateProperty.all(TextStyle(fontSize: 14))),
                   child: NavigationDestination(
-                    icon: Icon(Icons.account_balance_wallet_outlined,color: Colors.blue[900]),
+                    icon: SvgPicture.asset("${assetsDir}wallet.svg", width: 25, color: Colors.grey[600],),
                     label: 'Wallet',
-                    selectedIcon: Icon(Icons.account_balance_wallet,color: Colors.blue[900]),
+                    selectedIcon: SvgPicture.asset("${assetsDir}wallet.svg", width: 25, color: Colors.blue[900],),
                   )),
               NavigationBarTheme(
                   data: NavigationBarThemeData(
@@ -153,9 +155,9 @@ class _MainScreenState extends State<MainScreen> {
                       labelTextStyle:
                       MaterialStateProperty.all(TextStyle(fontSize: 14))),
                   child: NavigationDestination(
-                    icon: Icon(Icons.account_balance_wallet_outlined,color: Colors.blue[900]),
+                    icon: SvgPicture.asset("${assetsDir}routes.svg", width: 25, color: Colors.grey[600],),
                     label: 'Routes',
-                    selectedIcon: Icon(Icons.map,color: Colors.blue[900]),
+                    selectedIcon: SvgPicture.asset("${assetsDir}routes.svg", width: 25, color: Colors.blue[900],),
                   )),
               NavigationBarTheme(
                   data: NavigationBarThemeData(
@@ -173,9 +175,9 @@ class _MainScreenState extends State<MainScreen> {
                       labelTextStyle:
                       MaterialStateProperty.all(TextStyle(fontSize: 14))),
                   child: NavigationDestination(
-                    icon: Icon(Icons.person_pin_outlined,color: Colors.blue[900]),
+                    icon: SvgPicture.asset("${assetsDir}profile.svg", width: 25, color: Colors.grey[600],),
                     label: 'Profile',
-                    selectedIcon: Icon(Icons.person_pin_rounded,color: Colors.blue[900]),
+                    selectedIcon: SvgPicture.asset("${assetsDir}profile.svg", width: 25, color: Colors.blue[900],),
                   )),
             ])
     );

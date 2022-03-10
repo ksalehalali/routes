@@ -70,7 +70,7 @@ class _DirectPaymentState extends State<DirectPayment> {
                   onPressed: () async{
                     String balance = await checkWallet();
                     double balanceNum = double.parse(balance);
-                    if(balanceNum >= 200.0) {
+                    if(balanceNum >= 0.200) {
                       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>QRViewExample()));
                     } else {
                     Fluttertoast.showToast(
