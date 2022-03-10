@@ -1,0 +1,14 @@
+
+class PaymentSaved{
+  String? id;
+  String? uid;
+  String? userName;
+  String? date;
+  String? createdDate;
+  String? routeId;
+  String? busId;
+  String? driverId;
+  double? value;
+  PaymentSaved({this.uid,this.userName,this.date,this.createdDate,this.busId,this.driverId,this.routeId,this.value,this.id});
+}
+
