@@ -58,6 +58,7 @@ dependencies:
   myfatoorah_flutter: ^2.1.0
   intl_phone_number_input: ^0.7.0+2
   url_launcher: ^6.0.20
+  flutter_svg: ^1.0.3
 
 
 
