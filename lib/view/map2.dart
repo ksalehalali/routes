@@ -990,6 +990,19 @@ class _Map2State extends State<Map2> {
                     : google_maps.Marker(
                         markerId: google_maps.MarkerId("pickUpId")),
 
+                locationController.tripCreatedDone.value == true &&routeMapController.isMultiMode.value ==true
+                    ? google_maps.Marker(
+                    icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
+                        google_maps.BitmapDescriptor.hueOrange),
+                    infoWindow: google_maps.InfoWindow(
+                        title: 'shared', snippet: " my shared"),
+                    position: google_maps.LatLng(
+                        routeMapController.sharedStation['latitude'],
+                        routeMapController.sharedStation['longitude']),
+                    markerId: google_maps.MarkerId("sharedId"))
+                    : google_maps.Marker(
+                    markerId: google_maps.MarkerId("pickUpId")),
+
                 //
                 locationController.tripCreatedDone.value == true
                     ? google_maps.Marker(

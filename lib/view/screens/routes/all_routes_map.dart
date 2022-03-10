@@ -29,15 +29,16 @@ class AllRoutesMap extends StatefulWidget {
   @override
   _AllRoutesMapState createState() => _AllRoutesMapState();
 }
+google_maps.GoogleMapController? newGoogleMapController;
 
 class _AllRoutesMapState extends State<AllRoutesMap> {
   Completer<google_maps.GoogleMapController> _controllerMaps = Completer();
-  google_maps.GoogleMapController? newGoogleMapController;
   double bottomPaddingOfMap = 0;
   final RouteMapController routeMapController = Get.find();
   final LocationController locationController = Get.find();
   final PaymentController paymentController = Get.find();
   final allRouteController = Get.put(AllRoutes());
+  late final MapController mapController;
 
   PanelController panelController = PanelController();
   late final StreamSubscription<MapEvent> mapEventSubscription;
@@ -70,6 +71,13 @@ class _AllRoutesMapState extends State<AllRoutesMap> {
         position, context, false);
     print(address);
   }
+
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final screenSize = Get.size;
@@ -99,6 +107,7 @@ class _AllRoutesMapState extends State<AllRoutesMap> {
               },
               onCameraMoveStarted: () {},
               onCameraMove: (camera)async {
+
                 locationController.updatePinPos(
                     camera.target.latitude, camera.target.longitude);
                 positionFromPin = Position(
@@ -176,7 +185,7 @@ class _AllRoutesMapState extends State<AllRoutesMap> {
             ),
           ),
           Obx(()=> AnimatedPositioned(
-                top:allRouteController.isSearching.value ==true ? screenSize.height -400:screenSize.height -310,
+                top:allRouteController.isSearching.value ==true ? screenSize.height -410:screenSize.height -330,
                 duration: 400.milliseconds,
                 child: Container(child: SizedBox(
                     width: screenSize.width -5,

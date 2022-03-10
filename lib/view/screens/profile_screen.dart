@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:routes/view/screens/help_screen.dart';
 import 'package:routes/view/screens/personal_information.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../controller/lang_controller.dart';
@@ -80,7 +81,7 @@ class ProfileScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         'Your Account',
-                        style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[600]),
+                        style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[800]),
 
                       ),
                     ),
@@ -89,7 +90,7 @@ class ProfileScreen extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: GestureDetector(
+                      child: InkWell(
                         onTap: () {
                           Get.to(()=> PersonalInformation());
                         },
@@ -187,6 +188,60 @@ class ProfileScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+
+          SizedBox(
+            height: screenSize.height * 0.1 - 50,
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Get support',
+                  style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[800]),
+
+                ),
+              ),
+              SizedBox(
+                height: 12,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: InkWell(
+                  onTap: () {
+                    Get.to(()=> const HelpScreen());
+                  },
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.help_center_outlined,
+                        size: 32,
+                        color: Colors.grey,
+                      ),
+                      SizedBox(
+                        width: 8.0,
+                      ),
+                      Text(
+                        'Help',
+                        style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[600]),
+
+                      ),
+                      Spacer(),
+                      Icon(
+                        Icons.arrow_forward_ios_outlined,
+                        size: 22,
+                        color: Colors.grey,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
                 SizedBox(
                   height: screenSize.height * 0.1 - 50,
                 ),
@@ -198,7 +253,7 @@ class ProfileScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         'setting_title'.tr,
-                        style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[600]),
+                        style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[800]),
 
                       ),
                     ),
@@ -302,7 +357,7 @@ class ProfileScreen extends StatelessWidget {
                 )
               ],
             ),
-          ),
-        ));
+          ]),
+        )));
   }
 }

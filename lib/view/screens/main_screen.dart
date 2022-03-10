@@ -35,7 +35,6 @@ class _MainScreenState extends State<MainScreen> {
     DirectPayment(),
     WalletScreen(),
     AllRoutesMap(),
-    HelpScreen(),
     ProfileScreen(),
   ];
 
@@ -153,20 +152,11 @@ class _MainScreenState extends State<MainScreen> {
                       labelTextStyle:
                       MaterialStateProperty.all(TextStyle(fontSize: 14))),
                   child: NavigationDestination(
-                    icon: Icon(Icons.account_balance_wallet_outlined,color: Colors.blue[900]),
+                    icon: Icon(Icons.map_outlined,color: Colors.blue[900]),
                     label: 'Routes',
                     selectedIcon: Icon(Icons.map,color: Colors.blue[900]),
                   )),
-              NavigationBarTheme(
-                  data: NavigationBarThemeData(
-                      indicatorColor: Colors.grey.shade200,
-                      labelTextStyle:
-                      MaterialStateProperty.all(TextStyle(fontSize: 14))),
-                  child: NavigationDestination(
-                    icon: Icon(Icons.help_center_outlined,color: Colors.blue[900]),
-                    label: 'Help',
-                    selectedIcon: Icon(Icons.help_center,color: Colors.blue[900]),
-                  )),
+
               NavigationBarTheme(
                   data: NavigationBarThemeData(
                       indicatorColor: Colors.grey.shade200,

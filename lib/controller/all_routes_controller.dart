@@ -8,10 +8,12 @@ import 'package:http/http.dart' as http;
 import '../Assistants/globals.dart';
 import '../Data/current_data.dart';
 import '../config-maps.dart';
+import '../view/screens/routes/all_routes_map.dart';
 
 class AllRoutes extends GetxController {
   var routePoints = <LatLng>[].obs;
   var routeStations = {}.obs;
+  var centerIndex = 0.obs;
   var jsonResponse;
   var markersStations = <Marker>[].obs;
   var routePolyLine = <Polyline>[].obs;
@@ -22,6 +24,7 @@ class AllRoutes extends GetxController {
   String stationQuery4 = "";
   var isDrawing = false.obs;
   var isSearching = false.obs;
+  CameraPosition? cameraPosition ;
 
   var stationLocationPoints = <LatLng>[].obs;
   var stationLocationPoints2 = <LatLng>[].obs;
@@ -49,7 +52,8 @@ class AllRoutes extends GetxController {
       jsonResponse = jsonResponse['description'];
 
       if (jsonResponse.length > 74) {
-        for (int i = 0; i < 25; i++) {
+        print('stations > 74');
+        for (int i = 0; i < 24; i++) {
           stationQuery = stationQuery +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -60,7 +64,7 @@ class AllRoutes extends GetxController {
 
         }
 
-        for (int i = 24; i < 49; i++) {
+        for (int i = 25; i < 49; i++) {
           stationQuery2 = stationQuery2 +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -71,7 +75,7 @@ class AllRoutes extends GetxController {
         }
 
         /// for more points
-        for (int i = 48; i < 74; i++) {
+        for (int i = 50; i < 74; i++) {
           stationQuery3 = stationQuery3 +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -81,7 +85,7 @@ class AllRoutes extends GetxController {
               jsonResponse[i]["latitude"], jsonResponse[i]["longitude"]));
         }
 
-        for (int i = 74; i < 99; i++) {
+        for (int i = 74; i < jsonResponse.length; i++) {
           stationQuery4 = stationQuery4 +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -102,8 +106,8 @@ class AllRoutes extends GetxController {
             stationQuery3.length -
                 1); // To remove the last semicolon from the string (would cause an error)
         stationQuery4 = stationQuery4.substring(0, stationQuery4.length - 1);
-      } else if (jsonResponse.length <= 75 && jsonResponse.length > 50) {
-        print('less than 25 points');
+      } else if (jsonResponse.length <= 74 && jsonResponse.length > 50) {
+        print('stations <= 74 && > 50');
         for (int i = 0; i < 24; i++) {
           stationQuery = stationQuery +
               jsonResponse[i]["longitude"].toString() +
@@ -115,7 +119,7 @@ class AllRoutes extends GetxController {
 
         }
 
-        for (int i = 24; i < 49; i++) {
+        for (int i = 25; i < 49; i++) {
           stationQuery2 = stationQuery2 +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -126,7 +130,7 @@ class AllRoutes extends GetxController {
         }
 
         /// for more points
-        for (int i = 49; i < jsonResponse.length; i++) {
+        for (int i = 50; i < jsonResponse.length; i++) {
           stationQuery3 = stationQuery3 +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -148,7 +152,9 @@ class AllRoutes extends GetxController {
                 1); // To remove the last semicolon from the string (would cause an
 
       } else if (jsonResponse.length <= 50 && jsonResponse.length > 25) {
-        for (int i = 0; i < 25; i++) {
+        print('stations < 50 && >25 ');
+
+        for (int i = 0; i < 24; i++) {
           stationQuery = stationQuery +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -158,7 +164,7 @@ class AllRoutes extends GetxController {
               jsonResponse[i]["latitude"], jsonResponse[i]["longitude"]));
         }
 
-        for (int i = 24; i < jsonResponse.length; i++) {
+        for (int i = 25; i < jsonResponse.length; i++) {
           stationQuery2 = stationQuery2 +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -175,6 +181,7 @@ class AllRoutes extends GetxController {
         stationQuery2 = stationQuery2.substring(0, stationQuery2.length - 1);
       }
     }
+
     //add markers
     for (int i = 0; i < stationLocationPoints.length; i++) {
       markersStations.add(Marker(
@@ -187,22 +194,39 @@ class AllRoutes extends GetxController {
     }
 
     if (jsonResponse.length > 74) {
-      findStationDirection(stationQuery, false);
-      findStationDirection(stationQuery2, false);
-      findStationDirection(stationQuery3, false);
-      findStationDirection(stationQuery4, false);
-    } else if (jsonResponse.length <= 75 && jsonResponse.length > 50) {
+      centerIndex.value = 36;
+      await findStationDirection(stationQuery, false);
+      await findStationDirection(stationQuery2, false);
+      await findStationDirection(stationQuery3, false);
+      await findStationDirection(stationQuery4, false);
+      cameraPosition = CameraPosition(target:LatLng(stationLocationPoints[centerIndex.value].latitude,stationLocationPoints[centerIndex.value].longitude),zoom: 12.0 );
+      newGoogleMapController!.animateCamera(
+          CameraUpdate.newCameraPosition(cameraPosition!));
+    } else if (jsonResponse.length <= 75 && jsonResponse.length > 49) {
+      centerIndex.value = 21;
       await findStationDirection(stationQuery, false);
 
       await findStationDirection(stationQuery2, false);
 
-      findStationDirection(stationQuery3, false);
+      await findStationDirection(stationQuery3, false);
+      cameraPosition = CameraPosition(target:LatLng(stationLocationPoints[centerIndex.value].latitude,stationLocationPoints[centerIndex.value].longitude),zoom: 12 );
+      newGoogleMapController!.animateCamera(
+          CameraUpdate.newCameraPosition(cameraPosition!));
+    }else if(jsonResponse.length <= 49 && jsonResponse.length > 24){
+      centerIndex.value = 10;
+      await findStationDirection(stationQuery, false);
+
+       await findStationDirection(stationQuery2, false);
+      cameraPosition = CameraPosition(target:LatLng(stationLocationPoints[centerIndex.value].latitude,stationLocationPoints[centerIndex.value].longitude),zoom: 12 );
+      newGoogleMapController!.animateCamera(
+          CameraUpdate.newCameraPosition(cameraPosition!));
     }
     update();
   }
 
   //
   Future<void> findStationDirection(String stationQuery, bool isSecond) async {
+
     if (isSecond == false) {
       int i = 0;
       final response = await http.get(Uri.parse(

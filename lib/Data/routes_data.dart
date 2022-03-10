@@ -178,28 +178,103 @@ final allRoutes = <RouteModel>[
       area: "Sharq, Maliya, City Center, 3rd Ring Rd, Canada Dry St., Al-Watan, National Guard HQ, Farwaniyah, Farwaniyah Co-Op, Metro, Khaitan, Pepsi Co, Al-Baqli, Subhan Hospital, Kuwait Flour Mills, ABC Co, Subhan",
       from_To: "Sharq to Subhan",
       company: "CityBus"),
-  RouteModel(
+  const RouteModel(
       id: "886bb886-7c78-4eee-a877-08d9e6387205",
       name: "51",
       area: "Sharq, Mirqab, Fahad Al Salem St., Maliya, Jahra Rd, City Center, Airport Rd, Lulu, Khaldiya Rd 55, Holiday Inn Farwaniyah, Dajeej, Jleeb Co-Op, Abbassiya, German Clinic, Jleeb Round-About",
       from_To: "Sharq to Jleeb",
       company: "CityBus"),
-  RouteModel(
+  const RouteModel(
       id: "d7c24f28-5f61-4a3b-a878-08d9e6387205",
       name: "55",
       area: "Maliya, Municipality Garden, Bank District, Flex Gym, Embassies, Daiya, Al Rawda, Hawalli, Rehab Complex, Al Bahar, Apollo Hospital, Salmiya Co-Op, Salmiya Sports, Salmiya",
       from_To: "Maliya to Salmiya",
       company: "CityBus"),
-  RouteModel(
+  const RouteModel(
       id: "c06b048c-e4ec-4860-a879-08d9e6387205",
       name: "59",
       area: "Mirqab, Science Museum, Municipal Garden, Maliya, Shamiya Entrance, Kuwait Sports Club, City Center, Canada Dry St., Al Watan, Toyota Spare Parts, Center Point Al Rai, Ardiya Industrial Area, Rabya, Al Nasar Sports Club, Hassawi, Bayan Pharmacy, Jleeb Round-About",
       from_To: "Mirqab to Hassawi",
       company: "CityBus"),
-  RouteModel(
+  const RouteModel(
       id: "1e63ec27-af99-440b-a87a-08d9e6387205",
       name: "66",
       area: "Salmiya, Sultan Center, Zahra Complex, Shaab Park, Al Bahar, Rehab Complex, Hawally Eng School, Qortuba, 4th Ring Rd, Lulu, Friday Market, Farwaniya Fire Station, Farwaniya Co-Op, Holiday Inn, 6th Ring Rd, Dajeej, Hassawi",
       from_To: "Salmiya to Hassawi",
+      company: "CityBus"),
+
+  const RouteModel(
+      id: "80b4d560-316d-409f-a87b-08d9e6387205",
+      name: "66X",
+      area: "Salmiya, Al Mughira St., Qortuba, 4th Ring Rd, Lulu, Friday Market, Farwaniya Fire Station, Farwaniya Co-Op, Holiday Inn, 6th Ring Rd, Dajeej, Hassawi",
+      from_To: "Salmiya to Hassawi",
+      company: "CityBus"),
+  const RouteModel(
+      id: "7461946d-fb40-42e1-a87c-08d9e6387205",
+      name: "77",
+      area: "Salmiya, Salmiya Sports, Salmiya Co-Op, Apollo Hospital, Al Bahar, Rehab, Dar Al Shifa Hospital, MOC Hawally, Nugra, 3rd Ring Rd, Adaliya, PAEET Headquarters, Canada Dry St., Al Watan, Toyota Spare Parts, London Shopping, Al Naki, Sultan Center, Safat Alghanim, Lulu, Khaitan Police Station, Awtad Mall, Khaitan Garden, Khaitan",
+      from_To: "Salmiya to Khaitan",
+      company: "CityBus"),
+  const RouteModel(
+      id: "b7070ee2-96e9-4759-a87d-08d9e6387205",
+      name: "77X",
+      area: "Salmiya, Salmiya Khansa St., Qatar St., Mughira, Apollo Hospital, 4th Ring Road, Shuwaikh, Canada Dry St., 4th Ring Road, Riggae, Ardiya",
+      from_To: "Salmiya to Ardiya",
+      company: "CityBus"),
+  const RouteModel(
+      id: "9b57f6e6-626f-4607-a87e-08d9e6387205",
+      name: "88",
+      area: "Salmiya, Gad Rest., Apollo Hospital, Shaab Park, Rehab Complex, Al Rawda Co-Op, Al Sadiq Round-About, Rawda, Adaliya, 4th Ring Rd, Al Watan, Canada Dry St., Toyota Spare, Al Naki, Sultan Center, Safat Alghanim, Al Rai, Center Point, 60 Rd, 6th Ring Rd, Jleeb Co-Op, Abbassiya, German Clinic, Jleeb Round About",
+      from_To: "Salmiya to Jleeb",
+      company: "CityBus"),
+
+  const RouteModel(
+      id: "6af5fc4e-873a-4e74-a87f-08d9e6387205",
+      name: "99",
+      area: "Airport, Jleeb Co-Op, Abbassiya, German Clinic, Jleeb Round-About, Hassawi, Rabya, Ardiya Industrial Area, National Guard HQ, Toyota Spare, Canada Dry St., Al Watan, Lulu, Friday Market, Farwaniyah Fire Station, Farwaniyah Co-Op, Holiday Inn, Khaitan, Al Zahra, South Surra, Civil ID Office (PACI)",
+      from_To: "Airport to Jleeb to Civil ID Office",
+      company: "CityBus"),
+  const RouteModel(
+      id: "4ffcc1f8-0be9-4a89-a880-08d9e6387205",
+      name: "103",
+      area: "Mirqab, Fahad Al Salem St., Maliya, Jahra Rd, City Center, Al Tilal Complex, Ghazali Bridge, Risco, Army General HQ, Traffic Dept., KGL PT Office, UN Circle, Infectious Diseases Hospital, Andalous, Sulaibhikat, Doha, Amghara Camp, 80 Rd, Jahra Sports, Jahra Round-About, Kuwait Flour Mill, Jahra Co-Op, MOC Jahra",
+      from_To: "Mirqab to Jahra",
+      company: "CityBus"),
+  const RouteModel(
+      id: "dd5e180d-24a9-4634-a881-08d9e6387205",
+      name: "105",
+      area: "Fahaheel, Mecca Street, Mangaf, Abu Halifa, Coastal Rd, Al Aqeela, Qurain, Daayia Sabah Al Salem, South Surra, PACI (Civil ID Office), 6th Ring Rd, New Khaitan, Canada Dry St., Hassawi",
+      from_To: "Fahaheel to Hassawi",
+      company: "CityBus"),
+  const RouteModel(
+      id: "69eda6de-0f61-4d4e-a882-08d9e6387205",
+      name: "105A",
+      area: "Fahaheel, Abu Halifa, Mangaf, Mahaboula, Fintas, Sabah Al Salem, Khaitan, Lulu, Canada Dry St., Hassawi",
+      from_To: "Fahaheel to Hassawi",
+      company: "CityBus"),
+
+  const RouteModel(
+      id: "86baaa34-5568-4e98-a883-08d9e6387205",
+      name: "106",
+      area: "Hassawi, Jleeb Round-About, German Clinic, Abbassiya, Jleeb Co-Op, 6th Ring Rd, 60 Rd, Farwaniyah Co-Op, Metro, Holiday Inn, Khaitan, Al Zahra, South Surra, Civil ID Office (PACI), 360 Mall, Messila, Sabah Al Salem, Funaitees, Egaila, Fintas, Mahaboula, Abu Halifa, Fahaheel",
+      from_To: "Jleeb to Civil ID Office to Fahaheel",
+      company: "CityBus"),
+  const RouteModel(
+      id: "c886c374-ea70-46b1-a884-08d9e6387205",
+      name: "106X",
+      area: "Hassawi, Jleeb Round-About, German Clinic, Abbassiya, Jleeb Co-Op, 6th Ring Rd, 60 Rd, Farwaniyah Co-Op, Metro, Holiday Inn, Khaitan, Messila, Sabah Al Salem, Funaitees, Egaila, Fintas, Mahaboula, Abu Halifa, Fahaheel",
+      from_To: "Jleeb to Fahaheel",
+      company: "CityBus"),
+  const RouteModel(
+      id: "c0886d50-e396-4539-a886-08d9e6387205",
+      name: "205",
+      area: "Fahaheel, Souk Fahaheel, King Abdul Aziz Bin Abdul Rehman Rd., St. 220, Connecting Kheiran & Al-Zour Block 7 right parallel to Chalet, St. 270, King Fahad Rd., St. 285, King Fahad Bin Abdul Aziz Rd., Beneidar",
+      from_To: "Fahaheel to Beneidar",
+      company: "CityBus"),
+  const RouteModel(
+      id: "610b799f-c075-4e44-a887-08d9e6387205",
+      name: "500",
+      area: "KPTC Bus Depot (Hasawi), 602 Rd., Farwaniya Hospital, 6th Ring Rd., Kuwait Shooting Federation, Doha Rd., Jahra Road (80 No. road), Trolley Convenience Store, Mutlaa Police Station, New Abdaly Supermarket, Abdaly",
+      from_To: "Jleeb to Abdaly",
       company: "CityBus"),
 ];
