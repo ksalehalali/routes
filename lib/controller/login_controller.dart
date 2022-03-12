@@ -47,6 +47,8 @@ class LoginController extends GetxController {
       passwordController.text
     ];
 
+    print("IIIINNNFFFPOOO ${loginCredentials[0]} : ${loginCredentials[1]}");
+
     var head = {
       "Accept": "application/json",
       "content-type":"application/json"
@@ -103,6 +105,9 @@ class LoginController extends GetxController {
           user.accessToken = jsonResponse["description"]["token"];
           print(jsonResponse["description"]["token"]);
           Get.offAll(MainScreen(indexOfScreen: 0,));
+          phoneNum.value = "";
+//      "96551027146",
+          passwordController.text = "";
 
         } else {
           Fluttertoast.showToast(

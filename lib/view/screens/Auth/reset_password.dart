@@ -5,6 +5,7 @@ import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import '../../../Assistants/globals.dart';
 import '../../../controller/confirm_number_controller.dart';
 import '../../../controller/reset_password_controller.dart';
 
@@ -52,7 +53,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                     onEnd: resetPasswordController.onEnd,
                     textStyle: TextStyle(
                       fontSize: 25,
-                      color: Colors.blue,
+                      color: routes_color,
                       fontWeight: FontWeight.bold
                     ),
                   ),
@@ -61,6 +62,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                   Container(
                     width: 200,
                     child: TextField(
+                      cursorColor: routes_color,
                       controller: resetPasswordController.codeController,
                       keyboardType: TextInputType.number,
                       maxLength: 6,
@@ -98,7 +100,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                       child: Text(
                         "Resend Code",
                         style: TextStyle(
-                          color: Colors.blue
+                          color: routes_color
                         ),
                       ),
                     ),
@@ -117,6 +119,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         ),
                         SizedBox(height: 8,),
                         TextField(
+                          cursorColor: routes_color,
                           controller: resetPasswordController.passwordController,
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: true,
@@ -158,6 +161,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                         ),
                         SizedBox(height: 8,),
                         TextField(
+                          cursorColor: routes_color,
                           controller: resetPasswordController.passwordConfirmController,
                           keyboardType: TextInputType.visiblePassword,
                           obscureText: true,
@@ -192,6 +196,7 @@ class _ResetPasswordState extends State<ResetPassword> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: routes_color,
         onPressed: () async{
           await resetPasswordController.resetPassword(widget.phoneNum.replaceAll("+", ""));
         },

@@ -9,6 +9,7 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:routes/view/screens/Auth/sign_up.dart';
 
+import '../../../Assistants/globals.dart';
 import '../../../controller/login_controller.dart';
 import '../../../controller/profile_pic_controller.dart';
 import 'confirm_number.dart';
@@ -111,12 +112,17 @@ class _LoginState extends State<Login> {
                             style: TextStyle(),
                             obscureText: true,
                             decoration: InputDecoration(
-                                fillColor: Colors.grey.shade100,
-                                filled: true,
-                                hintText: "Password",
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                )
+                              fillColor: Colors.grey.shade100,
+                              filled: true,
+                              hintText: "Password",
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(color: routes_color, width: 1.0),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
                             ),
                           ),
                           SizedBox(
@@ -136,7 +142,7 @@ class _LoginState extends State<Login> {
 //                              SizedBox(width: 28,),
                               CircleAvatar(
                                 radius: 30,
-                                backgroundColor: Color(0xff4c505b),
+                                backgroundColor: routes_color,
                                 child: Obx(() => IconButton(
                                     color: Colors.white,
                                     onPressed: () async{
@@ -154,7 +160,9 @@ class _LoginState extends State<Login> {
                                     Container(
                                       height: 20,
                                       width: 20,
-                                      child: CircularProgressIndicator(),
+                                      child: CircularProgressIndicator(
+                                        color: Colors.white,
+                                      ),
                                     ),
                                     //icon: loginController.loginIcon.value
                                 ),
@@ -182,7 +190,7 @@ class _LoginState extends State<Login> {
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                       decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
+                                      color: routes_color,
                                       fontSize: 18),
                                 ),
                                 style: ButtonStyle(),
@@ -196,7 +204,7 @@ class _LoginState extends State<Login> {
                                     'Forgot Password',
                                     style: TextStyle(
                                       decoration: TextDecoration.underline,
-                                      color: Color(0xff4c505b),
+                                      color: routes_color,
                                       fontSize: 18,
                                     ),
                                   )),

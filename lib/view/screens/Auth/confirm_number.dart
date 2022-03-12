@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
+import '../../../Assistants/globals.dart';
 import '../../../controller/confirm_number_controller.dart';
 
 
@@ -86,11 +87,14 @@ class _ConfirmNumberState extends State<ConfirmNumber> {
               SizedBox(height: 32,),
               Container(
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: routes_color
+                  ),
                   onPressed: () async{
                     confirmNumberController.makeCodeConfirmationRequest();
                   },
                   child: Text(
-                    "Send Code"
+                    "Send Code",
                   ),
                 ),
               )
