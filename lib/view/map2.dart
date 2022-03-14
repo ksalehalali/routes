@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as google_maps;
+import 'package:intl/intl.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart' as loc;
 import 'package:flutter/material.dart';
@@ -33,6 +34,8 @@ class _Map2State extends State<Map2> {
   final LocationController locationController = Get.find();
   final PaymentController paymentController = Get.find();
 
+  ///DateFormat('yyyy-MM-dd-HH:mm').format(DateTime.now());
+  ///
   String? addressText;
   bool getingAddress = true;
   bool showMap = false;
@@ -210,11 +213,12 @@ class _Map2State extends State<Map2> {
   @override
   Widget build(BuildContext context) {
     final screenSize = Get.size;
+    final String timeC = DateTime.now().hour > 11 ?'PM':'AM';
     return Obx(
       () => Scaffold(
         body: SlidingUpPanel(
           controller: panelController,
-          maxHeight: screenSize.height * 0.4 ,
+          maxHeight: screenSize.height * 0.4+66 ,
           minHeight: screenSize.height * 0.2 - 20.0,
           panelBuilder: (scrollContainer) => routeMapController
                       .isMultiMode.value ==
@@ -765,7 +769,7 @@ class _Map2State extends State<Map2> {
                                                     color: Colors.red[900],
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            12)),
+                                                            3)),
                                                 child: Center(
                                                   child: Padding(
                                                     padding:
@@ -849,99 +853,219 @@ class _Map2State extends State<Map2> {
                                           ),
                                           //
                                           Expanded(
-                                            child: ListView(
+                                            child: Row(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
-                                                Row(
+                                                Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
                                                   children: [
-                                                    Column(
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment.start,
-                                                      children: [
-                                                        SizedBox(
-                                                            width: 180,
-                                                            child: Text(
-                                                              "Start : ${trip.startPointAddress}",
-                                                              overflow: TextOverflow
-                                                                  .ellipsis,
-                                                              maxLines: 1,
-                                                              style: TextStyle(
-                                                                  fontSize: 16),
-                                                            )),
-                                                        SizedBox(
-                                                          height: 14.0,
-                                                        ),
-                                                        Text(
-                                                          'Walk to bus stop',
+                                                    SizedBox(
+                                                        width: screenSize.width * 0.7-20,
+                                                        child: Text(
+                                                          "Start : ${trip.startPointAddress}",
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 1,
                                                           style: TextStyle(
-                                                              fontSize: 18,
-                                                              color:
-                                                                  Colors.grey[400]),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 20.0,
-                                                        ),
-                                                        Text(
-                                                          'Board at Route ${routeMapController.tripRouteData["description"]["res"][0]['route'].toString()}',
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              color: Colors.black),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 220,
-                                                          child: Text(
-                                                            'station name: ${routeMapController.tripRouteData["description"]["startStation"]['title'].toString()}',
-                                                            overflow:
-                                                                TextOverflow.ellipsis,
-                                                            maxLines: 1,
-                                                            style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors.black),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 14.0,
-                                                        ),
-                                                        Text(
-                                                          'Get off at ',
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              color: Colors.black),
-                                                        ),
-                                                        SizedBox(
-                                                          width: 220,
-                                                          child: Text(
-                                                            '${routeMapController.tripRouteData["description"]["endStation"]['title'].toString()}',
-                                                            overflow:
-                                                                TextOverflow.ellipsis,
-                                                            maxLines: 1,
-                                                            style: TextStyle(
-                                                                fontSize: 16,
-                                                                color: Colors.black),
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                          height: 20.0,
-                                                        ),
-                                                        SizedBox(
-                                                            width: 180,
-                                                            child: Text(
-                                                              'End : ${trip.endPointAddress}',
-                                                              overflow: TextOverflow
-                                                                  .ellipsis,
-                                                              maxLines: 1,
-                                                              style: TextStyle(
-                                                                  fontSize: 16,
-                                                                  color:
-                                                                      Colors.black),
-                                                            )),
-                                                      ],
+                                                              fontSize: 14),
+                                                        )),
+                                                    SizedBox(
+                                                      height:  screenSize.height*0.1-62,
                                                     ),
-                                                    //
-                                                    Column(
-                                                      children: [],
-                                                    )
+                                                    Text(
+                                                      'Walk to bus stop',
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: Colors.grey[400]),
+                                                    ),
+                                                    SizedBox(
+                                                      height:  screenSize.height*0.1-62,
+                                                    ),
+                                                    Text(
+                                                      'Board at Route ${routeMapController.tripRouteData["description"]["res"][0]['route'].toString()}',
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: Colors.black),
+                                                    ),
+                                                    SizedBox(
+                                                      width: screenSize.width *0.7-20,
+                                                      child: Text(
+                                                        'station name: ${routeMapController.tripRouteData["description"]["startStation"]['title'].toString()}',
+                                                        overflow:
+                                                            TextOverflow.ellipsis,
+                                                        maxLines: 1,
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            color: Colors.black),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: screenSize.height*0.1-62,
+                                                    ),
+                                                    const Text(
+                                                      'Get off at ',
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: Colors.black),
+                                                    ),
+                                                    SizedBox(
+                                                      width: screenSize.width *0.7-20,
+                                                      child: Text(
+                                                        '${routeMapController.tripRouteData["description"]["endStation"]['title'].toString()}',
+                                                        overflow:
+                                                            TextOverflow.ellipsis,
+                                                        maxLines: 1,
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            color: Colors.black),
+                                                      ),
+                                                    ),
+                                                    SizedBox(
+                                                      height: screenSize.height*0.1-62,
+                                                    ),
+                                                    SizedBox(
+                                                        width: screenSize.width *0.7-20,
+                                                        child: Text(
+                                                          'End : ${trip.endPointAddress}',
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                          maxLines: 1,
+                                                          style: TextStyle(
+                                                              fontSize: 14,
+                                                              color:
+                                                                  Colors.black),
+                                                        )),
                                                   ],
                                                 ),
+                                                Spacer(),
+                                                //
+                                                Row(
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+
+                                                    Column(
+                                                      children: [
+                                                        Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.green,
+                                                              borderRadius: BorderRadius.circular(50)
+                                                          ),
+                                                          width: 13,
+                                                          height: 13,
+                                                        ),
+                                                        SizedBox(height: screenSize.height*0.1-76,),
+                                                        Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.grey[400],
+                                                              borderRadius: BorderRadius.circular(50)
+                                                          ),
+                                                          width: 7,
+                                                          height: 7,
+                                                        ),
+                                                        SizedBox(height: 4.0,),
+                                                        Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.grey[400],
+                                                              borderRadius: BorderRadius.circular(50)
+                                                          ),
+                                                          width: 7,
+                                                          height: 7
+                                                        ),
+                                                        SizedBox(height: 9.0,),
+                                                        Icon(FontAwesomeIcons.walking,color: Colors.grey[700],size: 22,),
+                                                        SizedBox(height: 9.0,),
+                                                        Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.grey[400],
+                                                              borderRadius: BorderRadius.circular(50)
+                                                          ),
+                                                          width: 7,
+                                                          height: 7,
+                                                        ),
+                                                        SizedBox(height: 4.0,),
+                                                        Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.grey[400],
+                                                              borderRadius: BorderRadius.circular(50)
+                                                          ),
+                                                          width: 7,
+                                                          height: 7,
+                                                        ),
+                                                        SizedBox(height: screenSize.height*0.1-76),
+                                                        Container(
+                                                          decoration: BoxDecoration(
+                                                            color: Colors.grey[700],
+                                                            borderRadius: BorderRadius.circular(12),
+                                                          ),
+                                                          height: screenSize.height*0.1+20,
+                                                          width: 14,
+                                                          child: Column(
+                                                            crossAxisAlignment: CrossAxisAlignment.center,
+                                                            children: [
+                                                              SizedBox(height: screenSize.height*0.1-76),
+
+                                                              Container(
+                                                                decoration: BoxDecoration(
+                                                                    color: Colors.white,
+                                                                    borderRadius: BorderRadius.circular(50)
+                                                                ),
+                                                                width: 9,
+                                                                height: 9,
+                                                              ),
+                                                              Spacer(),
+                                                              Container(
+                                                                decoration: BoxDecoration(
+                                                                    color: Colors.white,
+                                                                    borderRadius: BorderRadius.circular(50)
+                                                                ),
+                                                                width: 9,
+                                                                height: 9,
+                                                              ),
+                                                              SizedBox(height:screenSize.height*0.1-76),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                        SizedBox(height:screenSize.height*0.1-73),
+                                                        Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.grey[400],
+                                                              borderRadius: BorderRadius.circular(50)
+                                                          ),
+                                                          width: 7,
+                                                          height: 7,
+                                                        ),
+                                                        SizedBox(height: screenSize.height*0.1-78),
+                                                        Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.grey[400],
+                                                              borderRadius: BorderRadius.circular(50)
+                                                          ),
+                                                          width: 7,
+                                                          height: 7,
+                                                        ),
+                                                        SizedBox(height: screenSize.height*0.1-76),
+                                                        Container(
+                                                          decoration: BoxDecoration(
+                                                              color: Colors.red[900],
+                                                              borderRadius: BorderRadius.circular(50)
+                                                          ),
+                                                          width: 13,
+                                                          height: 13,
+                                                        ),
+                                                      ],
+                                                    ),
+
+                                                    Column(
+                                                      children: [
+                                                        Padding(
+                                                          padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                                                          child: Text('${DateFormat('HH:mm').format(DateTime.now()).toString()} $timeC'),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                )
                                               ],
                                             ),
                                           )
@@ -974,15 +1098,16 @@ class _Map2State extends State<Map2> {
                         onTap: () {
                           print('object');
                         },
-                        icon: google_maps.BitmapDescriptor.defaultMarker)
+                        icon: google_maps.BitmapDescriptor.defaultMarker,)
                     : google_maps.Marker(
                         markerId: google_maps.MarkerId("center")),
+
                 locationController.tripCreatedDone.value == true
                     ? google_maps.Marker(
                         icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
                             google_maps.BitmapDescriptor.hueYellow),
                         infoWindow: google_maps.InfoWindow(
-                            title: 'pickUp', snippet: " my pickUp"),
+                            title: 'pickUp', snippet: routeMapController.startStation['station'].toString()),
                         position: google_maps.LatLng(
                             routeMapController.startStation['latitude'],
                             routeMapController.startStation['longitude']),
@@ -995,13 +1120,26 @@ class _Map2State extends State<Map2> {
                     icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
                         google_maps.BitmapDescriptor.hueOrange),
                     infoWindow: google_maps.InfoWindow(
-                        title: 'shared', snippet: " my shared"),
+                        title: 'shared', snippet: routeMapController.sharedStation['station']),
                     position: google_maps.LatLng(
                         routeMapController.sharedStation['latitude'],
                         routeMapController.sharedStation['longitude']),
                     markerId: google_maps.MarkerId("sharedId"))
                     : google_maps.Marker(
-                    markerId: google_maps.MarkerId("pickUpId")),
+                    markerId: google_maps.MarkerId("sharedId")),
+
+                locationController.tripCreatedDone.value == true &&routeMapController.isMultiMode.value ==true
+                    ? google_maps.Marker(
+                    icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
+                        google_maps.BitmapDescriptor.hueOrange,),
+                    infoWindow: google_maps.InfoWindow(
+                        title: 'shared', snippet: routeMapController.sharedStation2['station']),
+                    position: google_maps.LatLng(
+                        routeMapController.sharedStation2['latitude'],
+                        routeMapController.sharedStation2['longitude']),
+                    markerId: google_maps.MarkerId("shared2Id"))
+                    : google_maps.Marker(
+                    markerId: google_maps.MarkerId("shared2Id")),
 
                 //
                 locationController.tripCreatedDone.value == true
@@ -1009,7 +1147,7 @@ class _Map2State extends State<Map2> {
                         icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
                             google_maps.BitmapDescriptor.hueBlue),
                         infoWindow: google_maps.InfoWindow(
-                            title: 'dropOff', snippet: "my dropOff"),
+                            title: 'dropOff', snippet: routeMapController.endStation['station']),
                         position: google_maps.LatLng(
                             routeMapController.endStation['latitude'],
                             routeMapController.endStation['longitude']),
@@ -1154,6 +1292,7 @@ class _Map2State extends State<Map2> {
         floatingActionButton: locationController.tripCreatedDone.value == true
             ? buildActionButton()
             : null,
+        floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       ),
     );
   }
@@ -1172,15 +1311,17 @@ class _Map2State extends State<Map2> {
   }
 
   Widget buildStartTheTripButton() => FloatingActionButton.extended(
+
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(6),
         ),
         foregroundColor: Colors.white,
         backgroundColor: routes_color,
+        extendedPadding: EdgeInsets.symmetric(horizontal: 9),
         icon: Icon(Icons.not_started_outlined),
         label: Text(
           'Start the trip',
-          style: TextStyle(fontSize: 14,color: Colors.white,fontWeight:FontWeight.bold),
+          style: TextStyle(fontSize: 12,color: Colors.white,fontWeight:FontWeight.bold),
         ),
         onPressed: () {
 

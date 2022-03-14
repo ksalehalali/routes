@@ -23,6 +23,8 @@ class RouteMapController extends GetxController {
   var endPointLatLng = new LatLng(0.0, 0.0).obs;
   var startStation = {};
   var sharedStation = {};
+  var sharedStation2 = {};
+
   var endStation = {};
   var tripFirstWalkDirData = {}.obs;
   var tripSecondWalkDirData = {}.obs;
@@ -274,7 +276,7 @@ class RouteMapController extends GetxController {
             index.value = i;
           }
 
-          for (int i = 24; i < jsonResponse.length; i++) {
+          for (int i = 23; i < jsonResponse.length; i++) {
             print(jsonResponse[i]);
             stationQuery2 = stationQuery2 +
                 jsonResponse[i]["longitude"].toString() +
@@ -376,7 +378,7 @@ class RouteMapController extends GetxController {
         if (jsonResponse.length <= 25) {
           await findStationDirection(stationQuery, false);
         } else {
-          //await findStationDirection(stationQuery, false);
+          await findStationDirection(stationQuery, false);
           await findStationDirection(stationQuery2, true);
           print('second points :: $stationQuery2');
         }
@@ -436,93 +438,228 @@ class RouteMapController extends GetxController {
       print('findeMultiRoute1 res :: $jsonResponse');
       startStation = jsonResponse['startStation'];
       sharedStation = jsonResponse['sharedPoint1'];
+      sharedStation2 = jsonResponse['sharedPoint2'];
+
       endStation = jsonResponse['endStation'];
       print('route1 = ${jsonResponse['rout1'][0]['route']} ---- route 2 = ${jsonResponse['rout2'][0]['route']}');
       print('route1 = ${jsonResponse['rout1']} --- ');
       print('route 2 = ${jsonResponse['rout2']}');
 
-      var rout1 = jsonResponse['rout1'];
-      rout1.addAll(jsonResponse['rout2']) ;
+      var route1 = jsonResponse['rout1'];
+      var route2 = jsonResponse['rout2'];
 
-      index.value = rout1.length;
+
+      index.value = route1.length;
       var i = index.value / 2;
       intIndex = index.value;
       int b = i.round();
       centerOfDirRoute.value =
-          LatLng(rout1[b]["latitude"], rout1[b]["longitude"]);
+          LatLng(route1[b]["latitude"], route1[b]["longitude"]);
 
       print("center :: $b");
-      print("length :::2 ${rout1.length}");
+      print("length :::1 ${route1.length}");
+      print("length :::2 ${route2.length}");
+
       var stationQuery = "";
       var stationQuery1 = "";
       var stationQuery2 = "";
+      var stationQuery3 = "";
+      var stationQuery4 = "";
+      var stationQuery5 = "";
 
-      if(rout1.length >50){
+      //route 1
+      if(route1.length >50){
         for (int i = 0; i  < 24; i++) {
-          print(rout1[i]['station']);
-          print(rout1[i]['order']);
+          print(route1[i]['station']);
+          print(route1[i]['order']);
           stationQuery = stationQuery +
-              rout1[i]["longitude"].toString() +
+              route1[i]["longitude"].toString() +
               "," +
-              rout1[i]["latitude"].toString() +
+              route1[i]["latitude"].toString() +
               ";";
 
         }
-        for (int i = 24; i  < 49; i++) {
-          print(rout1[i]['station']);
-          print(rout1[i]['order']);
+        for (int i = 25; i  < 49; i++) {
+          print(route1[i]['station']);
+          print(route1[i]['order']);
           stationQuery1 = stationQuery1 +
-              rout1[i]["longitude"].toString() +
+              route1[i]["longitude"].toString() +
               "," +
-              rout1[i]["latitude"].toString() +
+              route1[i]["latitude"].toString() +
               ";";
 
         }
-        for (int i = 50; i  < rout1.length; i++) {
-          print(rout1[i]['station']);
-          print(rout1[i]['order']);
+        for (int i = 50; i  < route1.length; i++) {
+          print(route1[i]['station']);
+          print(route1[i]['order']);
           stationQuery2 = stationQuery2 +
-              rout1[i]["longitude"].toString() +
+              route1[i]["longitude"].toString() +
               "," +
-              rout1[i]["latitude"].toString() +
+              route1[i]["latitude"].toString() +
               ";";
-
         }
 
+        await findFirstWalkDirection(
+            LatLng(startPointLatLng.value.latitude,
+                startPointLatLng.value.longitude),
+            LatLng(startStation['latitude'], startStation['longitude']));
+        stationQuery = stationQuery.substring(0,
+            stationQuery.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirection(stationQuery, false);
 
-      }else if(rout1.length < 50 && rout1.length >25){
+        stationQuery1 = stationQuery1.substring(0,
+            stationQuery1.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirection(stationQuery1, true);
+        stationQuery2 = stationQuery2.substring(0,
+            stationQuery2.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirection(stationQuery2, true);
+
+        await findSecondWalkDirection(LatLng(endStation['latitude'], endStation['longitude']),LatLng(endPointLatLng.value.latitude,endPointLatLng.value.longitude) );
+
+      }else if(route1.length < 50 && route1.length >25){
         for (int i = 0; i  < 24; i++) {
-          print(rout1[i]['station']);
-          print(rout1[i]['order']);
+          print(route1[i]['station']);
+          print(route1[i]['order']);
           stationQuery = stationQuery +
-              rout1[i]["longitude"].toString() +
+              route1[i]["longitude"].toString() +
               "," +
-              rout1[i]["latitude"].toString() +
+              route1[i]["latitude"].toString() +
               ";";
 
         }
-        for (int i = 25; i  < rout1.length; i++) {
-          print(rout1[i]['station']);
-          print(rout1[i]['order']);
+        for (int i = 25; i  < route1.length; i++) {
+          print(route1[i]['station']);
+          print(route1[i]['order']);
           stationQuery1 = stationQuery1 +
-              rout1[i]["longitude"].toString() +
+              route1[i]["longitude"].toString() +
               "," +
-              rout1[i]["latitude"].toString() +
+              route1[i]["latitude"].toString() +
               ";";
 
         }
+
+        await findFirstWalkDirection(
+            LatLng(startPointLatLng.value.latitude,
+                startPointLatLng.value.longitude),
+            LatLng(startStation['latitude'], startStation['longitude']));
+        stationQuery = stationQuery.substring(0,
+            stationQuery.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirection(stationQuery, false);
+
+        stationQuery1 = stationQuery1.substring(0,
+            stationQuery1.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirection(stationQuery1, true);
+        await findSecondWalkDirection(LatLng(endStation['latitude'], endStation['longitude']),LatLng(endPointLatLng.value.latitude,endPointLatLng.value.longitude) );
 
       }else{
-        for (int i = 0; i  < rout1.length; i++) {
-          print(rout1[i]['station']);
-          print(rout1[i]['order']);
+        for (int i = 0; i  < route1.length; i++) {
+          print(route1[i]['station']);
+          print(route1[i]['order']);
           stationQuery = stationQuery +
-              rout1[i]["longitude"].toString() +
+              route1[i]["longitude"].toString() +
               "," +
-              rout1[i]["latitude"].toString() +
+              route1[i]["latitude"].toString() +
               ";";
 
         }
+        await findFirstWalkDirection(
+            LatLng(startPointLatLng.value.latitude,
+                startPointLatLng.value.longitude),
+            LatLng(startStation['latitude'], startStation['longitude']));
+        stationQuery = stationQuery.substring(0,
+            stationQuery.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirection(stationQuery, false);
+        await findSecondWalkDirection(LatLng(endStation['latitude'], endStation['longitude']),LatLng(endPointLatLng.value.latitude,endPointLatLng.value.longitude) );
+
+      }
+
+      //route 2
+      if(route2.length >50){
+        for (int i = 0; i  < 24; i++) {
+          print(route2[i]['station']);
+          print(route2[i]['order']);
+          stationQuery3 = stationQuery3 +
+              route2[i]["longitude"].toString() +
+              "," +
+              route2[i]["latitude"].toString() +
+              ";";
+
+        }
+        for (int i = 25; i  < 49; i++) {
+          print(route2[i]['station']);
+          print(route2[i]['order']);
+          stationQuery4 = stationQuery4 +
+              route2[i]["longitude"].toString() +
+              "," +
+              route2[i]["latitude"].toString() +
+              ";";
+
+        }
+        for (int i = 50; i  < route2.length; i++) {
+          print(route2[i]['station']);
+          print(route2[i]['order']);
+          stationQuery5 = stationQuery5 +
+              route2[i]["longitude"].toString() +
+              "," +
+              route2[i]["latitude"].toString() +
+              ";";
+
+        }
+
+        stationQuery3 = stationQuery3.substring(0,
+            stationQuery3.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirection(stationQuery3, false);
+
+        stationQuery4 = stationQuery4.substring(0,
+            stationQuery4.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirection(stationQuery4, true);
+        stationQuery5 = stationQuery5.substring(0,
+            stationQuery5.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirection(stationQuery5, true);
+
+      }else if(route2.length < 50 && route2.length >25){
+        for (int i = 0; i  < 24; i++) {
+          print(route2[i]['station']);
+          print(route2[i]['order']);
+          stationQuery3 = stationQuery3 +
+              route2[i]["longitude"].toString() +
+              "," +
+              route2[i]["latitude"].toString() +
+              ";";
+
+        }
+        for (int i = 25; i  < route2.length; i++) {
+          print(route2[i]['station']);
+          print(route2[i]['order']);
+          stationQuery4 = stationQuery4 +
+              route2[i]["longitude"].toString() +
+              "," +
+              route2[i]["latitude"].toString() +
+              ";";
+
+        }
+
+        stationQuery3 = stationQuery3.substring(0,
+            stationQuery3.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirection(stationQuery3, false);
+
+        stationQuery4 = stationQuery4.substring(0,
+            stationQuery4.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirection(stationQuery4, true);
+
+      }else{
+        for (int i = 0; i  < route1.length; i++) {
+          print(route2[i]['station']);
+          print(route2[i]['order']);
+          stationQuery3 = stationQuery3 +
+              route2[i]["longitude"].toString() +
+              "," +
+              route2[i]["latitude"].toString() +
+              ";";
+        }
+        stationQuery3 = stationQuery3.substring(0,
+            stationQuery3.length - 1); // To remove the last semicolon from the string (would cause an error)
+        await findStationDirection(stationQuery3, false);
 
       }
 
@@ -530,7 +667,7 @@ class RouteMapController extends GetxController {
       print('======================================== d');
       //add mark for first station
       stationMarkers.add(
-        new Marker(
+        Marker(
           width: 84,
           height: 84,
           point: LatLng(startStation['latitude'], startStation['longitude']),
@@ -550,7 +687,7 @@ class RouteMapController extends GetxController {
 
       //add mark for shared Station
       stationMarkers.add(
-        new Marker(
+        Marker(
           width: 60,
           height: 60,
           point: LatLng(sharedStation['latitude'], sharedStation['longitude']),
@@ -585,20 +722,7 @@ class RouteMapController extends GetxController {
       tripFirstWalkWayPoints.value = [];
       tripSecondWalkWayPoints.value = [];
       tripStationWayPoints.value = [];
-      await findFirstWalkDirection(
-          LatLng(startPointLatLng.value.latitude,
-              startPointLatLng.value.longitude),
-          LatLng(startStation['latitude'], startStation['longitude']));
-      stationQuery = stationQuery.substring(0,
-          stationQuery.length - 1); // To remove the last semicolon from the string (would cause an error)
-      await findStationDirection(stationQuery, false);
 
-      stationQuery1 = stationQuery1.substring(0,
-          stationQuery1.length - 1); // To remove the last semicolon from the string (would cause an error)
-      await findStationDirection(stationQuery1, true);
-
-      await findSecondWalkDirection(LatLng(endStation['latitude'], endStation['longitude']),LatLng(endPointLatLng.value.latitude,endPointLatLng.value.longitude) );
-      return;
       // //
       // if (rout1.length > 50) {
       //   stationQuery = stationQuery.substring(0, stationQuery.length - 1);
