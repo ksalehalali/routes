@@ -121,20 +121,20 @@ class _MainScreenState extends State<MainScreen> {
                   data: NavigationBarThemeData(
                       indicatorColor: Colors.grey.shade200,
                       labelTextStyle:
-                      MaterialStateProperty.all(TextStyle(fontSize: 14))),
+                      MaterialStateProperty.all(TextStyle(fontSize: 12))),
                   child: NavigationDestination(
 //                    icon: Icon(Icons.home_outlined,color: Colors.blue[900]),
                     label: 'Home',
-                    icon: SvgPicture.asset("${assetsDir}home_svg.svg", width: 25, color: Colors.grey[600],),
+                    icon: SvgPicture.asset("${assetsDir}home_svg.svg", width: 20, color: Colors.grey[600],),
                     selectedIcon: SvgPicture.asset("${assetsDir}home_svg.svg", width: 25, color: Colors.blue[900],),
                   )),
               NavigationBarTheme(
                   data: NavigationBarThemeData(
                       indicatorColor: Colors.grey.shade200,
                       labelTextStyle:
-                      MaterialStateProperty.all(TextStyle(fontSize: 14))),
+                      MaterialStateProperty.all(TextStyle(fontSize: 12))),
                   child: NavigationDestination(
-                    icon: SvgPicture.asset("${assetsDir}pay.svg", width: 25, color: Colors.grey[600],),
+                    icon: SvgPicture.asset("${assetsDir}pay.svg", width: 20, color: Colors.grey[600],),
                     label: 'Pay',
                     selectedIcon: SvgPicture.asset("${assetsDir}pay.svg", width: 25, color: Colors.blue[900],),
                   )),
@@ -142,9 +142,9 @@ class _MainScreenState extends State<MainScreen> {
                   data: NavigationBarThemeData(
                       indicatorColor: Colors.grey.shade200,
                       labelTextStyle:
-                      MaterialStateProperty.all(TextStyle(fontSize: 14))),
+                      MaterialStateProperty.all(TextStyle(fontSize: 12))),
                   child: NavigationDestination(
-                    icon: SvgPicture.asset("${assetsDir}wallet.svg", width: 25, color: Colors.grey[600],),
+                    icon: SvgPicture.asset("${assetsDir}wallet.svg", width: 20, color: Colors.grey[600],),
                     label: 'Wallet',
                     selectedIcon: SvgPicture.asset("${assetsDir}wallet.svg", width: 25, color: Colors.blue[900],),
                   )),
@@ -152,9 +152,9 @@ class _MainScreenState extends State<MainScreen> {
                   data: NavigationBarThemeData(
                       indicatorColor: Colors.grey.shade200,
                       labelTextStyle:
-                      MaterialStateProperty.all(TextStyle(fontSize: 14))),
+                      MaterialStateProperty.all(TextStyle(fontSize: 12))),
                   child: NavigationDestination(
-                    icon: SvgPicture.asset("${assetsDir}routes.svg", width: 25, color: Colors.grey[600],),
+                    icon: SvgPicture.asset("${assetsDir}routes.svg", width: 20, color: Colors.grey[600],),
                     label: 'Routes',
                     selectedIcon: SvgPicture.asset("${assetsDir}routes.svg", width: 25, color: Colors.blue[900],),
                   )),
@@ -163,9 +163,9 @@ class _MainScreenState extends State<MainScreen> {
                   data: NavigationBarThemeData(
                       indicatorColor: Colors.grey.shade200,
                       labelTextStyle:
-                      MaterialStateProperty.all(TextStyle(fontSize: 14))),
+                      MaterialStateProperty.all(TextStyle(fontSize: 12))),
                   child: NavigationDestination(
-                    icon: SvgPicture.asset("${assetsDir}profile.svg", width: 25, color: Colors.grey[600],),
+                    icon: SvgPicture.asset("${assetsDir}profile.svg", width: 20, color: Colors.grey[600],),
                     label: 'Profile',
                     selectedIcon: SvgPicture.asset("${assetsDir}profile.svg", width: 25, color: Colors.blue[900],),
                   )),
