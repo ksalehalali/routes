@@ -13,6 +13,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Assistants/globals.dart';
 import '../Data/current_data.dart';
+import '../view/screens/Auth/login.dart';
 import '../view/screens/main_screen.dart';
 
 
@@ -166,6 +167,8 @@ class LoginController extends GetxController {
           backgroundColor: Colors.white70,
           textColor: Colors.black,
           fontSize: 16.0);
+      Get.to(()=>Login());
+
     }
     else if (response.statusCode == 200){
       var jsonResponse = json.decode(response.body);
@@ -184,12 +187,14 @@ class LoginController extends GetxController {
       } else {
         Fluttertoast.showToast(
             msg: "Username and password do not match!",
-            toastLength: Toast.LENGTH_SHORT,
+            toastLength: Toast.LENGTH_LONG,
             gravity: ToastGravity.CENTER,
             timeInSecForIosWeb: 1,
             backgroundColor: Colors.white70,
             textColor: Colors.black,
             fontSize: 16.0);
+        Get.to(()=>Login());
+
       }
     }
 
