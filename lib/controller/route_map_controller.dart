@@ -72,6 +72,10 @@ class RouteMapController extends GetxController {
   var tripStationWayPoints2 = <LatLng>[].obs;
   var tripStationWayPoints2G = <google_maps.LatLng>[].obs;
 
+  var route1 =[].obs;
+  var route2 = [].obs;
+  var jsonResponse;
+
   var latPinLoc = trip.startPoint.latitude.obs;
   var lngPinLoc = trip.startPoint.longitude.obs;
 
@@ -233,7 +237,7 @@ class RouteMapController extends GetxController {
 
     print(response.statusCode);
 
-    var jsonResponse = jsonDecode(response.body);
+     jsonResponse = jsonDecode(response.body);
 
     ///handle multi routes
     if (jsonResponse["status"] == false) {
@@ -445,8 +449,8 @@ class RouteMapController extends GetxController {
       print('route1 = ${jsonResponse['rout1']} --- ');
       print('route 2 = ${jsonResponse['rout2']}');
 
-      var route1 = jsonResponse['rout1'];
-      var route2 = jsonResponse['rout2'];
+       route1 = jsonResponse['rout1'];
+       route2 = jsonResponse['rout2'];
 
 
       index.value = route1.length;
