@@ -29,6 +29,7 @@ class StartUpController extends GetxController {
 
     print("ssssss ${prefToken}");
     if(prefToken == null){
+      print('null');
       Get.to(Login());
     } else {
       token = prefToken;
