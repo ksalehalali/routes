@@ -25,7 +25,8 @@ class PaymentController extends GetxController {
       "api_key": "\$FhlF]3;.OIic&{>H;_DeW}|:wQ,A8",
       "api_secret": "Z~P7-_/i!=}?BIwAd*S67LBzUo4O^G",
       "Value":   paymentSaved.value,
-      "TripID": tripToSave.id
+      "TripID": tripToSave.id,
+      "BusId": paymentSaved.busId
     });
     request.headers.addAll(headers);
 
@@ -38,17 +39,19 @@ class PaymentController extends GetxController {
         paymentDone.value = true;
       }
       var json = jsonDecode(await response.stream.bytesToString());
+      print(json);
       user.totalBalance = double.parse(json['description']['total']);
        paymentSaved.id = json['description']['paymentId'];
       // paymentSaved.value = json['description']['value'];
       print('value payed :: ${json['description']}');
-      ///to do
+      //to do
       // بعد اتمام الدفعة يجب تعديل الرحلة المحفوظة لتاخذ paymentId , busId
       return true;
     }
     else {
+      print(response.stream.bytesToString());
+
       return false;
-      print(response.reasonPhrase);
     }
   }
 

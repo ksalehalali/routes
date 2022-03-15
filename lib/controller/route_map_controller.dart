@@ -14,6 +14,7 @@ import 'package:routes/controller/trip_controller.dart';
 import '../Assistants/globals.dart';
 import '../Data/current_data.dart';
 import '../config-maps.dart';
+import '../view/map2.dart';
 import 'location_controller.dart';
 
 class RouteMapController extends GetxController {
@@ -50,7 +51,7 @@ class RouteMapController extends GetxController {
 
 
 
-  var centerOfDirRoute = new LatLng(0.0, 0.0).obs;
+  var centerOfDirRoute =  google_maps.LatLng(0.0, 0.0).obs;
   var index = 0.obs;
   int indexOfStations = 0;
   int intIndex = 0;
@@ -66,10 +67,8 @@ class RouteMapController extends GetxController {
   var tripSecondWalkWayPoints = <LatLng>[].obs;
   var tripSecondWalkWayPointsG = <google_maps.LatLng>[].obs;
 
-  var tripStationWayPoints = <LatLng>[].obs;
   var tripStationWayPointsG = <google_maps.LatLng>[].obs;
 
-  var tripStationWayPoints2 = <LatLng>[].obs;
   var tripStationWayPoints2G = <google_maps.LatLng>[].obs;
 
   var route1 =[].obs;
@@ -93,10 +92,8 @@ class RouteMapController extends GetxController {
     stationLocationPoints.value = [];
     tripStationWayPointsG.value = [];
     stationMarkers.value = [];
-    tripStationWayPoints.value = [];
     tripRouteData.value = {};
     tripStationDirData2.value = {};
-    tripStationWayPoints2.value = [];
     tripStationWayPoints2G.value = [];
 
     // trip.startPoint.latitude = 0.0;
@@ -175,19 +172,23 @@ class RouteMapController extends GetxController {
     if (isSecond == false) {
       final response = await http.get(Uri.parse(
           "https://api.mapbox.com/directions/v5/mapbox/driving/$stationQuery?alternatives=true&annotations=distance%2Cduration%2Cspeed%2Ccongestion&geometries=geojson&language=en&overview=full&access_token=$mapbox_token"));
-      //print('full res from find == ${response.body}');
       if (response.statusCode == 200) {
         print('true 1 ${response.statusCode}');
         var decoded = jsonDecode(response.body);
         tripStationDirData.value = decoded;
         decoded = decoded["routes"][0]["geometry"];
         for (int i = 0; i < decoded["coordinates"].length; i++) {
-          tripStationWayPoints.add(new LatLng(
-              decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
           tripStationWayPointsG.add(google_maps.LatLng(
               decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
         }
         locationController.tripCreatedStatus(true);
+
+        //moving camera
+        google_maps.CameraPosition cameraPosition =
+         google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 10.5);
+        newGoogleMapController!.animateCamera(
+            google_maps.CameraUpdate.newCameraPosition(cameraPosition));
+
       } else {
         print('error :: ${response.body}');
         print('stationNNNOOOOO 11 ${response.statusCode} \n${stationQuery}');
@@ -204,12 +205,16 @@ class RouteMapController extends GetxController {
         tripStationDirData2.value = decoded;
         decoded = decoded["routes"][0]["geometry"];
         for (int i = 0; i < decoded["coordinates"].length; i++) {
-          tripStationWayPoints2.add(new LatLng(
-              decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
+
           tripStationWayPoints2G.add(google_maps.LatLng(
               decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
         }
         locationController.tripCreatedStatus(true);
+        //moving camera
+        google_maps.CameraPosition cameraPosition =
+        google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 10.5);
+        newGoogleMapController!.animateCamera(
+            google_maps.CameraUpdate.newCameraPosition(cameraPosition));
       } else {
         print('stationNNNOOOOO 2 ${response.statusCode} \n${stationQuery}');
         print(response.body);
@@ -330,13 +335,13 @@ class RouteMapController extends GetxController {
         intIndex = index.value;
         int b = i.round();
         centerOfDirRoute.value =
-            LatLng(jsonResponse[b]["latitude"], jsonResponse[b]["longitude"]);
+            google_maps.LatLng(jsonResponse[b]["latitude"], jsonResponse[b]["longitude"]);
 
         print("center :: $b");
 
         //add mark for first station
         stationMarkers.add(
-          new Marker(
+          Marker(
             width: 84,
             height: 84,
             point: LatLng(startStation['latitude'], startStation['longitude']),
@@ -355,7 +360,7 @@ class RouteMapController extends GetxController {
         );
         //add mark for last station
         stationMarkers.add(
-          new Marker(
+          Marker(
             width: 60,
             height: 60,
             point: LatLng(endStation['latitude'], endStation['longitude']),
@@ -372,7 +377,6 @@ class RouteMapController extends GetxController {
 
         tripFirstWalkWayPoints.value = [];
         tripSecondWalkWayPoints.value = [];
-        tripStationWayPoints.value = [];
         update();
         await findFirstWalkDirection(
             LatLng(startPointLatLng.value.latitude,
@@ -458,7 +462,7 @@ class RouteMapController extends GetxController {
       intIndex = index.value;
       int b = i.round();
       centerOfDirRoute.value =
-          LatLng(route1[b]["latitude"], route1[b]["longitude"]);
+          google_maps.LatLng(route1[b]["latitude"], route1[b]["longitude"]);
 
       print("center :: $b");
       print("length :::1 ${route1.length}");
@@ -725,7 +729,6 @@ class RouteMapController extends GetxController {
 
       tripFirstWalkWayPoints.value = [];
       tripSecondWalkWayPoints.value = [];
-      tripStationWayPoints.value = [];
 
       // //
       // if (rout1.length > 50) {
