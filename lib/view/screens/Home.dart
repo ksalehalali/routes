@@ -34,8 +34,15 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
             SizedBox(height:screenSize.height *.1 -60,),
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.end,
+            //   children: [
+            //     Icon(Icons.directions_bus_rounded,color: routes_color,size: 36,),
+            //     SizedBox(width: 10.0,),
+            //     Text('Routes',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color: routes_color2),),
+            //   ],
+            // ),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
