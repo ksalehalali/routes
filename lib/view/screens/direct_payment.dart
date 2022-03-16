@@ -8,6 +8,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:routes/view/screens/main_screen.dart';
 
 import '../../Assistants/globals.dart';
 import '../../Data/current_data.dart';
@@ -43,6 +44,17 @@ class _DirectPaymentState extends State<DirectPayment> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: InkWell(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>MainScreen(indexOfScreen: 0)));
+          },
+          child: Icon(Icons.arrow_back),
+        ),
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.white.withOpacity(0.0),
+        elevation: 0.0,
+      ),
       body: SafeArea(
         child: Center(
           child: Column(
@@ -151,6 +163,17 @@ class _QRViewExampleState extends State<QRViewExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: InkWell(
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>MainScreen(indexOfScreen: 0)));
+          },
+          child: Icon(Icons.arrow_back),
+        ),
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.white.withOpacity(0.0),
+        elevation: 0.0,
+      ),
       body: Column(
         children: <Widget>[
           Expanded(

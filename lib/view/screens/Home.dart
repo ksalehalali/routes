@@ -35,14 +35,14 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(height:screenSize.height *.1 -60,),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                Icon(Icons.directions_bus_rounded,color: routes_color,size: 36,),
-                SizedBox(width: 10.0,),
-                Text('Routes',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color: routes_color2),),
-              ],
-            ),
+            // Row(
+            //   crossAxisAlignment: CrossAxisAlignment.end,
+            //   children: [
+            //     Icon(Icons.directions_bus_rounded,color: routes_color,size: 36,),
+            //     SizedBox(width: 10.0,),
+            //     Text('Routes',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22,color: routes_color2),),
+            //   ],
+            // ),
 
             SizedBox(height:screenSize.height *.1 -80,),
             SizedBox(
@@ -55,18 +55,19 @@ class _HomeState extends State<Home> {
                 child: Carousel(
                   dotSize: 6.0,
                   dotSpacing: 15.0,
-                  autoplayDuration: 4.seconds,
-                  animationDuration: 500.milliseconds,
+                  autoplayDuration: 6.seconds,
+                  showIndicator: true,
+                  animationDuration: 600.milliseconds,
                   dotBgColor: routes_color.withOpacity(0.4),
                   dotColor: Colors.white,
                   dotIncreasedColor: Colors.red,
                   dotPosition: DotPosition.bottomCenter,
                   images: [
-                    Image.asset('assets/images/bus/1.jpeg', fit: BoxFit.cover),
-                    Image.asset('assets/images/bus/6a8c12b1fe.jpeg', fit: BoxFit.cover),
-                    Image.asset('assets/images/bus/a62b7b51-fbdc-4a0e-938f-ed8cccd2c8bc.jpeg', fit: BoxFit.cover),
-                    Image.asset('assets/images/bus/slide2.jpeg', fit: BoxFit.cover),
-                    Image.asset('assets/images/routes_fullBlue_logo.jpeg', fit: BoxFit.cover),
+                    Image.asset('assets/images/routes/fc3cde7b3a4645919cfedda7a46dc87c-0001.jpeg', fit: BoxFit.fill),
+                    Image.asset('assets/images/bus/kgl.jpeg', fit: BoxFit.fill),
+                    // Image.asset('assets/images/bus/a62b7b51-fbdc-4a0e-938f-ed8cccd2c8bc.jpeg', fit: BoxFit.cover),
+                    // Image.asset('assets/images/bus/slide2.jpeg', fit: BoxFit.cover),
+                    // Image.asset('assets/images/routes_fullBlue_logo.jpeg', fit: BoxFit.cover),
 
 
                   ],
