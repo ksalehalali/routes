@@ -220,7 +220,7 @@ class RouteMapController extends GetxController {
         if(isRoute2 ==false){
           tripStationDirData2.value = decoded;
         }else{
-          tripStationDirData2Route2 = decoded;
+          tripStationDirData2Route2.value = decoded;
         }
         decoded = decoded["routes"][0]["geometry"];
         for (int i = 0; i < decoded["coordinates"].length; i++) {
@@ -269,7 +269,7 @@ class RouteMapController extends GetxController {
           'there is no route', 'wrong points entered',
           backgroundColor: Colors.white.withOpacity(0.9),
           duration: 5.seconds, colorText: Colors.red[900]);
-      //findMultiRoute();
+      findMultiRoute();
     }else if(jsonResponse['description']['res'].length <2){
       print('bad data ----');
       resetAll();
@@ -460,6 +460,7 @@ class RouteMapController extends GetxController {
       Timer(3.seconds, () {
         Get.snackbar(
             'there is no route', 'no route please try change your points',
+            backgroundColor: Colors.white,
             duration: 5.seconds, colorText: Colors.red[900]);
       });
       isMultiMode.value = false;
@@ -557,7 +558,7 @@ class RouteMapController extends GetxController {
         await findSecondWalkDirection(LatLng(endStation['latitude'], endStation['longitude']),LatLng(endPointLatLng.value.latitude,endPointLatLng.value.longitude) ).then((value) => calFullDurationDistance(true));
         panelController.open();
 
-      }else if(route1.length < 50 && route1.length >25){
+      }else if(route1.length < 50 && route1.length >24){
         isLongTrip.value =true;
         for (int i = 0; i  < 24; i++) {
           print(route1[i]['station']);
@@ -674,7 +675,7 @@ class RouteMapController extends GetxController {
             stationQuery5.length - 1); // To remove the last semicolon from the string (would cause an error)
         await findStationDirection(stationQuery5, true,true).then((value) => calFullDurationDistance(true));
 
-      }else if(route2.length < 50 && route2.length >24){
+      }else if(route2.length < 50 && route2.length >25){
         for (int i = 0; i  < 24; i++) {
           print(route2[i]['station']);
           print(route2[i]['order']);
@@ -687,7 +688,7 @@ class RouteMapController extends GetxController {
               ";";
 
         }
-        for (int i = 25; i  < route2.length; i++) {
+        for (int i = 24; i  < route2.length; i++) {
           print(route2[i]['station']);
           print(route2[i]['order']);
           print(route2[i]['route']);
@@ -699,7 +700,7 @@ class RouteMapController extends GetxController {
               ";";
 
         }
-
+        print(route2.length);
         stationQuery3 = stationQuery3.substring(0,
             stationQuery3.length - 1); // To remove the last semicolon from the string (would cause an error)
         await findStationDirection(stationQuery3, false,true);
@@ -729,58 +730,7 @@ class RouteMapController extends GetxController {
       //
       print('======================================== d');
       //add mark for first station
-      stationMarkers.add(
-        Marker(
-          width: 84,
-          height: 84,
-          point: LatLng(startStation['latitude'], startStation['longitude']),
-          builder: (context) => Center(
-            child: Container(
-              padding: EdgeInsets.all(0.0),
-              child: IconButton(
-                onPressed: () {},
-                icon: Icon(Icons.directions_bus),
-                iconSize: 30,
-                color: Colors.blue[300],
-              ),
-            ),
-          ),
-        ),
-      );
-
-      //add mark for shared Station
-      stationMarkers.add(
-        Marker(
-          width: 60,
-          height: 60,
-          point: LatLng(sharedStation['latitude'], sharedStation['longitude']),
-          builder: (context) => Container(
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.directions_bus),
-              iconSize: 30,
-              color: Colors.red[900],
-            ),
-          ),
-        ),
-      );
-
-      //add mark for last station
-      stationMarkers.add(
-        new Marker(
-          width: 60,
-          height: 60,
-          point: LatLng(endStation['latitude'], endStation['longitude']),
-          builder: (context) => Container(
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(Icons.directions_bus),
-              iconSize: 30,
-              color: Colors.blue[900],
-            ),
-          ),
-        ),
-      );
+     
 
     }
   }

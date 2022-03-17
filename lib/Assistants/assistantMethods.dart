@@ -33,7 +33,6 @@ class AssistantMethods {
       userAddress.latitude = position.latitude;
       userAddress.longitude = position.longitude;
       userAddress.placeName = placeAddress;
-      print('address from search :: ${placeAddress = res['features'][0]['place_name']}');
 
     } else {
       print("get address failed");

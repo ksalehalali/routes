@@ -238,269 +238,7 @@ class _Map2State extends State<Map2> {
           panelBuilder: (scrollContainer) => routeMapController
                       .isMultiMode.value ==
                   true
-              ? AnimatedSize(
-                  //vsync: this,
-                  curve: Curves.bounceIn,
-                  duration: Duration(milliseconds: 180),
-                  child: Container(
-                    height: 200,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(18.0),
-                            topRight: Radius.circular(18.0)),
-                        boxShadow: [
-                          BoxShadow(
-                            color: routes_color2,
-                            blurRadius: 16.0,
-                            spreadRadius: 0.5,
-                            offset: Offset(0.5, 0.5),
-                          ),
-                        ]),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12.0, vertical: 1.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            height: 2.0,
-                          ),
-                          Container(
-                            width: 42.0,
-                            height: 4.0,
-                            decoration: BoxDecoration(
-                                color: Colors.grey,
-                                borderRadius: BorderRadius.circular(5.0)),
-                          ),
-                          SizedBox(
-                            height: 5.0,
-                          ),
-                          Column(
-                            children: [
-                              Center(
-                                child: InkWell(
-                                  onTap: () {
-                                    panelController.open();
-                                  },
-                                  child: Text(
-                                    locationController.tripCreatedDone.value ==
-                                            false
-                                        ? "Set your pickUp-dropOff spot "
-                                        : "Start Your Trip.",
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 10.0,
-                              ),
-                              Obx(
-                                () => Center(
-                                  child: locationController
-                                              .tripCreatedDone.value ==
-                                          false
-                                      ? Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Obx(
-                                              () => Text(
-                                                locationController
-                                                            .startAddingPickUp
-                                                            .value ==
-                                                        true
-                                                    ? locationController
-                                                        .pickUpAddress.value
-                                                    : locationController
-                                                        .dropOffAddress.value,
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 1,
-                                                style: TextStyle(fontSize: 14),
-                                              ),
-                                            ),
-                                          ],
-                                        )
-                                      : Container(),
-                                ),
-                              ),
-                              SizedBox(
-                                height: 1,
-                              ),
-                            ],
-                          ),
-                          Obx(
-                            () => Container(
-                              child: locationController.tripCreatedDone.value ==
-                                      true
-                                  ? Expanded(
-                                      child: Column(
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Icon(
-                                                FontAwesomeIcons.walking,
-                                                size: 21,
-                                                color: Colors.grey[600],
-                                              ),
-                                              SizedBox(
-                                                width: 11.0,
-                                              ),
-                                              Icon(
-                                                Icons
-                                                    .arrow_forward_ios_outlined,
-                                                size: 16,
-                                                color: Colors.grey[600],
-                                              ),
-                                              SizedBox(
-                                                width: 12.0,
-                                              ),
-                                              Icon(
-                                                FontAwesomeIcons.busAlt,
-                                                size: 21,
-                                                color: Colors.grey[600],
-                                              ),
-                                              SizedBox(
-                                                width: 11.0,
-                                              ),
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                    color: Colors.red[900],
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            2)),
-                                                child: Center(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    child: Obx(() => Text(
-                                                          locationController
-                                                                      .tripCreatedDone
-                                                                      .value ==
-                                                                  true
-                                                              ? routeMapController
-                                                                  .multiRouteTripData[
-                                                                      "rout1"]
-                                                                      [0]
-                                                                      ['route']
-                                                                  .toString()
-                                                              : '',
-                                                          style: TextStyle(
-                                                              fontSize: 16,
-                                                              color:
-                                                                  Colors.white,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
-                                                        )),
-                                                  ),
-                                                ),
-                                              ),
-                                              SizedBox(width: 5.0,),
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                    color: Colors.red[900],
-                                                    borderRadius:
-                                                    BorderRadius.circular(
-                                                        2)),
-                                                child: Center(
-                                                  child: Padding(
-                                                    padding:
-                                                    const EdgeInsets.all(
-                                                        5.0),
-                                                    child: Obx(() => Text(
-                                                      locationController
-                                                          .tripCreatedDone
-                                                          .value ==
-                                                          true
-                                                          ? routeMapController
-                                                          .multiRouteTripData[
-                                                      "rout2"]
-                                                      [0]
-                                                      ['route']
-                                                          .toString()
-                                                          : '',
-                                                      style: TextStyle(
-                                                          fontSize: 16,
-                                                          color:
-                                                          Colors.white,
-                                                          fontWeight:
-                                                          FontWeight
-                                                              .bold),
-                                                    )),
-                                                  ),
-                                                ),
-                                              ),
-                                              Spacer(),
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                    color: Colors.grey[100],
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            12)),
-                                                child: Center(
-                                                  child: Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            5.0),
-                                                    child: Obx(() => SizedBox(
-                                                      width: 142,
-                                                      child: Text(
-                                                        locationController
-                                                            .tripCreatedDone
-                                                            .value ==
-                                                            true
-                                                            ? "${routeMapController.fullDurationTrip.value.toStringAsFixed(0)} min | ${routeMapController.fullDistanceTrip.value.toStringAsFixed(3)} km"
-                                                            : '',
-                                                        overflow:
-                                                        TextOverflow
-                                                            .ellipsis,
-                                                        maxLines: 1,
-                                                        textAlign: TextAlign
-                                                            .center,
-                                                        style: TextStyle(
-                                                            fontSize: 15,
-                                                            color: Colors
-                                                                .black,
-                                                            fontWeight:
-                                                            FontWeight
-                                                                .bold),
-                                                      ),
-                                                    )),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 4.0,
-                                          ),
-                                          Container(
-                                            height: 2,
-                                            width: screenSize.width - 30,
-                                            color: Colors.grey,
-                                          ),
-
-                                          SizedBox(
-                                            height: 6.0,
-                                          ),
-                                          //
-
-                                        ],
-
-                                      ),
-                                    )
-                                  : Container(),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                )
+              ? _buldDetailsMultiRoutes()
               : _buildDetailsOneRoute(),
           body: Stack(children: [
             google_maps.GoogleMap(
@@ -829,6 +567,688 @@ class _Map2State extends State<Map2> {
     });
 
   }
+  Widget _buldDetailsMultiRoutes(){
+    final String timeC = DateTime.now().hour > 11 ? 'PM' : 'AM';
+
+    return AnimatedSize(
+       //vsync: this,
+       curve: Curves.bounceIn,
+       duration: Duration(milliseconds: 180),
+       child: Container(
+         height: 200,
+         decoration: BoxDecoration(
+             color: Colors.white,
+             borderRadius: BorderRadius.only(
+                 topLeft: Radius.circular(18.0),
+                 topRight: Radius.circular(18.0)),
+             boxShadow: [
+               BoxShadow(
+                 color: routes_color2,
+                 blurRadius: 16.0,
+                 spreadRadius: 0.5,
+                 offset: Offset(0.5, 0.5),
+               ),
+             ]),
+         child: Padding(
+           padding: const EdgeInsets.symmetric(
+               horizontal: 12.0, vertical: 1.0),
+           child: Column(
+             crossAxisAlignment: CrossAxisAlignment.center,
+             children: [
+               SizedBox(
+                 height: 2.0,
+               ),
+               Container(
+                 width: 42.0,
+                 height: 4.0,
+                 decoration: BoxDecoration(
+                     color: Colors.grey,
+                     borderRadius: BorderRadius.circular(5.0)),
+               ),
+               SizedBox(
+                 height: 5.0,
+               ),
+               Column(
+                 children: [
+                   Center(
+                     child: InkWell(
+                       onTap: () {
+                         panelController.open();
+                       },
+                       child: Text(
+                         locationController.tripCreatedDone.value ==
+                             false
+                             ? "Set your pickUp-dropOff spot "
+                             : "Start Your Trip.",
+                         style: TextStyle(
+                             fontSize: 16,
+                             fontWeight: FontWeight.bold),
+                       ),
+                     ),
+                   ),
+                   SizedBox(
+                     height: 10.0,
+                   ),
+                   Obx(
+                         () => Center(
+                       child: locationController
+                           .tripCreatedDone.value ==
+                           false
+                           ? Column(
+                         crossAxisAlignment:
+                         CrossAxisAlignment.center,
+                         children: [
+                           Obx(
+                                 () => Text(
+                               locationController
+                                   .startAddingPickUp
+                                   .value ==
+                                   true
+                                   ? locationController
+                                   .pickUpAddress.value
+                                   : locationController
+                                   .dropOffAddress.value,
+                               overflow: TextOverflow.ellipsis,
+                               maxLines: 1,
+                               style: TextStyle(fontSize: 14),
+                             ),
+                           ),
+                         ],
+                       )
+                           : Container(),
+                     ),
+                   ),
+                   SizedBox(
+                     height: 1,
+                   ),
+                 ],
+               ),
+               Obx(
+                     () => Container(
+                   child: locationController.tripCreatedDone.value ==
+                       true
+                       ? Column(
+                         children: [
+                           InkWell(
+                             onTap: (){
+                               print(routeMapController.multiRouteTripData);
+                             },
+                             child: Row(
+                               children: [
+                                 Icon(
+                                   FontAwesomeIcons.walking,
+                                   size: 21,
+                                   color: Colors.grey[600],
+                                 ),
+                                 SizedBox(
+                                   width: 11.0,
+                                 ),
+                                 Icon(
+                                   Icons
+                                       .arrow_forward_ios_outlined,
+                                   size: 16,
+                                   color: Colors.grey[600],
+                                 ),
+                                 SizedBox(
+                                   width: 12.0,
+                                 ),
+                                 Icon(
+                                   FontAwesomeIcons.busAlt,
+                                   size: 21,
+                                   color: Colors.grey[600],
+                                 ),
+                                 SizedBox(
+                                   width: 11.0,
+                                 ),
+                                 Container(
+                                   decoration: BoxDecoration(
+                                       color: Colors.red[900],
+                                       borderRadius:
+                                       BorderRadius.circular(
+                                           2)),
+                                   child: Center(
+                                     child: Padding(
+                                       padding:
+                                       const EdgeInsets.all(
+                                           5.0),
+                                       child: Obx(() => Text(
+                                         locationController
+                                             .tripCreatedDone
+                                             .value ==
+                                             true
+                                             ? routeMapController
+                                             .multiRouteTripData[
+                                         "rout1"]
+                                         [0]
+                                         ['route']
+                                             .toString()
+                                             : '',
+                                         style: TextStyle(
+                                             fontSize: 16,
+                                             color:
+                                             Colors.white,
+                                             fontWeight:
+                                             FontWeight
+                                                 .bold),
+                                       )),
+                                     ),
+                                   ),
+                                 ),
+                                 SizedBox(width: 5.0,),
+                                 Container(
+                                   decoration: BoxDecoration(
+                                       color: Colors.red[900],
+                                       borderRadius:
+                                       BorderRadius.circular(
+                                           2)),
+                                   child: Center(
+                                     child: Padding(
+                                       padding:
+                                       const EdgeInsets.all(
+                                           5.0),
+                                       child: Obx(() => Text(
+                                         locationController
+                                             .tripCreatedDone
+                                             .value ==
+                                             true
+                                             ? routeMapController
+                                             .multiRouteTripData[
+                                         "rout2"]
+                                         [0]
+                                         ['route']
+                                             .toString()
+                                             : '',
+                                         style: TextStyle(
+                                             fontSize: 16,
+                                             color:
+                                             Colors.white,
+                                             fontWeight:
+                                             FontWeight
+                                                 .bold),
+                                       )),
+                                     ),
+                                   ),
+                                 ),
+                                 Spacer(),
+                                 Container(
+                                   decoration: BoxDecoration(
+                                       color: Colors.grey[100],
+                                       borderRadius:
+                                       BorderRadius.circular(
+                                           12)),
+                                   child: Center(
+                                     child: Padding(
+                                       padding:
+                                       const EdgeInsets.all(
+                                           5.0),
+                                       child: Obx(() => SizedBox(
+                                         width: 142,
+                                         child: Text(
+                                           locationController
+                                               .tripCreatedDone
+                                               .value ==
+                                               true
+                                               ? "${routeMapController.fullDurationTrip.value.toStringAsFixed(0)} min | ${routeMapController.fullDistanceTrip.value.toStringAsFixed(3)} km"
+                                               : '',
+                                           overflow:
+                                           TextOverflow
+                                               .ellipsis,
+                                           maxLines: 1,
+                                           textAlign: TextAlign
+                                               .center,
+                                           style: TextStyle(
+                                               fontSize: 15,
+                                               color: Colors
+                                                   .black,
+                                               fontWeight:
+                                               FontWeight
+                                                   .bold),
+                                         ),
+                                       )),
+                                     ),
+                                   ),
+                                 ),
+                               ],
+                             ),
+                           ),
+                           SizedBox(
+                             height: 4.0,
+                           ),
+                           Container(
+                             height: 2,
+                             width: screenSize.width - 30,
+                             color: Colors.grey,
+                           ),
+
+                           SizedBox(
+                             height: 6.0,
+                           ),
+                           //
+
+                         ],
+
+                       )
+                       : Container(),
+                 ),
+               ),
+               Obx(
+                     () => Container(
+                   child: locationController.tripCreatedDone.value ==
+                       true
+                       ? Expanded(
+                     child: ListView(
+                       padding: EdgeInsets.zero,
+                       children: [
+                         //
+                         Row(
+                           crossAxisAlignment:
+                           CrossAxisAlignment.start,
+                           children: [
+                             Column(
+                               crossAxisAlignment:
+                               CrossAxisAlignment.start,
+                               children: [
+                                 SizedBox(
+                                     width:
+                                     screenSize.width *
+                                         0.7 -
+                                         20,
+                                     child: Text(
+                                       "Start : ${trip.startPointAddress}",
+                                       overflow: TextOverflow
+                                           .ellipsis,
+                                       maxLines: 1,
+                                       style: TextStyle(
+                                           fontSize: 14),
+                                     )),
+                                 SizedBox(
+                                   height:
+                                   screenSize.height *
+                                       0.1 -
+                                       62,
+                                 ),
+                                 Text(
+                                   'Walk to bus stop',
+                                   style: TextStyle(
+                                       fontSize: 16,
+                                       color:
+                                       Colors.grey[400]),
+                                 ),
+                                 SizedBox(
+                                   height:
+                                   screenSize.height *
+                                       0.1 -
+                                       62,
+                                 ),
+                                 Text(
+                                   'Board at Route ${routeMapController.multiRouteTripData["startStation"]['rout'].toString()}',
+                                   style: TextStyle(
+                                       fontSize: 16,
+                                       color: Colors.black),
+                                 ),
+                                 SizedBox(
+                                   width: screenSize.width *
+                                       0.7 -
+                                       20,
+                                   child: Text(
+                                     '${routeMapController.multiRouteTripData["startStation"]['title'].toString()}',
+                                     overflow: TextOverflow
+                                         .ellipsis,
+                                     maxLines: 1,
+                                     style: TextStyle(
+                                         fontSize: 14,
+                                         color:
+                                         Colors.black),
+                                   ),
+                                 ),
+                                 SizedBox(
+                                   height:
+                                   screenSize.height *
+                                       0.1 -
+                                       62,
+                                 ),
+                                 Padding(
+                                   padding:  EdgeInsets.only(top: screenSize.height * 0.1 - 72,bottom:screenSize.height * 0.1 - 72,),
+                                   child: InkWell(
+                                     onTap: (){
+                                       print(stops);
+                                       if(stops.length ==0){
+                                         _buildStopsOfTrip();
+                                         showStops = true;
+                                       }else{
+                                         showStops =false;
+                                         setState(() {
+                                           stops = [];
+                                           heightLineStops = 100;
+                                           stopsLineEx = [];
+                                         });
+                                       }
+                                     },
+                                     child: Row(
+                                       crossAxisAlignment:
+                                       CrossAxisAlignment
+                                           .center,
+                                       children: [
+                                         Text(
+                                           'Stops (${routeMapController.jsonResponse.length})',
+                                           style: TextStyle(
+                                               fontWeight:
+                                               FontWeight
+                                                   .w500,
+                                               color: Colors
+                                                   .grey[500]),
+                                         ),
+                                         Icon(
+                                           showStops ==false ?Icons.keyboard_arrow_down_sharp:Icons.keyboard_arrow_up,
+                                           size: 17,
+                                           color:
+                                           Colors.grey[500],
+                                         )
+                                       ],
+                                     ),
+                                   ),
+                                 ),
+                                 SizedBox(
+                                   height:
+                                   screenSize.height *
+                                       0.1 -
+                                       80,
+                                 ),
+                                 ...stops ,
+                                 const Text(
+                                   'Get off at ',
+                                   style: TextStyle(
+                                       fontSize: 16,
+                                       color: Colors.black),
+                                 ),
+                                 SizedBox(
+                                   width: screenSize.width *
+                                       0.7 -
+                                       20,
+                                   child: Text(
+                                     '${routeMapController.multiRouteTripData["sharedPoint1"]['title'].toString()}',
+                                     overflow: TextOverflow
+                                         .ellipsis,
+                                     maxLines: 1,
+                                     style: TextStyle(
+                                         fontSize: 14,
+                                         color:
+                                         Colors.black),
+                                   ),
+                                 ),
+                                 SizedBox(
+                                   height:
+                                   screenSize.height *
+                                       0.1 -
+                                       62,
+                                 ),
+                                 SizedBox(
+                                     width:
+                                     screenSize.width *
+                                         0.7 -
+                                         20,
+                                     child: Text(
+                                       'End : ${trip.endPointAddress}',
+                                       overflow: TextOverflow
+                                           .ellipsis,
+                                       maxLines: 1,
+                                       style: TextStyle(
+                                           fontSize: 14,
+                                           color:
+                                           Colors.black),
+                                     )),
+                               ],
+                             ),
+                             Spacer(),
+                             //
+                             Row(
+                               crossAxisAlignment:
+                               CrossAxisAlignment.start,
+                               children: [
+                                 Column(
+                                   children: [
+                                     Container(
+                                       decoration: BoxDecoration(
+                                           color:
+                                           Colors.green,
+                                           borderRadius:
+                                           BorderRadius
+                                               .circular(
+                                               1)),
+                                       width: 13,
+                                       height: 13,
+                                     ),
+                                     SizedBox(
+                                       height: screenSize
+                                           .height *
+                                           0.1 -
+                                           76,
+                                     ),
+                                     Container(
+                                       decoration: BoxDecoration(
+                                           color: Colors
+                                               .grey[400],
+                                           borderRadius:
+                                           BorderRadius
+                                               .circular(
+                                               1)),
+                                       width: 7,
+                                       height: 7,
+                                     ),
+                                     SizedBox(
+                                       height: 4.0,
+                                     ),
+                                     Container(
+                                         decoration: BoxDecoration(
+                                             color: Colors
+                                                 .grey[400],
+                                             borderRadius:
+                                             BorderRadius
+                                                 .circular(
+                                                 1)),
+                                         width: 7,
+                                         height: 7),
+                                     SizedBox(
+                                       height: 9.0,
+                                     ),
+                                     Icon(
+                                       FontAwesomeIcons
+                                           .walking,
+                                       color:
+                                       Colors.grey[700],
+                                       size: 22,
+                                     ),
+                                     SizedBox(
+                                       height: 9.0,
+                                     ),
+                                     Container(
+                                       decoration: BoxDecoration(
+                                           color: Colors
+                                               .grey[400],
+                                           borderRadius:
+                                           BorderRadius
+                                               .circular(
+                                               1)),
+                                       width: 7,
+                                       height: 7,
+                                     ),
+                                     SizedBox(
+                                       height: 4.0,
+                                     ),
+                                     Container(
+                                       decoration: BoxDecoration(
+                                           color: Colors
+                                               .grey[400],
+                                           borderRadius:
+                                           BorderRadius
+                                               .circular(
+                                               1)),
+                                       width: 7,
+                                       height: 7,
+                                     ),
+                                     SizedBox(
+                                         height: screenSize
+                                             .height *
+                                             0.1 -
+                                             76),
+                                     AnimatedContainer(
+                                       decoration:
+                                       BoxDecoration(
+                                         color: Colors
+                                             .grey[700],
+                                         borderRadius:
+                                         BorderRadius
+                                             .circular(
+                                             1),
+                                       ),
+                                       height: heightLineStops,
+                                       width: 5,
+                                       duration: 200.milliseconds,
+                                       child: Column(
+                                         crossAxisAlignment:
+                                         CrossAxisAlignment
+                                             .center,
+                                         children: [
+                                           ...stopsLineEx,
+
+                                           SizedBox(
+                                               height: screenSize
+                                                   .height *
+                                                   0.1 -
+                                                   76),
+                                           Container(
+                                             decoration: BoxDecoration(
+                                                 color: Colors
+                                                     .grey,
+                                                 borderRadius:
+                                                 BorderRadius.circular(
+                                                     1)),
+                                             width: 9,
+                                             height: 9,
+                                           ),
+                                           Spacer(),
+                                           Container(
+                                             decoration: BoxDecoration(
+                                                 color: Colors
+                                                     .grey,
+                                                 borderRadius:
+                                                 BorderRadius.circular(
+                                                     1)),
+                                             width: 9,
+                                             height: 9,
+                                           ),
+                                           SizedBox(
+                                               height: screenSize
+                                                   .height *
+                                                   0.1 -
+                                                   76),
+                                         ],
+                                       ),
+                                     ),
+                                     SizedBox(
+                                         height: screenSize
+                                             .height *
+                                             0.1 -
+                                             73),
+                                     Container(
+                                       decoration: BoxDecoration(
+                                           color: Colors
+                                               .grey[400],
+                                           borderRadius:
+                                           BorderRadius
+                                               .circular(
+                                               1)),
+                                       width: 7,
+                                       height: 7,
+                                     ),
+                                     SizedBox(
+                                         height: screenSize
+                                             .height *
+                                             0.1 -
+                                             78),
+                                     Container(
+                                       decoration: BoxDecoration(
+                                           color: Colors
+                                               .grey[400],
+                                           borderRadius:
+                                           BorderRadius
+                                               .circular(
+                                               1)),
+                                       width: 7,
+                                       height: 7,
+                                     ),
+                                     SizedBox(
+                                         height: screenSize
+                                             .height *
+                                             0.1 -
+                                             76),
+                                     InkWell(
+                                       onTap: (){
+                                         print('object');
+                                         setState(() {
+                                           heightLineStops =200;
+
+                                         });
+                                       },
+                                       child: Container(
+                                         decoration: BoxDecoration(
+                                             color: Colors
+                                                 .red[900],
+                                             borderRadius:
+                                             BorderRadius
+                                                 .circular(
+                                                 1)),
+                                         width: 13,
+                                         height: 13,
+                                       ),
+                                     ),
+                                   ],
+                                 ),
+                                 InkWell(
+                                   onTap: (){
+                                     print('st w d ${routeMapController.startWalkDurationTrip}');
+                                     print('route t d ${routeMapController.routeDurationTrip}');
+                                     print('sec route t d ${routeMapController.secondRouteDurationTrip}');
+                                     print('sec walk  d ${routeMapController.secondWalkDurationTrip}');
+
+
+                                   },
+                                   child: Column(
+                                     children: [
+                                       Text(
+                                           '${DateFormat('HH:mm').format(timeDrew!).toString()} $timeC'),
+                                       SizedBox(height: screenSize.height * 0.1),
+
+                                       Text(
+                                           '${DateFormat('HH:mm').format(timeDrew!.add(routeMapController.startWalkDurationTrip.value.seconds)).toString()} $timeC'),
+                                       SizedBox(height: heightLineStops -18),
+
+                                       Text(
+                                           '${DateFormat('HH:mm').format(timeDrew!.add(routeMapController.routeDurationTrip.value.seconds+routeMapController.startWalkDurationTrip.value.seconds+routeMapController.secondRouteDurationTrip.value.seconds)).toString()} $timeC'),
+                                       SizedBox(height: screenSize.height * 0.1-60),
+
+                                       Text(
+                                           '${DateFormat('HH:mm').format(timeDrew!.add(routeMapController.secondRouteDurationTrip.value.seconds+routeMapController.routeDurationTrip.value.seconds+routeMapController.startWalkDurationTrip.value.seconds+routeMapController.secondWalkDurationTrip.value.seconds)).toString()} $timeC'),
+
+                                     ],
+                                   ),
+                                 ),
+                               ],
+                             )
+                           ],
+                         )
+                       ],
+                     ),
+                   )
+                       : Container(),
+                 ),
+               )
+             ],
+           ),
+         ),
+       ),
+     );
+  }
   Widget _buildDetailsOneRoute(){
     final String timeC = DateTime.now().hour > 11 ? 'PM' : 'AM';
     return AnimatedSize(
@@ -1031,8 +1451,8 @@ class _Map2State extends State<Map2> {
                             ),
                           ),
                         ],
-                      )
-                          : Container(padding: EdgeInsets.zero,),
+                      ) : Container(padding: EdgeInsets.zero,),
+
                     ),
                   ),
                   SizedBox(

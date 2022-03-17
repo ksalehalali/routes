@@ -12,6 +12,7 @@ import 'package:routes/view/screens/main_screen.dart';
 
 import '../../Assistants/globals.dart';
 import '../../Data/current_data.dart';
+import '../../controller/location_controller.dart';
 import '../../controller/payment_controller.dart';
 import '../widgets/progressDialog.dart';
 
@@ -22,6 +23,7 @@ class DirectPayment extends StatefulWidget {
 
 class _DirectPaymentState extends State<DirectPayment> {
   final PaymentController paymentController = Get.find();
+  final LocationController locationController = Get.find();
 
   @override
   void initState() {
@@ -47,6 +49,7 @@ class _DirectPaymentState extends State<DirectPayment> {
       appBar: AppBar(
         leading: InkWell(
           onTap: (){
+            locationController.tripCreatedStatus(false);
             Navigator.push(context, MaterialPageRoute(builder: (context)=>MainScreen(indexOfScreen: 0)));
           },
           child: Icon(Icons.arrow_back),

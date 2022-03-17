@@ -13,7 +13,7 @@ import '../view/screens/routes/all_routes_map.dart';
 class AllRoutes extends GetxController {
   var routePoints = <LatLng>[].obs;
   var routeStations = {}.obs;
-  var centerIndex = 0.obs;
+  RxInt centerIndex = 0.obs;
   var jsonResponse;
   var markersStations = <Marker>[].obs;
   var routePolyLine = <Polyline>[].obs;
@@ -50,7 +50,20 @@ class AllRoutes extends GetxController {
       print(jsonResponse['description'].length);
 
       jsonResponse = jsonResponse['description'];
+      if(jsonResponse.length <1){
+        Get.snackbar(
+            'there is no stations', 'please try change the route',
+            backgroundColor: Colors.white,
+            duration: 5.seconds, colorText: Colors.red[900]);
+        stationLocationPoints.value = [];
+        stationLocationPoints2.value = [];
+        markersStations.value = [];
+        routePolyLine.value =[];
 
+        return;}
+      int l =jsonResponse.length;
+      var c = l/4;
+      centerIndex.value = c.round();
       if (jsonResponse.length > 74) {
         print('stations > 74');
         for (int i = 0; i < 24; i++) {
@@ -180,6 +193,24 @@ class AllRoutes extends GetxController {
                 1); // To remove the last semicolon from the string (would cause an error)
         stationQuery2 = stationQuery2.substring(0, stationQuery2.length - 1);
       }
+      else if (jsonResponse.length < 25 && jsonResponse.length >0 ) {
+        print('stations < 25 ');
+
+        for (int i = 0; i < jsonResponse.length; i++) {
+          stationQuery = stationQuery +
+              jsonResponse[i]["longitude"].toString() +
+              "," +
+              jsonResponse[i]["latitude"].toString() +
+              ";";
+          stationLocationPoints.add(new LatLng(
+              jsonResponse[i]["latitude"], jsonResponse[i]["longitude"]));
+        }
+
+        stationQuery = stationQuery.substring(
+            0,
+            stationQuery.length -
+                1); // To remove the last semicolon from the string (would cause an error)
+      }
     }
 
     //add markers
@@ -194,7 +225,6 @@ class AllRoutes extends GetxController {
     }
 
     if (jsonResponse.length > 74) {
-      centerIndex.value = 36;
       await findStationDirection(stationQuery, false);
       await findStationDirection(stationQuery2, false);
       await findStationDirection(stationQuery3, false);
@@ -203,7 +233,6 @@ class AllRoutes extends GetxController {
       newGoogleMapController!.animateCamera(
           CameraUpdate.newCameraPosition(cameraPosition!));
     } else if (jsonResponse.length <= 75 && jsonResponse.length > 49) {
-      centerIndex.value = 21;
       await findStationDirection(stationQuery, false);
 
       await findStationDirection(stationQuery2, false);
@@ -212,11 +241,15 @@ class AllRoutes extends GetxController {
       cameraPosition = CameraPosition(target:LatLng(stationLocationPoints[centerIndex.value].latitude,stationLocationPoints[centerIndex.value].longitude),zoom: 12 );
       newGoogleMapController!.animateCamera(
           CameraUpdate.newCameraPosition(cameraPosition!));
-    }else if(jsonResponse.length <= 49 && jsonResponse.length > 24){
-      centerIndex.value = 10;
+    }else if(jsonResponse.length <= 49 && jsonResponse.length > 24 ){
       await findStationDirection(stationQuery, false);
 
        await findStationDirection(stationQuery2, false);
+      cameraPosition = CameraPosition(target:LatLng(stationLocationPoints[centerIndex.value].latitude,stationLocationPoints[centerIndex.value].longitude),zoom: 12 );
+      newGoogleMapController!.animateCamera(
+          CameraUpdate.newCameraPosition(cameraPosition!));
+    }else if( jsonResponse.length < 24){
+      await findStationDirection(stationQuery, false);
       cameraPosition = CameraPosition(target:LatLng(stationLocationPoints[centerIndex.value].latitude,stationLocationPoints[centerIndex.value].longitude),zoom: 12 );
       newGoogleMapController!.animateCamera(
           CameraUpdate.newCameraPosition(cameraPosition!));
@@ -272,6 +305,7 @@ class AllRoutes extends GetxController {
     stationQuery3 = '';
     stationQuery4 = '';
     markersStations.value = [];
+    centerIndex.value =0;
 
 
     update();
