@@ -4,5 +4,6 @@ class TransactionModel{
   double? amount;
   String? type;
   String? time;
-  TransactionModel({this.userId,this.time,this.amount,this.type,this.transactionId});
+  bool? isPay;
+  TransactionModel({this.userId,this.time,this.amount,this.type,this.transactionId,this.isPay});
 }

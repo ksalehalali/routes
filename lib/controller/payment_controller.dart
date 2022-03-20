@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:routes/model/transaction_model.dart';
 
 import '../Data/current_data.dart';
 import '../model/charge_toSave_model.dart';
@@ -14,6 +15,7 @@ class PaymentController extends GetxController {
   var recharges = <ChargeSaved>[].obs;
   var payments = <PaymentSaved>[].obs;
   var gotMyBalance = false.obs;
+  var allTrans = <TransactionModel>[].obs;
 
   Future<bool> pay(bool isDirect) async {
     var headers = {
@@ -107,6 +109,8 @@ class PaymentController extends GetxController {
   //get list of recharges
   Future getMyListOfRecharges() async {
     recharges.clear() ;
+    allTrans.clear();
+
     var headers = {
       'Authorization': 'bearer ${user.accessToken}',
       'Content-Type': 'application/json'
@@ -135,6 +139,13 @@ class PaymentController extends GetxController {
                 invoiceId: data[i]['invoiceId']
               )
           );
+
+          allTrans.add(TransactionModel(
+            time: data[i]['date'],
+            amount: double.parse(data[i]['value']),
+              type: data[i]['paymentGateway'],
+            isPay: false
+          ));
         }
         update();
     }
@@ -146,6 +157,7 @@ class PaymentController extends GetxController {
   //get list of payments
   Future getMyListOfPayments() async {
     payments.clear() ;
+    allTrans.clear();
     var headers = {
       'Authorization': 'bearer ${user.accessToken}',
       'Content-Type': 'application/json'
@@ -174,7 +186,16 @@ class PaymentController extends GetxController {
                   id: data[i]['id'],
             )
         );
+        allTrans.add(TransactionModel(
+          time: data[i]['date'],
+          amount: double.parse(data[i]['value']),
+          type: 'pay',
+          isPay: true
+
+        ));
       }
+
+
       update();
     }
     else {

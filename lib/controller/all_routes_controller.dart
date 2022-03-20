@@ -67,6 +67,7 @@ class AllRoutes extends GetxController {
       if (jsonResponse.length > 74) {
         print('stations > 74');
         for (int i = 0; i < 24; i++) {
+          print(jsonResponse[i]);
           stationQuery = stationQuery +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -77,7 +78,8 @@ class AllRoutes extends GetxController {
 
         }
 
-        for (int i = 25; i < 49; i++) {
+        for (int i = 24; i < 49; i++) {
+          print(jsonResponse[i]);
           stationQuery2 = stationQuery2 +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -88,7 +90,8 @@ class AllRoutes extends GetxController {
         }
 
         /// for more points
-        for (int i = 50; i < 74; i++) {
+        for (int i = 49; i < 74; i++) {
+          print(jsonResponse[i]);
           stationQuery3 = stationQuery3 +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -99,6 +102,7 @@ class AllRoutes extends GetxController {
         }
 
         for (int i = 74; i < jsonResponse.length; i++) {
+          print(jsonResponse[i]);
           stationQuery4 = stationQuery4 +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -122,6 +126,7 @@ class AllRoutes extends GetxController {
       } else if (jsonResponse.length <= 74 && jsonResponse.length > 50) {
         print('stations <= 74 && > 50');
         for (int i = 0; i < 24; i++) {
+          print(jsonResponse[i]);
           stationQuery = stationQuery +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -132,7 +137,8 @@ class AllRoutes extends GetxController {
 
         }
 
-        for (int i = 25; i < 49; i++) {
+        for (int i = 24; i < 49; i++) {
+          print(jsonResponse[i]);
           stationQuery2 = stationQuery2 +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -143,7 +149,8 @@ class AllRoutes extends GetxController {
         }
 
         /// for more points
-        for (int i = 50; i < jsonResponse.length; i++) {
+        for (int i = 49; i < jsonResponse.length; i++) {
+          print(jsonResponse[i]);
           stationQuery3 = stationQuery3 +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -168,6 +175,8 @@ class AllRoutes extends GetxController {
         print('stations < 50 && >25 ');
 
         for (int i = 0; i < 24; i++) {
+          print(jsonResponse[i]);
+
           stationQuery = stationQuery +
               jsonResponse[i]["longitude"].toString() +
               "," +
@@ -177,7 +186,9 @@ class AllRoutes extends GetxController {
               jsonResponse[i]["latitude"], jsonResponse[i]["longitude"]));
         }
 
-        for (int i = 25; i < jsonResponse.length; i++) {
+        for (int i = 24; i < jsonResponse.length; i++) {
+          print(jsonResponse[i]);
+
           stationQuery2 = stationQuery2 +
               jsonResponse[i]["longitude"].toString() +
               "," +

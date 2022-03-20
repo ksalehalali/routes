@@ -28,6 +28,8 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final screenSize = Get.size;
+    print(screenSize.height * .4,);
+    print(screenSize.width ,);
     return Scaffold(
       body: Container(
         child: Column(
