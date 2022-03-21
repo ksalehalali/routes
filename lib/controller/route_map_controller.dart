@@ -180,6 +180,9 @@ class RouteMapController extends GetxController {
   }
 
   Future<void> findStationDirection(String stationQuery, bool isSecond,bool isRoute2) async {
+    print('--------------------------');
+    print(centerOfDirRoute.value);
+
     if (isSecond == false) {
       final response = await http.get(Uri.parse(
           "https://api.mapbox.com/directions/v5/mapbox/driving/$stationQuery?alternatives=true&annotations=distance%2Cduration%2Cspeed%2Ccongestion&geometries=geojson&language=en&overview=full&access_token=$mapbox_token"));
@@ -198,6 +201,7 @@ class RouteMapController extends GetxController {
               decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
         }
         locationController.tripCreatedStatus(true);
+
         //moving camera
         google_maps.CameraPosition cameraPosition =
          google_maps.CameraPosition(target: centerOfDirRoute.value, zoom: 10.5);
@@ -297,6 +301,8 @@ class RouteMapController extends GetxController {
 
         // dir 2
         if (jsonResponse.length > 74) {
+          centerOfDirRoute.value= google_maps.LatLng(jsonResponse[36]["latitude"],jsonResponse[36]["longitude"]);
+
           isLongTrip.value = true;
           print('get long route -----------');
           for (int i = 0; i < 24; i++) {
@@ -375,6 +381,8 @@ class RouteMapController extends GetxController {
           return;
 
         } else if(jsonResponse.length <= 74 && jsonResponse.length > 50 ) {
+          centerOfDirRoute.value= google_maps.LatLng(jsonResponse[29]["latitude"],jsonResponse[29]["longitude"]);
+
           isLongTrip.value = false;
           for (int i = 0; i < 24; i++) {
             print(jsonResponse[i]);
@@ -437,6 +445,8 @@ class RouteMapController extends GetxController {
           return;
 
         }else if(jsonResponse.length <= 50 && jsonResponse.length > 25){
+          centerOfDirRoute.value= google_maps.LatLng(jsonResponse[19]["latitude"],jsonResponse[19]["longitude"]);
+
           print('length <= 50 > 25');
           isLongTrip.value = false;
           for (int i = 0; i <= 24; i++) {
@@ -486,6 +496,8 @@ class RouteMapController extends GetxController {
           return;
 
         }else{
+          centerOfDirRoute.value= google_maps.LatLng(jsonResponse[2]["latitude"],jsonResponse[2]["longitude"]);
+
           for (int i = 0; i < jsonResponse.length; i++) {
             print(jsonResponse[i]);
             stationQuery = stationQuery +

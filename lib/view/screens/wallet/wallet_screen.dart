@@ -3,7 +3,9 @@ import 'package:flutter_credit_card/credit_card_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 import 'package:routes/Assistants/globals.dart';
+import 'package:routes/model/transaction_model.dart';
 
 import '../../../controller/payment_controller.dart';
 import 'balance_calculator.dart';
@@ -27,13 +29,18 @@ class _WalletScreenState extends State<WalletScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getData();
+  }
+
+  getData()async{
+     walletController.getMyWallet();
+      walletController.getMyListOfRecharges();
+      walletController.getMyListOfPayments();
   }
 
   @override
   Widget build(BuildContext context) {
-    walletController.getMyWallet();
-    walletController.getMyListOfRecharges();
-    walletController.getMyListOfPayments();
+
 
     final screenSize = Get.size;
     return Scaffold(
@@ -132,6 +139,9 @@ class _WalletScreenState extends State<WalletScreen> {
                         child: CustomScrollView(
                           slivers: [
                             Obx(()=> SliverList(delegate: SliverChildBuilderDelegate((context,index){
+                            // print( DateFormat('yyyy-MM-dd-HH:mm').format(walletController.allTrans[0].time as DateTime));
+                              //final sortedCars = walletController.allTrans..sort((a, b) => a.time!.compareTo(b.time!));
+                              //print(sortedCars);
                                 return Column(
                                   children: [
                                     ListTile(

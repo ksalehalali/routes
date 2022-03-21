@@ -15,8 +15,13 @@ class PaymentController extends GetxController {
   var recharges = <ChargeSaved>[].obs;
   var payments = <PaymentSaved>[].obs;
   var gotMyBalance = false.obs;
-  var allTrans = <TransactionModel>[].obs;
+  var gotPayments = false.obs;
+  var gotRecharges = false.obs;
 
+  var allTrans = <TransactionModel>[].obs;
+  int indexA = 0;
+  int indexB = 0;
+  var allTransSorted = <TransactionModel>[].obs;
   Future<bool> pay(bool isDirect) async {
     var headers = {
       'Authorization': 'bearer ${user.accessToken}',
@@ -118,7 +123,7 @@ class PaymentController extends GetxController {
     var request = http.Request('POST', Uri.parse('https://route.click68.com/api/ListChrgingWalletByUser'));
     request.body = json.encode({
       "PageNumber": 0,
-      "PageSize": 10
+      "PageSize": 22
     });
     request.headers.addAll(headers);
 
@@ -127,7 +132,6 @@ class PaymentController extends GetxController {
     if (response.statusCode == 200) {
       var json = jsonDecode(await response.stream.bytesToString());
       var data = json['description'];
-      print(data);
         for(int i =0; i < data.length; i++){
           recharges.add(
               ChargeSaved(
@@ -147,10 +151,14 @@ class PaymentController extends GetxController {
             isPay: false
           ));
         }
+        gotRecharges.value =true;
         update();
     }
     else {
       print(response.reasonPhrase);
+    }
+    if(gotPayments.value ==true && gotRecharges.value==true){
+      sort();
     }
   }
 
@@ -174,8 +182,6 @@ class PaymentController extends GetxController {
     if (response.statusCode == 200) {
       var json = jsonDecode(await response.stream.bytesToString());
       var data = json['description'];
-      print(data);
-      print('total :: ${json['total']}');
       totalOfMyPayments.value = json['total'];
       for(int i =0; i < data.length; i++){
         payments.add(
@@ -194,13 +200,38 @@ class PaymentController extends GetxController {
 
         ));
       }
-
-
       update();
+      gotPayments.value =true;
     }
     else {
       print(response.reasonPhrase);
     }
+    if(gotPayments.value ==true && gotRecharges.value==true){
+      sort();
+    }
+  }
+  sort(){
+    // var a = walletController.allTrans.where((p0) => p0.amount! ==0.105).toList();
+    TransactionModel c =TransactionModel();
+    c = allTrans[0];
+    // print(DateTime.parse(walletController.allTrans[0].time!).hour);
+   for(int i =0; i<allTrans.length;i++){
+     for(int index =i; index< allTrans.length; index++){
+
+         if(DateTime.parse(allTrans[i].time!).isBefore(DateTime.parse(c.time!))){
+          c = allTrans[i];
+
+         };
+
+
+     }
+     allTransSorted.add(c);
+
+   }
+    print(allTransSorted.length);
+    for(int i =0; i<allTransSorted.length;i++){
+    print("$i :: ${allTransSorted[i].time}");
+  }
 
   }
 }
