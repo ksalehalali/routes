@@ -9,7 +9,7 @@ import '../../model/address.dart';
 import '../../model/placePredictions.dart';
 import '../map2.dart';
 import '../widgets/divider.dart';
-import '../widgets/progressDialog.dart';
+import '../widgets/dialogs.dart';
 import 'main_screen.dart';
 
 

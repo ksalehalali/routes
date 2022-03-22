@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../../../controller/payment_controller.dart';
+import '../../widgets/dialogs.dart';
 
 class YourTransactionsScreen extends StatefulWidget {
   const YourTransactionsScreen({Key? key}) : super(key: key);
@@ -65,52 +67,19 @@ class _YourTransactionsScreenState extends State<YourTransactionsScreen> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Container(
-                              height: 2,
-                              width: screenSize.width ,
-                              decoration: BoxDecoration(
-                                color: Colors.grey[400],
-
-                              ),
-                            ),
-                            Container(
-                              child: Row(
+                              child: Column(
                                 children: [
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      SizedBox(height: 10.0,),
-                                      SizedBox(
-                                        width: 220.0,
-                                        child: Text(  walletController.payments[index].createdDate!,overflow:TextOverflow.ellipsis,maxLines: 1
-                                          ,style: TextStyle(color: Colors.black,fontSize: 16,fontWeight: FontWeight.bold),),
-                                      ),
-                                      SizedBox(height: 5.0,),
-                                      Row(
-                                        children: [
-                                          Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text("${walletController.payments[index].userName}",style: TextStyle(color: Colors.black,),),
-                                              SizedBox(height: 12.0,),
-                                              Text("id : ${walletController.payments[index].id}",style: TextStyle(color: Colors.black,fontSize: 12),),
-
-                                            ],
-                                          )
-                                        ],
-                                      )
-                                    ],
+                                  ListTile(
+                                    title: Text('route ${walletController.payments[index].routeName.toString()}',style: TextStyle(color: Colors.black),),
+                                    subtitle:  Text(DateFormat('yyyy-MM-dd  HH:mm :ss').format(DateTime.parse(walletController.payments[index].date!)),style: TextStyle(height: 2),),
+                                    trailing:  Text(walletController.payments[index].value!.toStringAsFixed(3),style: TextStyle(color:Colors.red,fontWeight: FontWeight.w600),),
+                                    onTap: (){
+                                      showDialog(context: context, builder: (context)=>CustomDialog(payment:  walletController.payments[index],fromPaymentController: false,));
+                                    },
                                   ),
-                                  Spacer(),
-                                  //Text('Route : ${trips.trips[index]['rout']}'),
-                                  RichText(text: TextSpan(
-                                      children: [
-                                        TextSpan(text: 'value : ',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 14,color: Colors.black)),
-                                        TextSpan(text: walletController.payments[index].value!.toStringAsFixed(3),style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.black)),
-
-                                      ]
-                                  ))
+                                  Divider(thickness: 1,height: 10,)
                                 ],
-                              ),
+                              )
                             ),
                           ],
                         ),

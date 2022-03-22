@@ -14,7 +14,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:routes/view/widgets/progressDialog.dart';
+import 'package:routes/view/widgets/dialogs.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../Assistants/assistantMethods.dart';
@@ -86,16 +86,10 @@ class _Map2State extends State<Map2> {
 
     initLocationService();
     //
-    Timer(100.milliseconds, () {
-      if (paymentController.paymentDone.value == true) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) => SizedBox(
-                  width: 300,
-                  child: ProgressDialogShowPayment(
-                    message: "Please wait ...",
-                  ),
-                ));
+    Timer(600.milliseconds, (){
+      if(paymentController.paymentDone.value == true){
+        Get.dialog(CustomDialog(fromPaymentController: true,));
+        paymentController.paymentDone.value =false;
       }
     });
   }

@@ -8,6 +8,7 @@ import 'package:routes/Assistants/globals.dart';
 import 'package:routes/model/transaction_model.dart';
 
 import '../../../controller/payment_controller.dart';
+import '../../widgets/dialogs.dart';
 import 'balance_calculator.dart';
 
 
@@ -24,6 +25,10 @@ class _WalletScreenState extends State<WalletScreen> {
   final box = GetStorage();
   bool? thereIsCard = false;
   var wallet;
+  Color? _color = routes_color;
+  Color? _color2 = Colors.grey[700];
+  bool showPayments =true;
+  bool showRecharges = false;
 
   @override
   void initState() {
@@ -130,35 +135,132 @@ class _WalletScreenState extends State<WalletScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.all(14.0),
-                        child: Text('Transactions',style: TextStyle(fontSize: 18,fontWeight: FontWeight.w600),),
+                      SizedBox(height: 10.0,),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: (){
+                              setState(() {
+                                _color = routes_color;
+                                _color2 = Colors.grey[700];
+                                showPayments =true;
+                                showRecharges =false;
+
+                              });
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AnimatedContainer(duration: 11.seconds,
+                                    curve: Curves.easeIn,
+                                    child: Text('Payments',style: TextStyle(color: _color,fontWeight: FontWeight.w600))),
+                                SizedBox(height: 10.0,),
+                                AnimatedContainer(
+                                  curve: Curves.easeInOut,
+                                  width:screenSize.width/2-15,
+                                  height: 2.5,
+                                  color: _color,
+                                  duration: 900.milliseconds ,
+
+                                )
+                              ],
+                            ),
+                          ),
+                          InkWell(
+                            onTap: (){
+                              setState(() {
+                                _color2 = routes_color;
+                                _color = Colors.grey[700];
+                                showPayments =false;
+                                showRecharges =true;
+                              });
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                AnimatedContainer(
+                                    curve: Curves.easeIn,
+                                    duration: 14.seconds,
+
+                                    child: Text('Recharges',style: TextStyle(color: _color2,fontWeight: FontWeight.w600),)),
+                                SizedBox(height: 10.0,),
+                                AnimatedContainer(
+                                  curve: Curves.easeInOut,
+                                  width: screenSize.width/2-15,
+                                  height: 2.5,
+                                  color: _color2,
+                                  duration: 900.milliseconds ,
+
+                                )
+                              ],
+                            ),
+                          )
+                        ],
                       ),
                       SizedBox(
+                        height: screenSize.height * 0.1 - 62,
+                      ),
+                       Obx(()=> (walletController.gotPayments.value ==false&&walletController.gotRecharges.value==false)?Center(child: CircularProgressIndicator.adaptive(backgroundColor: routes_color,)):Container()),
+                      showPayments?SizedBox(
                         height: screenSize.height-200,
-                        child: CustomScrollView(
-                          slivers: [
-                            Obx(()=> SliverList(delegate: SliverChildBuilderDelegate((context,index){
-                            // print( DateFormat('yyyy-MM-dd-HH:mm').format(walletController.allTrans[0].time as DateTime));
-                              //final sortedCars = walletController.allTrans..sort((a, b) => a.time!.compareTo(b.time!));
-                              //print(sortedCars);
-                                return Column(
-                                  children: [
-                                    ListTile(
-                                      //leading: Icon(Icons.payments_outlined),
-                                      title: Text(walletController.allTrans[index].type.toString(),style: TextStyle(color: Colors.black),),
-                                      subtitle:  Text(walletController.allTrans[index].time.toString(),style: TextStyle(height: 2),),
-                                      trailing:  Text(walletController.allTrans[index].amount!.toStringAsFixed(3),style: TextStyle(color:walletController.allTrans[index].isPay==true? Colors.red:routes_color,fontWeight: FontWeight.w600),),
-                                    ),
-                                    Divider(thickness: 1,height: 10,)
-                                  ],
-                                );
-                              },childCount:walletController.allTrans.length ),),
-                            )
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: 122.0),
+                          child: CustomScrollView(
+                            slivers: [
+                              Obx(()=> SliverList(delegate: SliverChildBuilderDelegate((context,index){
+                                  return Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text('route ${walletController.payments[index].routeName.toString()}',style: TextStyle(color: Colors.black),),
+                                        subtitle:  Text(DateFormat('yyyy-MM-dd  HH:mm :ss').format(DateTime.parse(walletController.payments[index].date!)),style: TextStyle(height: 2),),
+                                        trailing:  Text(walletController.payments[index].value!.toStringAsFixed(3),style: TextStyle(color:Colors.red,fontWeight: FontWeight.w600),),
+                                        onTap: (){
+                                          showDialog(context: context, builder: (context)=>CustomDialog(payment:  walletController.payments[index],fromPaymentController: false,));
+                                        },
+                                      ),
+                                      Divider(thickness: 1,height: 10,),
+                                    ],
+                                  );
+                                },childCount:walletController.payments.length ),),
+                              )
+                            ],
+                          ),
                         )
 
-                      ),
+                      ):Container(),
+
+                      showRecharges?SizedBox(
+                          height: screenSize.height-200,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 122.0),
+                            child: CustomScrollView(
+                              slivers: [
+                                Obx(()=> SliverList(delegate: SliverChildBuilderDelegate((context,index){
+                                  // print( DateFormat('yyyy-MM-dd-HH:mm').format(walletController.allTrans[0].time as DateTime));
+                                  //final sortedCars = walletController.allTrans..sort((a, b) => a.time!.compareTo(b.time!));
+                                  //print(sortedCars);
+                                  return Column(
+                                    children: [
+                                      ListTile(
+                                        //leading: Icon(Icons.payments_outlined),
+                                        title: Text(walletController.recharges[index].paymentGateway.toString(),style: TextStyle(color: Colors.black),),
+                                        subtitle:  Text(DateFormat('yyyy-MM-dd  HH:mm :ss').format(DateTime.parse(walletController.recharges[index].createdDate!)),style: TextStyle(height: 2),),
+                                        trailing:  Text(walletController.recharges[index].invoiceValue!.toStringAsFixed(3),style: TextStyle(color:routes_color,fontWeight: FontWeight.w600),),
+                                      ),
+                                      Divider(thickness: 1,height: 10,)
+                                    ],
+                                  );
+                                },childCount:walletController.recharges.length ),),
+                                )
+                              ],
+                            ),
+                          )
+
+                      ):Container(),
                       SizedBox(
                         height: 10.0,
                       ),
@@ -166,7 +268,8 @@ class _WalletScreenState extends State<WalletScreen> {
                         width: screenSize.width - 20,
                         height: 2,
                         color: Colors.grey[300],
-                      )
+                      ),
+
                     ],
                   ),
                 ),

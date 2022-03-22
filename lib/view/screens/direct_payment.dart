@@ -14,7 +14,7 @@ import '../../Assistants/globals.dart';
 import '../../Data/current_data.dart';
 import '../../controller/location_controller.dart';
 import '../../controller/payment_controller.dart';
-import '../widgets/progressDialog.dart';
+import '../widgets/dialogs.dart';
 
 class DirectPayment extends StatefulWidget {
   @override
@@ -29,18 +29,12 @@ class _DirectPaymentState extends State<DirectPayment> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Timer(100.milliseconds, () {
-      if (paymentController.directPaymentDone.value == true) {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) => SizedBox(
-              width: 300,
-              child: ProgressDialogShowPayment(
-                message: "Please wait ...",
-              ),
-            ));
-      }
-    });
+   Timer(600.milliseconds, (){
+     if(paymentController.directPaymentDone.value == true){
+       Get.dialog(CustomDialog(fromPaymentController: true,));
+       paymentController.directPaymentDone.value =false;
+     }
+   });
   }
 
   @override
@@ -216,10 +210,10 @@ class _QRViewExampleState extends State<QRViewExample> {
 
       if(pay ==true){
         print(pay);
-        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>DirectPayment()));
+        Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainScreen(indexOfScreen: 1)));
 
       }else{
-       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>DirectPayment()));
+       Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>MainScreen(indexOfScreen: 1)));
         print(pay);
       }
 

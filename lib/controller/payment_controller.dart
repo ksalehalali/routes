@@ -7,6 +7,7 @@ import 'package:routes/model/transaction_model.dart';
 import '../Data/current_data.dart';
 import '../model/charge_toSave_model.dart';
 import '../model/payment_saved_model.dart';
+import '../view/widgets/dialogs.dart';
 class PaymentController extends GetxController {
   var paymentDone = false.obs;
   var directPaymentDone = false.obs;
@@ -42,6 +43,7 @@ class PaymentController extends GetxController {
     if (response.statusCode == 200) {
       if(isDirect==true){
         directPaymentDone.value = true;
+
       }{
         paymentDone.value = true;
       }
@@ -49,14 +51,21 @@ class PaymentController extends GetxController {
       print(json);
       user.totalBalance = double.parse(json['description']['total']);
        paymentSaved.id = json['description']['paymentId'];
+       paymentSaved.routeName = json['description']['routeName'];
       // paymentSaved.value = json['description']['value'];
-      print('value payed :: ${json['description']}');
+      print('value payed :: ${json}');
       //to do
       // بعد اتمام الدفعة يجب تعديل الرحلة المحفوظة لتاخذ paymentId , busId
+
       return true;
     }
     else {
       print(response.stream.bytesToString());
+      if(isDirect==true){
+        directPaymentDone.value = false;
+      }{
+        paymentDone.value = false;
+      }
 
       return false;
     }
@@ -113,6 +122,8 @@ class PaymentController extends GetxController {
 
   //get list of recharges
   Future getMyListOfRecharges() async {
+    gotRecharges.value =false;
+
     recharges.clear() ;
     allTrans.clear();
 
@@ -123,7 +134,7 @@ class PaymentController extends GetxController {
     var request = http.Request('POST', Uri.parse('https://route.click68.com/api/ListChrgingWalletByUser'));
     request.body = json.encode({
       "PageNumber": 0,
-      "PageSize": 22
+      "PageSize": 50
     });
     request.headers.addAll(headers);
 
@@ -157,13 +168,15 @@ class PaymentController extends GetxController {
     else {
       print(response.reasonPhrase);
     }
-    if(gotPayments.value ==true && gotRecharges.value==true){
-      sort();
-    }
+    // if(gotPayments.value ==true && gotRecharges.value==true){
+    //   sort();
+    // }
   }
 
   //get list of payments
   Future getMyListOfPayments() async {
+    gotPayments.value =false;
+
     payments.clear() ;
     allTrans.clear();
     var headers = {
@@ -173,7 +186,7 @@ class PaymentController extends GetxController {
     var request = http.Request('POST', Uri.parse('https://route.click68.com/api/ListPaymentWalletByUser'));
     request.body = json.encode({
       "PageNumber": 1,
-      "PageSize": 22
+      "PageSize": 50
     });
     request.headers.addAll(headers);
 
@@ -183,6 +196,7 @@ class PaymentController extends GetxController {
       var json = jsonDecode(await response.stream.bytesToString());
       var data = json['description'];
       totalOfMyPayments.value = json['total'];
+print('payment ::${data[2]}');
       for(int i =0; i < data.length; i++){
         payments.add(
                 PaymentSaved (
@@ -190,6 +204,8 @@ class PaymentController extends GetxController {
                   createdDate: data[i]['date'],
                   value: double.parse(data[i]['value']),
                   id: data[i]['id'],
+                  routeName: data[i]['routeName']??'',
+                  date: data[i]['date'],
             )
         );
         allTrans.add(TransactionModel(
@@ -200,15 +216,16 @@ class PaymentController extends GetxController {
 
         ));
       }
-      update();
       gotPayments.value =true;
+      update();
+
     }
     else {
       print(response.reasonPhrase);
     }
-    if(gotPayments.value ==true && gotRecharges.value==true){
-      sort();
-    }
+    // if(gotPayments.value ==true && gotRecharges.value==true){
+    //   sort();
+    // }
   }
   sort(){
     // var a = walletController.allTrans.where((p0) => p0.amount! ==0.105).toList();
