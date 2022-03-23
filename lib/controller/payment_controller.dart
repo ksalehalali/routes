@@ -11,6 +11,8 @@ import '../view/widgets/dialogs.dart';
 class PaymentController extends GetxController {
   var paymentDone = false.obs;
   var directPaymentDone = false.obs;
+  var paymentFailed = false.obs;
+  var directPaymentFailed = false.obs;
   var totalOfMyPayments = 0.obs;
   var myBalance = '0.0'.obs;
   var recharges = <ChargeSaved>[].obs;
@@ -43,8 +45,9 @@ class PaymentController extends GetxController {
     if (response.statusCode == 200) {
       if(isDirect==true){
         directPaymentDone.value = true;
-
+        directPaymentFailed.value =false;
       }{
+        paymentFailed.value =false;
         paymentDone.value = true;
       }
       var json = jsonDecode(await response.stream.bytesToString());
@@ -52,7 +55,7 @@ class PaymentController extends GetxController {
       user.totalBalance = double.parse(json['description']['total']);
        paymentSaved.id = json['description']['paymentId'];
        paymentSaved.routeName = json['description']['routeName'];
-      // paymentSaved.value = json['description']['value'];
+       paymentSaved.userName = json['description']['userName'];
       print('value payed :: ${json}');
       //to do
       // بعد اتمام الدفعة يجب تعديل الرحلة المحفوظة لتاخذ paymentId , busId
@@ -60,13 +63,18 @@ class PaymentController extends GetxController {
       return true;
     }
     else {
-      print(response.stream.bytesToString());
+      var json = jsonDecode(await response.stream.bytesToString());
+      print(json);
       if(isDirect==true){
         directPaymentDone.value = false;
+        directPaymentFailed.value =true;
+
       }{
         paymentDone.value = false;
-      }
+        paymentFailed.value =true;
 
+      }
+update();
       return false;
     }
   }

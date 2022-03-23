@@ -74,7 +74,7 @@ class _YourTransactionsScreenState extends State<YourTransactionsScreen> {
                                     subtitle:  Text(DateFormat('yyyy-MM-dd  HH:mm :ss').format(DateTime.parse(walletController.payments[index].date!)),style: TextStyle(height: 2),),
                                     trailing:  Text(walletController.payments[index].value!.toStringAsFixed(3),style: TextStyle(color:Colors.red,fontWeight: FontWeight.w600),),
                                     onTap: (){
-                                      showDialog(context: context, builder: (context)=>CustomDialog(payment:  walletController.payments[index],fromPaymentController: false,));
+                                      showDialog(context: context, builder: (context)=>CustomDialog(payment:  walletController.payments[index],fromPaymentLists: false,failedPay: false,));
                                     },
                                   ),
                                   Divider(thickness: 1,height: 10,)

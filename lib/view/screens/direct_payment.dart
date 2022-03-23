@@ -14,6 +14,7 @@ import '../../Assistants/globals.dart';
 import '../../Data/current_data.dart';
 import '../../controller/location_controller.dart';
 import '../../controller/payment_controller.dart';
+import '../../model/payment_saved_model.dart';
 import '../widgets/dialogs.dart';
 
 class DirectPayment extends StatefulWidget {
@@ -29,10 +30,18 @@ class _DirectPaymentState extends State<DirectPayment> {
   void initState() {
     // TODO: implement initState
     super.initState();
-   Timer(600.milliseconds, (){
-     if(paymentController.directPaymentDone.value == true){
-       Get.dialog(CustomDialog(fromPaymentController: true,));
+   Timer(400.milliseconds, (){
+     if(paymentController.directPaymentDone.value == true && paymentController.directPaymentFailed.value ==false){
+       Get.dialog(CustomDialog(fromPaymentLists: false,failedPay:false,payment: PaymentSaved(id:  paymentSaved.id,routeName: paymentSaved.routeName??'',userName:  paymentSaved.userName,date:DateTime.now().toString(),createdDate:DateTime.now().toString(),value:paymentSaved.value)));
        paymentController.directPaymentDone.value =false;
+       paymentController.paymentFailed.value = false;
+       paymentController.paymentDone.value =false;
+     }else if(paymentController.directPaymentDone.value == false && paymentController.directPaymentFailed.value ==true){
+       Get.dialog(CustomDialog(fromPaymentLists: false,failedPay:true));
+       paymentController.paymentDone.value =false;
+       paymentController.paymentFailed.value = false;
+       paymentController.directPaymentFailed.value =false;
+
      }
    });
   }
