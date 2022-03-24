@@ -214,6 +214,7 @@ print('payment ::${data[2]}');
                   id: data[i]['id'],
                   routeName: data[i]['routeName']??'',
                   date: data[i]['date'],
+                  userBalance: data[i]['total']
             )
         );
         allTrans.add(TransactionModel(

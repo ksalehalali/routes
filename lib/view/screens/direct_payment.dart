@@ -16,6 +16,7 @@ import '../../controller/location_controller.dart';
 import '../../controller/payment_controller.dart';
 import '../../model/payment_saved_model.dart';
 import '../widgets/dialogs.dart';
+import '../widgets/headerDesgin.dart';
 
 class DirectPayment extends StatefulWidget {
   @override
@@ -48,75 +49,105 @@ class _DirectPaymentState extends State<DirectPayment> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: InkWell(
-          onTap: (){
-            locationController.tripCreatedStatus(false);
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>MainScreen(indexOfScreen: 0)));
-          },
-          child: Icon(Icons.arrow_back),
-        ),
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white.withOpacity(0.0),
-        elevation: 0.0,
+    final screenSize = Get.size;
+
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+
+            routes_color6,
+            routes_color,
+          ]
+          )
       ),
-      body: SafeArea(
-        child: Center(
-          child: Column(
+      child: SafeArea(
+        child: Scaffold(
+          // appBar: AppBar(
+          //   leading: InkWell(
+          //     onTap: (){
+          //       locationController.tripCreatedStatus(false);
+          //       Navigator.push(context, MaterialPageRoute(builder: (context)=>MainScreen(indexOfScreen: 0)));
+          //     },
+          //     child: Icon(Icons.arrow_back),
+          //   ),
+          //   foregroundColor: Colors.black,
+          //   backgroundColor: Colors.white.withOpacity(0.0),
+          //   elevation: 0.0,
+          // ),
+          body: Stack(
             children: [
-              SizedBox(height: 16,),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.0),
-                child: Text(
-                  "Start direct payment by scanning the QR code via your camera",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-              SizedBox(height: 16,),
-              Image.asset(
-                "${assetsDir}qrCode.jpg",
-                width: MediaQuery.of(context).size.width * 0.66,
-              ),
-              Spacer(),
-              // QR SCAN BUTTON
-              Container(
-                child: ElevatedButton(
-                  onPressed: () async{
-                    String balance = await checkWallet();
-                    double balanceNum = double.parse(balance);
-                    if(balanceNum >= 0.200) {
-                      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>QRViewExample()));
-                    } else {
-                    Fluttertoast.showToast(
-                    msg: "Remaining amount $balanceNum is not enough to complete the payment",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.white70,
-                    textColor: Colors.black,
-                    fontSize: 16.0);
-                    }
-                  },
-                  child: Text(
-                    "Scan QR Code",
-                    style: TextStyle(
-                      fontSize: 16,
+              Positioned(
+                  top: 0.0,
+                  child: SizedBox(
+                      height: screenSize.height*0.1+11,
+                      width: screenSize.width,
+                      child: Header(screenSize))),
+              Positioned(
+                top: 180,
+                child: SizedBox(
+                  height: screenSize.height,
+                  width: screenSize.width,
+                  child: Center(
+                    child: Column(
+                      children: [
+                        SizedBox(height: 16,),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Text(
+                            "Start direct payment by scanning the QR code via your camera",
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),
+                          ),
+                        ),
+                        SizedBox(height: 16,),
+                        Image.asset(
+                          "${assetsDir}qrCode.jpg",
+                          width: MediaQuery.of(context).size.width * 0.66,
+                        ),
+                       SizedBox(height: screenSize.height*0.1,),
+                        // QR SCAN BUTTON
+                        Container(
+                          child: ElevatedButton(
+                            onPressed: () async{
+                              String balance = await checkWallet();
+                              double balanceNum = double.parse(balance);
+                              if(balanceNum >= 0.200) {
+                                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>QRViewExample()));
+                              } else {
+                              Fluttertoast.showToast(
+                              msg: "Remaining amount $balanceNum is not enough to complete the payment",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.CENTER,
+                              timeInSecForIosWeb: 1,
+                              backgroundColor: Colors.white70,
+                              textColor: Colors.black,
+                              fontSize: 16.0);
+                              }
+                            },
+                            child: Text(
+                              "Scan QR Code",
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+
+                                maximumSize: Size(Get.size.width -90,Get.size.width -90),
+                                minimumSize: Size(Get.size.width -90, 40),primary: routes_color,
+                                onPrimary: Colors.white,
+                                alignment: Alignment.center
+                            ),
+                          ),
+
+                        ),
+                        SizedBox(height: 32,)
+                      ],
                     ),
                   ),
-                  style: ElevatedButton.styleFrom(
-                      maximumSize: Size(Get.size.width -90,Get.size.width -90),
-                      minimumSize: Size(Get.size.width -90, 40),primary: routes_color,
-                      onPrimary: Colors.white,
-                      alignment: Alignment.center
-                  ),
                 ),
-
               ),
-              SizedBox(height: 32,)
             ],
           ),
         ),

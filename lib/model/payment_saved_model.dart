@@ -10,6 +10,8 @@ class PaymentSaved{
   String? busId;
   String? driverId;
   double? value;
-  PaymentSaved({this.uid,this.userName,this.date,this.createdDate,this.busId,this.driverId,this.routeId,this.value,this.id,this.routeName});
+  double? userBalance;
+
+  PaymentSaved({this.uid,this.userName,this.date,this.createdDate,this.busId,this.driverId,this.routeId,this.value,this.id,this.routeName,this.userBalance});
 }
 

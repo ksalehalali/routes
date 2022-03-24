@@ -7,7 +7,7 @@ import '../../config-maps.dart';
 import '../../controller/location_controller.dart';
 import '../../model/address.dart';
 import '../../model/placePredictions.dart';
-import '../map2.dart';
+import '../map.dart';
 import '../widgets/divider.dart';
 import '../widgets/dialogs.dart';
 import 'main_screen.dart';

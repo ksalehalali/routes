@@ -331,22 +331,22 @@ class CustomDialog extends StatelessWidget {
                         SizedBox(
                           height: 24.0,
                         ),
-                        Text(
-                          'your balance ',
-                          style: TextStyle(
-                              fontSize: 18, fontWeight: FontWeight.w700),
-                        ),
-                        SizedBox(
-                          height: 4.0,
-                        ),
-                        Text(
-                          user.totalBalance!.toStringAsFixed(3),
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
+                        // Text(
+                        //   'your balance ',
+                        //   style: TextStyle(
+                        //       fontSize: 18, fontWeight: FontWeight.w700),
+                        // ),
+                        // SizedBox(
+                        //   height: 4.0,
+                        // ),
+                        // Text(
+                        //   user.totalBalance!.toStringAsFixed(3),
+                        //   style: TextStyle(
+                        //       fontSize: 16, fontWeight: FontWeight.bold),
+                        // ),
+                        // SizedBox(
+                        //   height: 20.0,
+                        // ),
                         Text(
                           'Date',
                           style: TextStyle(
@@ -407,14 +407,14 @@ class CustomDialog extends StatelessWidget {
                     SizedBox(
                       height: 24.0,
                     ),
-                    // Text(
-                    //   'Value',
-                    //   style: TextStyle(
-                    //       fontSize: 18, fontWeight: FontWeight.w700),
-                    // ),
-                    // SizedBox(
-                    //   height: 4.0,
-                    // ),
+                    Text(
+                      'Wrong Data , please try again',
+                      style: TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w700,color: Colors.red),
+                    ),
+                    SizedBox(
+                      height: 4.0,
+                    ),
                     // Text(
                     //   paymentSaved.value!.toStringAsFixed(3),
                     //   style: TextStyle(
