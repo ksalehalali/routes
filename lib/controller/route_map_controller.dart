@@ -80,6 +80,7 @@ class RouteMapController extends GetxController {
   var tripSecondWalkWayPointsG = <google_maps.LatLng>[].obs;
 
   var tripStationWayPointsG = <google_maps.LatLng>[].obs;
+  var tripStationWayPointsRoute2 = <google_maps.LatLng>[].obs;
 
   var tripStationWayPoints2G = <google_maps.LatLng>[].obs;
 
@@ -257,14 +258,18 @@ class RouteMapController extends GetxController {
       if (response.statusCode == 200) {
         print('true 1 ${response.statusCode}');
         var decoded = jsonDecode(response.body);
-        if(isRoute2 ==true){
-          print('false ..true${decoded}');
-          tripStationDirDataRoute2.value = decoded;
-        }
+
         decoded = decoded["routes"][0]["geometry"];
         for (int i = 0; i < decoded["coordinates"].length; i++) {
           tripStationWayPointsG.add(google_maps.LatLng(
               decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
+
+          tripStationWayPointsRoute2.add(google_maps.LatLng(
+              decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
+        }
+        if(isRoute2 ==true){
+          print('false ..true${decoded}');
+          tripStationDirDataRoute2.value = decoded;
         }
         locationController.tripCreatedStatus(true);
 
@@ -663,7 +668,6 @@ class RouteMapController extends GetxController {
 
       print('route1 = ${jsonResponse['rout1'][0]['route']} ---- route 2 = ${jsonResponse['rout2'][0]['route']}');
       print('route1 = ${jsonResponse['rout1']} --- ');
-      print('route 2 = ${jsonResponse['rout2']}');
 
        route1.value = jsonResponse['rout1'];
        route2.value = jsonResponse['rout2'];
@@ -675,6 +679,10 @@ class RouteMapController extends GetxController {
       int b = i.round();
       centerOfDirRoute.value =
           google_maps.LatLng(route1[b]["latitude"], route1[b]["longitude"]);
+
+      print('route 2 = ${jsonResponse['rout2']} ====================');
+
+      print('route1 = ${jsonResponse['rout1'][0]['route']} ---- route 2 = ${jsonResponse['rout2'][0]['route']}');
 
       print("center :: $b");
       print("length :::1 ${route1.length}");
@@ -745,7 +753,7 @@ class RouteMapController extends GetxController {
         await findSecondWalkDirection(LatLng(endStation['latitude'], endStation['longitude']),LatLng(endPointLatLng.value.latitude,endPointLatLng.value.longitude) ).then((value) => calFullDurationDistance(true,false));
         panelController.open();
         calFullDurationDistance(true, false);
-        return;
+
       }else if(route1.length <= 50 && route1.length >25){
         isLongTrip.value =true;
         for (int i = 0; i  < 24; i++) {
@@ -789,7 +797,7 @@ class RouteMapController extends GetxController {
         await findSecondWalkDirection(LatLng(endStation['latitude'], endStation['longitude']),LatLng(endPointLatLng.value.latitude,endPointLatLng.value.longitude)  );
         calFullDurationDistance(true,false);
         panelController.open();
-        return;
+
 
       }else{
 
@@ -901,9 +909,10 @@ class RouteMapController extends GetxController {
             stationQuery4.length - 1); // To remove the last semicolon from the string (would cause an error)
         await findStationDirectionMulti(stationQuery4, true,true).then((value) => calFullDurationDistance(true,true));
         return;
-      }else if(route2.length < 25){
+      }else if(route2.length <= 25){
+        print('route 2 <25 =========');
         for (int i = 0; i  < route2.length; i++) {
-          print(route2[i]['station']);
+          print('route 2...  ${route2[i]['station']}');
           print(route2[i]['order']);
           print(route2[i]['route']);
 
@@ -916,6 +925,7 @@ class RouteMapController extends GetxController {
         stationQuery3 = stationQuery3.substring(0,
             stationQuery3.length - 1); // To remove the last semicolon from the string (would cause an error)
         await findStationDirectionMulti(stationQuery3, false,true).then((value) => calFullDurationDistance(false,true));
+        update();
         return;
       }
 

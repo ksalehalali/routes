@@ -31,7 +31,10 @@ class AllRoutes extends GetxController {
 
   Future getStationsRoute(String routeId) async {
     reset();
-    final queryParameters = {'id': routeId};
+    final queryParameters = {'id': routeId,
+      "PageNumber": 0,
+      "PageSize":120
+    };
 
     print(queryParameters);
     final url = Uri.parse(baseURL + "/api/ListStationByRouteID");

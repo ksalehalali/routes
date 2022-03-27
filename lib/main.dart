@@ -50,31 +50,30 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
   void initState() {
     // TODO: implement initState
     super.initState();
-    _controller = AnimationController(vsync: this,duration: 22.seconds);
     startUpController.fetchUserLoginPreference();
   }
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    _controller.dispose();
   }
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: Lottie.asset(
-        'assets/animation/17314-bus.json',
-        height: 122,
-        width: 122,
-        controller: _controller,
-        onLoaded: (composition) {
-          // Configure the AnimationController with the duration of the
-          // Lottie file and start the animation.
-          _controller..duration = composition.duration
-            ..forward();
-        },
-      ),
+      child: Image.asset('assets/animation/GIF-Logo-3.gif',fit: BoxFit.fill,),
+      // child: Lottie.asset(
+      //   'assets/animation/17314-bus.json',
+      //   height: 122,
+      //   width: 122,
+      //   controller: _controller,
+      //   onLoaded: (composition) {
+      //     // Configure the AnimationController with the duration of the
+      //     // Lottie file and start the animation.
+      //     _controller..duration = composition.duration
+      //       ..forward();
+      //   },
+      // ),
     );
   }
 }

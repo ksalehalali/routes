@@ -107,7 +107,7 @@ class ProfileScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         'Personal Information',
-                                        style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[600]),
+                                        style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[600]),
 
                                       ),
                                       Spacer(),
@@ -121,7 +121,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                height: 20.0,
+                                height: 12.0,
                               ),
 
 
@@ -140,7 +140,7 @@ class ProfileScreen extends StatelessWidget {
                                     ),
                                     Text(
                                       'Places and addresses',
-                                      style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[600]),
+                                      style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[600]),
                                     ),
                                     Spacer(),
                                     Icon(
@@ -152,7 +152,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(
-                                height: 20.0,
+                                height: 10.0,
                               ),
                               InkWell(
                                 onTap: (){
@@ -173,7 +173,7 @@ class ProfileScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         'Your activities',
-                                        style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[600]),
+                                        style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[600]),
 
                                       ),
                                       Spacer(),
@@ -190,7 +190,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
 
                       SizedBox(
-                      height: screenSize.height * 0.1 - 50,
+                      height: screenSize.height * 0.1 - 56,
                       ),
                       Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -200,7 +200,7 @@ class ProfileScreen extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: Text(
                             'Get support',
-                            style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[800]),
+                            style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[800]),
 
                           ),
                         ),
@@ -226,7 +226,7 @@ class ProfileScreen extends StatelessWidget {
                                 ),
                                 Text(
                                   'Help',
-                                  style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[600]),
+                                  style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[600]),
 
                                 ),
                                 Spacer(),
@@ -239,11 +239,9 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           ),
                         ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
+
                           SizedBox(
-                            height: screenSize.height * 0.1 - 50,
+                            height: screenSize.height * 0.1 - 58,
                           ),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
@@ -253,7 +251,7 @@ class ProfileScreen extends StatelessWidget {
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   'setting_title'.tr,
-                                  style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[800]),
+                                  style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[800]),
 
                                 ),
                               ),
@@ -275,7 +273,7 @@ class ProfileScreen extends StatelessWidget {
                                     ),
                                     Text(
                                       'Language',
-                                      style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[600]),
+                                      style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[600]),
 
                                     ),
                                     Spacer(),
@@ -333,7 +331,7 @@ class ProfileScreen extends StatelessWidget {
                                       prefs.remove('token');
                                       Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>Login()), (route) => false);
                                     },
-                                    label: Text('btn_logOut'.tr,style: TextStyle(fontSize: 16,fontWeight: FontWeight.w700),),
+                                    label: Text('btn_logOut'.tr,style: TextStyle(fontSize: 15,fontWeight: FontWeight.w700),),
                                     style: ElevatedButton.styleFrom(
                                         maximumSize: Size(Get.size.width -220,Get.size.width -220),
                                         minimumSize: Size(Get.size.width -220, 40),primary: Colors.white,
@@ -346,7 +344,7 @@ class ProfileScreen extends StatelessWidget {
                               Center(
                                 child: InkWell(
                                   onTap: (){},
-                                  child: Text('Terms and conditions',style: TextStyle(fontSize: 16,color: Colors.green[700]),),
+                                  child: Text('Terms and conditions',style: TextStyle(fontSize: 15,color: Colors.green[700]),),
                                 ),
                               ),
 

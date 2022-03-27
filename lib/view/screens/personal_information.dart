@@ -21,7 +21,10 @@ class _PersonalInformationState extends State<PersonalInformation> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: routes_color,
+        foregroundColor: routes_color,
+
+        backgroundColor: Colors.white,
+        elevation: 0.5,
         actions: [
           IconButton(
             icon: Icon(Icons.edit),
@@ -39,55 +42,57 @@ class _PersonalInformationState extends State<PersonalInformation> {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              // EDIT PROFILE PICTURE
-              Obx(() =>  Container(
-                margin: EdgeInsets.symmetric(vertical: 16.0),
-                alignment: Alignment.center,
-                // If no profile picture is fetched, a placeholder Image will be displayed
-                child: personalInfoController.profilePicture.value.path == "" ?
-                CircleAvatar(
-                  radius: 40,
-                  backgroundImage: NetworkImage(
-                    'https://www.pngkey.com/png/full/349-3499617_person-placeholder-person-placeholder.png',
-                  ),
-                ):
-                // display user profile picture.
-                CircleAvatar(
-                  radius: 40,
-                  backgroundImage: NetworkImage(
-                      personalInfoController.profilePictureUrl.value//'https://www.pngkey.com/png/full/349-3499617_person-placeholder-person-placeholder.png',
+        child: Container(
+          color: Colors.white,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                // EDIT PROFILE PICTURE
+                Obx(() =>  Container(
+                  margin: EdgeInsets.symmetric(vertical: 16.0),
+                  alignment: Alignment.center,
+                  // If no profile picture is fetched, a placeholder Image will be displayed
+                  child: personalInfoController.profilePicture.value.path == "" ?
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundImage: NetworkImage(
+                      'https://www.pngkey.com/png/full/349-3499617_person-placeholder-person-placeholder.png',
+                    ),
+                  ):
+                  // display user profile picture.
+                  CircleAvatar(
+                    radius: 40,
+                    backgroundImage: NetworkImage(
+                        personalInfoController.profilePictureUrl.value//'https://www.pngkey.com/png/full/349-3499617_person-placeholder-person-placeholder.png',
+                    ),
                   ),
                 ),
-              ),
-              ),
-              SizedBox(height: 16.0,),
-              // EDIT NAME
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Name",
-                      style: TextStyle(
-                        color: Colors.grey
-                      ),
-                    ),
-                    SizedBox(height: 4.0,),
-                    Obx(() => TextField(
-                      enabled: false,
-                      decoration: InputDecoration(
-                        hintText: personalInfoController.nameHint.value
-                      ),
-                    ),
-                    ),
-                  ],
                 ),
-              ),
-              SizedBox(height: 32.0,),
+                SizedBox(height: 46.0,),
+                // EDIT NAME
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 14.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Name",
+                        style: TextStyle(
+                          color: Colors.grey
+                        ),
+                      ),
+                      SizedBox(height: 4.0,),
+                      Obx(() => TextField(
+                        enabled: false,
+                        decoration: InputDecoration(
+                          hintText: personalInfoController.nameHint.value
+                        ),
+                      ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 32.0,),
 //            // EDIT PHONE
 //            Container(
 //              margin: EdgeInsets.symmetric(horizontal: 8.0),
@@ -110,31 +115,32 @@ class _PersonalInformationState extends State<PersonalInformation> {
 //              ),
 //            ),
 //            SizedBox(height: 32.0,),
-              // EDIT EMAIL
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Email",
-                      style: TextStyle(
-                          color: Colors.grey
+                // EDIT EMAIL
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 14.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Email",
+                        style: TextStyle(
+                            color: Colors.grey
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 4.0,),
-                    Obx(() => TextField(
-                      enabled: false,
-                      decoration: InputDecoration(
-                          hintText: personalInfoController.emailHint.value,
+                      SizedBox(height: 4.0,),
+                      Obx(() => TextField(
+                        enabled: false,
+                        decoration: InputDecoration(
+                            hintText: personalInfoController.emailHint.value,
+                        ),
                       ),
-                    ),
-                    ),
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 32.0,),
-            ],
+                SizedBox(height: 32.0,),
+              ],
+            ),
           ),
         ),
       ),

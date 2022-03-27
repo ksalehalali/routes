@@ -188,7 +188,7 @@ class _AllRoutesMapState extends State<AllRoutesMap> {
                 top:allRouteController.isSearching.value ==true ? screenSize.height -410:screenSize.height -330,
                 duration: 400.milliseconds,
                 child: Container(child: SizedBox(
-                    width: screenSize.width -5,
+                    width: screenSize.width,
                     height: screenSize.height,
                     child: FilterListRoutes()))),
           )

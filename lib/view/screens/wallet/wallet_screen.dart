@@ -204,7 +204,7 @@ class _WalletScreenState extends State<WalletScreen> {
                       SizedBox(
                         height: screenSize.height * 0.1 - 62,
                       ),
-                       Obx(()=> (walletController.gotPayments.value ==false&&walletController.gotRecharges.value==false)?Center(child: CircularProgressIndicator.adaptive(backgroundColor: routes_color,)):Container()),
+                       Obx(()=> (walletController.gotPayments.value ==false&&walletController.gotRecharges.value==false)?Center(child: Image.asset('assets/animation/GIF-Logo-2.gif',fit: BoxFit.fill,color: routes_color,),):Container()),
                       showPayments?SizedBox(
                         height: screenSize.height-200,
                         child: Padding(

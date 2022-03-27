@@ -27,15 +27,15 @@ import '../controller/payment_controller.dart';
 import '../controller/route_map_controller.dart';
 import 'screens/destination_selection_screen.dart';
 
-class Map2 extends StatefulWidget {
+class Map extends StatefulWidget {
   @override
-  _Map2State createState() => _Map2State();
+  _MapState createState() => _MapState();
 }
 
 google_maps.GoogleMapController? newGoogleMapController;
 PanelController panelController = PanelController();
 
-class _Map2State extends State<Map2> {
+class _MapState extends State<Map> {
   final routeMapController = Get.put(RouteMapController());
   final LocationController locationController = Get.find();
   final PaymentController paymentController = Get.find();
@@ -361,6 +361,19 @@ class _Map2State extends State<Map2> {
                   endCap: google_maps.Cap.roundCap,
                   geodesic: true,
                 ),
+
+                //2
+                google_maps.Polyline(
+                  color: Colors.blue.withOpacity(0.9),
+                  polylineId: google_maps.PolylineId("PolylineID"),
+                  jointType: google_maps.JointType.round,
+                  width: 4,
+                  startCap: google_maps.Cap.roundCap,
+                  points: routeMapController.tripStationWayPointsRoute2,
+                  endCap: google_maps.Cap.roundCap,
+                  geodesic: true,
+                ),
+
                 google_maps.Polyline(
                   color: Colors.red.withOpacity(0.6),
                   polylineId: google_maps.PolylineId("FirstWalkPolylineID"),
@@ -1922,7 +1935,7 @@ class _QRViewExampleState extends State<QRViewExample> {
         leading: InkWell(
           onTap: () {
             Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Map2()));
+                context, MaterialPageRoute(builder: (context) => Map()));
           },
           child: Icon(Icons.arrow_back),
         ),
@@ -1969,10 +1982,10 @@ class _QRViewExampleState extends State<QRViewExample> {
       if (pay == true) {
         print(pay);
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Map2()));
+            context, MaterialPageRoute(builder: (context) => Map()));
       } else {
         Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Map2()));
+            context, MaterialPageRoute(builder: (context) => Map()));
         print(pay);
       }
     });

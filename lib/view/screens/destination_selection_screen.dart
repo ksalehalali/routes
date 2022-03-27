@@ -92,7 +92,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           child: Icon(Icons.arrow_back)),
                       Center(
                         child: Text(
-                          "Set PickUp - DropOff ",
+                          "Set Pickup - Drop off ",
                           style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -303,12 +303,12 @@ class PredictionTile extends StatelessWidget {
         if (placePredictions!.placeId == '0') {
           initialPoint.latitude = locationController.currentLocation.value.latitude;
           initialPoint.longitude = locationController.currentLocation.value.longitude;
-          locationController.buttonString.value = ' Confirm dropOff spot';
+          locationController.buttonString.value = ' Confirm Drop off spot';
           locationController.startAddingDropOff.value = true;
 
           Navigator.pushAndRemoveUntil(
               context,
-              MaterialPageRoute(builder: (context) => Map2()),
+              MaterialPageRoute(builder: (context) => Map()),
                   (route) => false);
         } else {
           getPlaceAddressDetails(placePredictions!.placeId!, context);
@@ -319,18 +319,18 @@ class PredictionTile extends StatelessWidget {
 
           if (pickUpFilling == false) {
 
-            locationController.buttonString.value = 'Confirm dropOff spot';
+            locationController.buttonString.value = 'Confirm Drop off spot';
             locationController.updatePickUpLocationAddress(address);
 
             trip.endPointAddress =
                 "${placePredictions!.mainText!} ,${placePredictions!.secondText!}";
             Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => Map2()),
+                MaterialPageRoute(builder: (context) => Map()),
                 (route) => false);
           } else {
            locationController.updateDropOffLocationAddress(address);
-            locationController.buttonString.value = 'Confirm pickUp spot';
+            locationController.buttonString.value = 'Confirm Pick up spot';
 
             trip.startPointAddress =
                 "${placePredictions!.mainText!} ,${placePredictions!.secondText!}";
@@ -338,7 +338,7 @@ class PredictionTile extends StatelessWidget {
                 "${placePredictions!.mainText!} ,${placePredictions!.secondText!}");
             Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(builder: (context) => Map2()),
+                MaterialPageRoute(builder: (context) => Map()),
                 (route) => false);
           }
         }
@@ -423,7 +423,7 @@ class PredictionTile extends StatelessWidget {
       print(
           "this drop off location :: lat ${address.latitude} ,long ${address.longitude}");
       Navigator.pushAndRemoveUntil(context,
-          MaterialPageRoute(builder: (context) => Map2()), (route) => false);
+          MaterialPageRoute(builder: (context) => Map()), (route) => false);
     }
   }
 }

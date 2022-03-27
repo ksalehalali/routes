@@ -71,6 +71,8 @@ class _MainScreenState extends State<MainScreen> {
     routeMapController.startPointLatLng.value.longitude = position.longitude;
     initialPoint.latitude = position.latitude;
     initialPoint.longitude = position.longitude;
+    initialPointToFirstMap.latitude = position.latitude;
+    initialPointToFirstMap.longitude = position.longitude;
 
     currentPosition = geo.Position(longitude: position.longitude, latitude: position.latitude, timestamp: position.timestamp, accuracy: position.accuracy, altitude: position.altitude, heading: position.heading, speed: position.speed, speedAccuracy: position.speedAccuracy);
     print(currentPosition!.latitude);
@@ -98,78 +100,90 @@ class _MainScreenState extends State<MainScreen> {
     setState(() {
 
     });
-    return Scaffold(
-      body: PageStorage(bucket: bucket, child: currentScreen,
+    return Container(
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
 
+            routes_color6,
+            routes_color,
+          ]
+          )
       ),
-        bottomNavigationBar: NavigationBar(
-            height: 62.0,
-            backgroundColor: Colors.white,
-            labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
-            selectedIndex: currentTp!,
-            onDestinationSelected: (index) {
-              setState(() {
-                currentScreen = screens[index];
-                currentTp = index;
-              });
-            },
-            animationDuration: Duration(milliseconds: 1),
-            destinations: [
+      child: SafeArea(
+        child: Scaffold(
+          body: PageStorage(bucket: bucket, child: currentScreen,
+
+          ),
+            bottomNavigationBar: NavigationBar(
+                height: 62.0,
+                backgroundColor: Colors.white,
+                labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
+                selectedIndex: currentTp!,
+                onDestinationSelected: (index) {
+                  setState(() {
+                    currentScreen = screens[index];
+                    currentTp = index;
+                  });
+                },
+                animationDuration: Duration(milliseconds: 1),
+                destinations: [
 
 
-              NavigationBarTheme(
-                  data: NavigationBarThemeData(
-                      indicatorColor: Colors.grey.shade200,
-                      labelTextStyle:
-                      MaterialStateProperty.all(TextStyle(fontSize: 12))),
-                  child: NavigationDestination(
+                  NavigationBarTheme(
+                      data: NavigationBarThemeData(
+                          indicatorColor: Colors.grey.shade200,
+                          labelTextStyle:
+                          MaterialStateProperty.all(TextStyle(fontSize: 12))),
+                      child: NavigationDestination(
 //                    icon: Icon(Icons.home_outlined,color: Colors.blue[900]),
-                    label: 'Home',
-                    icon: SvgPicture.asset("${assetsDir}home_svg.svg", width: 20, color: Colors.grey[600],),
-                    selectedIcon: SvgPicture.asset("${assetsDir}home_svg.svg", width: 25, color: Colors.blue[900],),
-                  )),
-              NavigationBarTheme(
-                  data: NavigationBarThemeData(
-                      indicatorColor: Colors.grey.shade200,
-                      labelTextStyle:
-                      MaterialStateProperty.all(TextStyle(fontSize: 12))),
-                  child: NavigationDestination(
-                    icon: SvgPicture.asset("${assetsDir}pay.svg", width: 20, color: Colors.grey[600],),
-                    label: 'Pay',
-                    selectedIcon: SvgPicture.asset("${assetsDir}pay.svg", width: 25, color: Colors.blue[900],),
-                  )),
-              NavigationBarTheme(
-                  data: NavigationBarThemeData(
-                      indicatorColor: Colors.grey.shade200,
-                      labelTextStyle:
-                      MaterialStateProperty.all(TextStyle(fontSize: 12))),
-                  child: NavigationDestination(
-                    icon: SvgPicture.asset("${assetsDir}wallet.svg", width: 20, color: Colors.grey[600],),
-                    label: 'Wallet',
-                    selectedIcon: SvgPicture.asset("${assetsDir}wallet.svg", width: 25, color: Colors.blue[900],),
-                  )),
-              NavigationBarTheme(
-                  data: NavigationBarThemeData(
-                      indicatorColor: Colors.grey.shade200,
-                      labelTextStyle:
-                      MaterialStateProperty.all(TextStyle(fontSize: 12))),
-                  child: NavigationDestination(
-                    icon: SvgPicture.asset("${assetsDir}routes.svg", width: 20, color: Colors.grey[600],),
-                    label: 'Routes',
-                    selectedIcon: SvgPicture.asset("${assetsDir}routes.svg", width: 25, color: Colors.blue[900],),
-                  )),
+                        label: 'Home',
+                        icon: SvgPicture.asset("${assetsDir}home_svg.svg", width: 20, color: Colors.grey[600],),
+                        selectedIcon: SvgPicture.asset("${assetsDir}home_svg.svg", width: 25, color: Colors.blue[900],),
+                      )),
+                  NavigationBarTheme(
+                      data: NavigationBarThemeData(
+                          indicatorColor: Colors.grey.shade200,
+                          labelTextStyle:
+                          MaterialStateProperty.all(TextStyle(fontSize: 12))),
+                      child: NavigationDestination(
+                        icon: SvgPicture.asset("${assetsDir}pay.svg", width: 20, color: Colors.grey[600],),
+                        label: 'Pay',
+                        selectedIcon: SvgPicture.asset("${assetsDir}pay.svg", width: 25, color: Colors.blue[900],),
+                      )),
+                  NavigationBarTheme(
+                      data: NavigationBarThemeData(
+                          indicatorColor: Colors.grey.shade200,
+                          labelTextStyle:
+                          MaterialStateProperty.all(TextStyle(fontSize: 12))),
+                      child: NavigationDestination(
+                        icon: SvgPicture.asset("${assetsDir}wallet.svg", width: 20, color: Colors.grey[600],),
+                        label: 'Wallet',
+                        selectedIcon: SvgPicture.asset("${assetsDir}wallet.svg", width: 25, color: Colors.blue[900],),
+                      )),
+                  NavigationBarTheme(
+                      data: NavigationBarThemeData(
+                          indicatorColor: Colors.grey.shade200,
+                          labelTextStyle:
+                          MaterialStateProperty.all(TextStyle(fontSize: 12))),
+                      child: NavigationDestination(
+                        icon: SvgPicture.asset("${assetsDir}routes.svg", width: 20, color: Colors.grey[600],),
+                        label: 'Routes',
+                        selectedIcon: SvgPicture.asset("${assetsDir}routes.svg", width: 25, color: Colors.blue[900],),
+                      )),
 
-              NavigationBarTheme(
-                  data: NavigationBarThemeData(
-                      indicatorColor: Colors.grey.shade200,
-                      labelTextStyle:
-                      MaterialStateProperty.all(TextStyle(fontSize: 12))),
-                  child: NavigationDestination(
-                    icon: SvgPicture.asset("${assetsDir}profile.svg", width: 20, color: Colors.grey[600],),
-                    label: 'Profile',
-                    selectedIcon: SvgPicture.asset("${assetsDir}profile.svg", width: 25, color: Colors.blue[900],),
-                  )),
-            ])
+                  NavigationBarTheme(
+                      data: NavigationBarThemeData(
+                          indicatorColor: Colors.grey.shade200,
+                          labelTextStyle:
+                          MaterialStateProperty.all(TextStyle(fontSize: 12))),
+                      child: NavigationDestination(
+                        icon: SvgPicture.asset("${assetsDir}profile.svg", width: 20, color: Colors.grey[600],),
+                        label: 'Profile',
+                        selectedIcon: SvgPicture.asset("${assetsDir}profile.svg", width: 25, color: Colors.blue[900],),
+                      )),
+                ])
+        ),
+      ),
     );
   }
 }

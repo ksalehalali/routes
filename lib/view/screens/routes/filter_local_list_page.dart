@@ -28,12 +28,12 @@ class FilterListRoutesState extends State<FilterListRoutes> {
 
   @override
   Widget build(BuildContext context) =>  Container(
-    color: Colors.white.withOpacity(0.7),
+    color: Colors.white.withOpacity(0.9),
     child: Column(
             children: <Widget>[
               buildSearch(),
               SizedBox(
-                height: 220,
+                height: Get.size.width,
                 child: ListView.builder(
                   padding: EdgeInsets.zero,
                   itemCount: routes.length,

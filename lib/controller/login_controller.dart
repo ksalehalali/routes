@@ -182,7 +182,9 @@ class LoginController extends GetxController {
         user.accessToken = jsonResponse["description"]["token"];
         print(jsonResponse["description"]["token"]);
 //        Get.offAll(MainScreen(indexOfScreen: 0,));
-      Get.to(MainScreen(indexOfScreen: 0,));
+     Timer(Duration(milliseconds: 500), (){
+       Get.to(MainScreen(indexOfScreen: 0,));
+     });
 
       } else {
         Fluttertoast.showToast(
@@ -193,7 +195,9 @@ class LoginController extends GetxController {
             backgroundColor: Colors.white70,
             textColor: Colors.black,
             fontSize: 16.0);
-        Get.to(()=>Login());
+       Timer(Duration(milliseconds: 200),(){
+         Get.to(()=>Login());
+       });
 
       }
     }
