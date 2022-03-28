@@ -365,11 +365,23 @@ class _MapState extends State<Map> {
                 //2
                 google_maps.Polyline(
                   color: Colors.blue.withOpacity(0.9),
-                  polylineId: google_maps.PolylineId("PolylineID"),
+                  polylineId: google_maps.PolylineId("PolylineRoute2ID"),
                   jointType: google_maps.JointType.round,
                   width: 4,
                   startCap: google_maps.Cap.roundCap,
                   points: routeMapController.tripStationWayPointsRoute2,
+                  endCap: google_maps.Cap.roundCap,
+                  geodesic: true,
+                ),
+
+                //1
+                google_maps.Polyline(
+                  color: Colors.blue.withOpacity(0.9),
+                  polylineId: google_maps.PolylineId("PolylineRoute1ID"),
+                  jointType: google_maps.JointType.round,
+                  width: 4,
+                  startCap: google_maps.Cap.roundCap,
+                  points: routeMapController.tripStationWayPointsRoute1,
                   endCap: google_maps.Cap.roundCap,
                   geodesic: true,
                 ),
@@ -608,7 +620,6 @@ class _MapState extends State<Map> {
       curve: Curves.bounceIn,
       duration: Duration(milliseconds: 180),
       child: Container(
-        height: 200,
         decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.only(
@@ -622,9 +633,15 @@ class _MapState extends State<Map> {
                 offset: Offset(0.5, 0.5),
               ),
             ]),
-        child: InkWell(
-          onTap: () {
-            print(routeMapController.multiRouteTripData);
+        child:  GestureDetector(
+          onTap: (){
+            if (panelController.isPanelOpen) {
+              panelController.close();
+            } else {
+              panelController.open();
+            }
+          },
+          onVerticalDragStart: (pos){
             if (panelController.isPanelOpen) {
               panelController.close();
             } else {
@@ -653,9 +670,15 @@ class _MapState extends State<Map> {
                 Column(
                   children: [
                     Center(
-                      child: InkWell(
-                        onTap: () {
-                          print(routeMapController.multiRouteTripData);
+                      child:  GestureDetector(
+                        onTap: (){
+                          if (panelController.isPanelOpen) {
+                            panelController.close();
+                          } else {
+                            panelController.open();
+                          }
+                        },
+                        onVerticalDragStart: (pos){
                           if (panelController.isPanelOpen) {
                             panelController.close();
                           } else {

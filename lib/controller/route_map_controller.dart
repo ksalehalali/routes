@@ -31,17 +31,19 @@ class RouteMapController extends GetxController {
   var tripSecondWalkDirData = {}.obs;
 
   var tripStationDirData = {}.obs;
-  var tripStationDirDataRoute2 = {}.obs;
-
   var tripStationDirData2 = {}.obs;
-  var tripStationDirData2Route2 = {}.obs;
 
+  var multiRouteTripData = {}.obs;
+  var multiTripStationDirData2Route2 = {}.obs;
+  var multiTripStationDirDataRoute2 = {}.obs;
+  var multiTripStationDirData2Route1 = {}.obs;
+  var multiTripStationDirDataRoute1 = {}.obs;
 
   var tripRouteData = {}.obs;
-  var multiRouteTripData = {}.obs;
 
   var fullDurationTrip = 0.0.obs;
   var startWalkDurationTrip = 0.0.obs;
+
   var secondWalkDurationTrip = 0.0.obs;
 
   var secondRouteDurationTrip = 0.0.obs;
@@ -70,19 +72,18 @@ class RouteMapController extends GetxController {
   var isMultiMode = false.obs;
   var firstTurn = true.obs;
   var isLongTrip = false.obs;
+
   var stationLocationPoints = <LatLng>[].obs;
   var stationLocationPoints2 = <LatLng>[].obs;
 
-  var tripFirstWalkWayPoints = <LatLng>[].obs;
   var tripFirstWalkWayPointsG = <google_maps.LatLng>[].obs;
-
-  var tripSecondWalkWayPoints = <LatLng>[].obs;
   var tripSecondWalkWayPointsG = <google_maps.LatLng>[].obs;
 
   var tripStationWayPointsG = <google_maps.LatLng>[].obs;
-  var tripStationWayPointsRoute2 = <google_maps.LatLng>[].obs;
-
   var tripStationWayPoints2G = <google_maps.LatLng>[].obs;
+
+  var tripStationWayPointsRoute2 = <google_maps.LatLng>[].obs;
+  var tripStationWayPointsRoute1 = <google_maps.LatLng>[].obs;
 
   var route1 =[].obs;
   var route2 = [].obs;
@@ -98,10 +99,8 @@ class RouteMapController extends GetxController {
     fullDistanceTrip.value=0.0;
     fullDurationTrip.value = 0.0;
     stationMarkers.value = [];
-    tripFirstWalkWayPoints.value = [];
     tripFirstWalkWayPointsG.value = [];
 
-    tripSecondWalkWayPoints.value = [];
     tripSecondWalkWayPointsG.value = [];
 
     stationLocationPoints.value = [];
@@ -137,12 +136,14 @@ class RouteMapController extends GetxController {
       print('true start polyline  ${response.body}');
       var decoded = jsonDecode(response.body);
       tripFirstWalkDirData.value = decoded;
+
+      startWalkDurationTrip.value = decoded['routes'][0]['duration'] /60;
+      startWalkDistanceTrip.value =decoded['routes'][0]['distance']/1000;
+
       print('first walk details, time:: ${decoded['routes'][0]['duration']}--  ${decoded['routes'][0]['distance']}');
       decoded = decoded["routes"][0]["geometry"];
 
       for (int i = 0; i < decoded["coordinates"].length; i++) {
-        tripFirstWalkWayPoints.add(new LatLng(
-            decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
         tripFirstWalkWayPointsG.add(google_maps.LatLng(
             decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
       }
@@ -161,12 +162,13 @@ class RouteMapController extends GetxController {
       print('trueeee sec polyline ${response.body}');
       var decoded = jsonDecode(response.body);
       tripSecondWalkDirData.value = decoded;
+      secondWalkDurationTrip.value = decoded['routes'][0]['duration'] /60;
+      secondWalkDistanceTrip.value =decoded['routes'][0]['distance']/1000;
       print('second walk details, time:: ${decoded['routes'][0]['duration']}--  ${decoded['routes'][0]['distance']}');
 
       decoded = decoded["routes"][0]["geometry"];
       for (int i = 0; i < decoded["coordinates"].length; i++) {
-        tripSecondWalkWayPoints.add(new LatLng(
-            decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
+
         tripSecondWalkWayPointsG.add(google_maps.LatLng(
             decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
       }
@@ -198,6 +200,9 @@ class RouteMapController extends GetxController {
         print('true 1 ${response.statusCode}');
         var decoded = jsonDecode(response.body);
         tripStationDirData.value = decoded;
+        routeDurationTrip.value =decoded['routes'][0]['duration']/ 60;
+        routeDistanceTrip.value = decoded['routes'][0]['distance']/1000;
+
         decoded = decoded["routes"][0]["geometry"];
         for (int i = 0; i < decoded["coordinates"].length; i++) {
           tripStationWayPointsG.add(google_maps.LatLng(
@@ -227,6 +232,8 @@ class RouteMapController extends GetxController {
         var decoded = jsonDecode(response.body);
 
           tripStationDirData2.value = decoded;
+        secondRouteDurationTrip.value = secondRouteDurationTrip.value + decoded['routes'][0]['duration']/ 60;
+        secondRouteDistanceTrip.value = secondRouteDistanceTrip.value + decoded['routes'][0]['distance']/1000;
 
         decoded = decoded["routes"][0]["geometry"];
         for (int i = 0; i < decoded["coordinates"].length; i++) {
@@ -247,7 +254,7 @@ class RouteMapController extends GetxController {
     }
   }
 
-  //find diractions for multi
+  //find directions for multi
   Future<void> findStationDirectionMulti(String stationQuery, bool isSecond,bool isRoute2) async {
     print('--------------------------');
     print(centerOfDirRoute.value);
@@ -259,17 +266,29 @@ class RouteMapController extends GetxController {
         print('true 1 ${response.statusCode}');
         var decoded = jsonDecode(response.body);
 
-        decoded = decoded["routes"][0]["geometry"];
-        for (int i = 0; i < decoded["coordinates"].length; i++) {
-          tripStationWayPointsG.add(google_maps.LatLng(
-              decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
-
-          tripStationWayPointsRoute2.add(google_maps.LatLng(
-              decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
-        }
         if(isRoute2 ==true){
           print('false ..true${decoded}');
-          tripStationDirDataRoute2.value = decoded;
+          multiTripStationDirDataRoute2.value = decoded;
+
+          route2DurationTrip.value = route2DurationTrip.value +  decoded['routes'][0]['duration'] /60;
+          route2DistanceTrip.value = route2DistanceTrip.value + decoded['routes'][0]['distance']/1000;
+
+          decoded = decoded["routes"][0]["geometry"];
+          for (int i = 0; i < decoded["coordinates"].length; i++) {
+            tripStationWayPointsRoute2.add(google_maps.LatLng(
+                decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
+          }
+        }else{
+          multiTripStationDirData2Route2.value = decoded;
+          routeDurationTrip.value = routeDurationTrip.value +  decoded['routes'][0]['duration'] /60;
+          routeDistanceTrip.value = routeDistanceTrip.value + decoded['routes'][0]['distance']/1000;
+
+          decoded = decoded["routes"][0]["geometry"];
+
+          for (int i = 0; i < decoded["coordinates"].length; i++) {
+            tripStationWayPointsRoute1.add(google_maps.LatLng(
+                decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
+          }
         }
         locationController.tripCreatedStatus(true);
 
@@ -294,16 +313,27 @@ class RouteMapController extends GetxController {
         print('true 2 ${response.statusCode}');
         var decoded = jsonDecode(response.body);
         if(isRoute2 ==false){
-          tripStationDirData2.value = decoded;
-        }else{
-          tripStationDirData2Route2.value = decoded;
-        }
-        decoded = decoded["routes"][0]["geometry"];
-        for (int i = 0; i < decoded["coordinates"].length; i++) {
+          multiTripStationDirData2Route1.value = decoded;
+          secondRouteDurationTrip.value = secondRouteDurationTrip.value +  decoded['routes'][0]['duration'] /60;
+          secondRouteDistanceTrip.value = secondRouteDistanceTrip.value + decoded['routes'][0]['distance']/1000;
+          decoded = decoded["routes"][0]["geometry"];
+          for (int i = 0; i < decoded["coordinates"].length; i++) {
 
-          tripStationWayPoints2G.add(google_maps.LatLng(
-              decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
+            tripStationWayPointsRoute1.add(google_maps.LatLng(
+                decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
+          }
+        }else{
+          multiTripStationDirData2Route2.value = decoded;
+          secondRoute2DurationTrip.value = secondRoute2DurationTrip.value +  decoded['routes'][0]['duration'] /60;
+          secondRoute2DistanceTrip.value = secondRoute2DistanceTrip.value + decoded['routes'][0]['distance']/1000;
+          decoded = decoded["routes"][0]["geometry"];
+          for (int i = 0; i < decoded["coordinates"].length; i++) {
+
+            tripStationWayPointsRoute2.add(google_maps.LatLng(
+                decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
+          }
         }
+
         locationController.tripCreatedStatus(true);
         //moving camera
         google_maps.CameraPosition cameraPosition =
@@ -435,8 +465,6 @@ class RouteMapController extends GetxController {
               0, stationQuery4.length - 1); // To remove the last semicolon from the string (would cause an error)
           await findStationDirection(stationQuery4, false);
           //
-          tripFirstWalkWayPoints.value = [];
-          tripSecondWalkWayPoints.value = [];
           update();
           await findFirstWalkDirection(
               LatLng(startPointLatLng.value.latitude,
@@ -449,7 +477,7 @@ class RouteMapController extends GetxController {
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
 
-          calFullDurationDistance(false,false);
+          calculateFullDurationDistance(false,false);
           return;
 
         } else if(jsonResponse.length <= 74 && jsonResponse.length > 50 ) {
@@ -499,8 +527,6 @@ class RouteMapController extends GetxController {
               0, stationQuery3.length - 1); // To remove the last semicolon from the string (would cause an error)
           await findStationDirection(stationQuery3, false);
           //
-          tripFirstWalkWayPoints.value = [];
-          tripSecondWalkWayPoints.value = [];
           update();
           await findFirstWalkDirection(
               LatLng(startPointLatLng.value.latitude,
@@ -513,7 +539,7 @@ class RouteMapController extends GetxController {
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
 
-          calFullDurationDistance(false,false);
+          calculateFullDurationDistance(false,false);
           return;
 
         }else if(jsonResponse.length <= 50 && jsonResponse.length > 25){
@@ -550,8 +576,6 @@ class RouteMapController extends GetxController {
               0, stationQuery2.length - 1); // To remove the last semicolon from the string (would cause an error)
           await findStationDirection(stationQuery2, true);
 
-          tripFirstWalkWayPoints.value = [];
-          tripSecondWalkWayPoints.value = [];
           update();
           await findFirstWalkDirection(
               LatLng(startPointLatLng.value.latitude,
@@ -564,7 +588,7 @@ class RouteMapController extends GetxController {
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
 
-          calFullDurationDistance(false,false);
+          calculateFullDurationDistance(false,false);
           return;
 
         }else{
@@ -586,8 +610,6 @@ class RouteMapController extends GetxController {
           await findStationDirection(stationQuery, false);
 
           //
-          tripFirstWalkWayPoints.value = [];
-          tripSecondWalkWayPoints.value = [];
           update();
           await findFirstWalkDirection(
               LatLng(startPointLatLng.value.latitude,
@@ -600,7 +622,7 @@ class RouteMapController extends GetxController {
                   endPointLatLng.value.latitude, endPointLatLng.value.longitude));
           locationController.tripCreatedStatus(true);
 
-          calFullDurationDistance(false,false);
+          calculateFullDurationDistance(false,false);
           return;
 
         }
@@ -750,9 +772,8 @@ class RouteMapController extends GetxController {
             stationQuery2.length - 1); // To remove the last semicolon from the string (would cause an error)
         await findStationDirectionMulti(stationQuery2, true,false);
 
-        await findSecondWalkDirection(LatLng(endStation['latitude'], endStation['longitude']),LatLng(endPointLatLng.value.latitude,endPointLatLng.value.longitude) ).then((value) => calFullDurationDistance(true,false));
+        await findSecondWalkDirection(LatLng(endStation['latitude'], endStation['longitude']),LatLng(endPointLatLng.value.latitude,endPointLatLng.value.longitude) ).then((value) => calculateFullDurationDistance(true,false));
         panelController.open();
-        calFullDurationDistance(true, false);
 
       }else if(route1.length <= 50 && route1.length >25){
         isLongTrip.value =true;
@@ -795,7 +816,7 @@ class RouteMapController extends GetxController {
         await findStationDirectionMulti(stationQuery1, true,false);
 
         await findSecondWalkDirection(LatLng(endStation['latitude'], endStation['longitude']),LatLng(endPointLatLng.value.latitude,endPointLatLng.value.longitude)  );
-        calFullDurationDistance(true,false);
+        calculateFullDurationDistanceMulti(true,false);
         panelController.open();
 
 
@@ -820,7 +841,7 @@ class RouteMapController extends GetxController {
         stationQuery = stationQuery.substring(0,
             stationQuery.length - 1); // To remove the last semicolon from the string (would cause an error)
         await findStationDirectionMulti(stationQuery, false,false);
-        await findSecondWalkDirection(LatLng(endStation['latitude'], endStation['longitude']),LatLng(endPointLatLng.value.latitude,endPointLatLng.value.longitude) ).then((value) => Timer(2.seconds, ()=>calFullDurationDistance(false,false)));
+        await findSecondWalkDirection(LatLng(endStation['latitude'], endStation['longitude']),LatLng(endPointLatLng.value.latitude,endPointLatLng.value.longitude) ).then((value) => Timer(2.seconds, ()=>calculateFullDurationDistanceMulti(false,false)));
         panelController.open();
 
       }
@@ -873,7 +894,7 @@ class RouteMapController extends GetxController {
         await findStationDirectionMulti(stationQuery4, true,true);
         stationQuery5 = stationQuery5.substring(0,
             stationQuery5.length - 1); // To remove the last semicolon from the string (would cause an error)
-        await findStationDirectionMulti(stationQuery5, true,true).then((value) => calFullDurationDistance(true,true));
+        await findStationDirectionMulti(stationQuery5, true,true).then((value) => calculateFullDurationDistanceMulti(true,true));
         return;
       }else if(route2.length <= 50 && route2.length >25){
         for (int i = 0; i  < 24; i++) {
@@ -907,7 +928,7 @@ class RouteMapController extends GetxController {
 
         stationQuery4 = stationQuery4.substring(0,
             stationQuery4.length - 1); // To remove the last semicolon from the string (would cause an error)
-        await findStationDirectionMulti(stationQuery4, true,true).then((value) => calFullDurationDistance(true,true));
+        await findStationDirectionMulti(stationQuery4, true,true).then((value) => calculateFullDurationDistanceMulti(true,true));
         return;
       }else if(route2.length <= 25){
         print('route 2 <25 =========');
@@ -924,7 +945,8 @@ class RouteMapController extends GetxController {
         }
         stationQuery3 = stationQuery3.substring(0,
             stationQuery3.length - 1); // To remove the last semicolon from the string (would cause an error)
-        await findStationDirectionMulti(stationQuery3, false,true).then((value) => calFullDurationDistance(false,true));
+        await findStationDirectionMulti(stationQuery3, false,true);
+        calculateFullDurationDistanceMulti(false,true);
         update();
         return;
       }
@@ -943,19 +965,19 @@ class RouteMapController extends GetxController {
     update();
   }
 
-  calFullDurationDistance(bool isLong ,bool isRoute2){
-    //جمع كمل المدة الزمنية للرحلة
+  //
+  calculateFullDurationDistanceMulti(bool isLong ,bool isRoute2){
+    print('m w duration ${startWalkDurationTrip}');
+    print('m w2 duration ${secondWalkDurationTrip}');
+    print('m route1 duration ${routeDurationTrip}');
+    print('m route2 duration ${route2DurationTrip}');
 
-    if(isMultiMode.value ==true){
-     if(isRoute2){
+    if(isRoute2){
       if(isLong){
-        secondRoute2DurationTrip.value = tripStationDirData2Route2['routes'][0]['duration'] /60;
-        secondRoute2DistanceTrip.value = tripStationDirData2Route2['routes'][0]['distance']/1000;
+
         fullDurationTrip.value = fullDurationTrip.value + secondRoute2DurationTrip.value;
         fullDistanceTrip.value = fullDistanceTrip.value + secondRoute2DistanceTrip.value;
       }else{
-        route2DurationTrip.value = tripStationDirDataRoute2['routes'][0]['duration'] /60;
-        route2DistanceTrip.value = tripStationDirDataRoute2['routes'][0]['distance'] /1000;
 
         fullDurationTrip.value = fullDurationTrip.value + route2DurationTrip.value;
         fullDistanceTrip.value = fullDistanceTrip.value + route2DistanceTrip.value;
@@ -964,46 +986,51 @@ class RouteMapController extends GetxController {
       ///to do cal walking
       fullDurationTrip.value = fullDurationTrip.value + tripFirstWalkDirData['routes'][0]['duration']/ 60;
       fullDistanceTrip.value = fullDistanceTrip.value + tripFirstWalkDirData['routes'][0]['distance']/ 1000;
+      fullDurationTrip.value = fullDurationTrip.value + tripSecondWalkDirData['routes'][0]['duration']/ 60;
+      fullDistanceTrip.value = fullDistanceTrip.value + tripSecondWalkDirData['routes'][0]['distance']/ 1000;
+
     }else {
-       if(isLong){
-         ///
-         secondRouteDurationTrip.value = tripStationDirData2['routes'][0]['duration'] /60;
-         secondRouteDistanceTrip.value = tripStationDirData2['routes'][0]['distance']/1000;
-         fullDurationTrip.value = fullDurationTrip.value + secondRouteDurationTrip.value;
-         fullDistanceTrip.value = fullDistanceTrip.value + secondRouteDistanceTrip.value;
-       }else{
-         routeDurationTrip.value = tripStationDirData['routes'][0]['duration'] /60;
-         routeDistanceTrip.value = tripStationDirData['routes'][0]['distance'] /1000;
+      if(isLong){
+        ///
+        fullDurationTrip.value = fullDurationTrip.value + secondRouteDurationTrip.value;
+        fullDistanceTrip.value = fullDistanceTrip.value + secondRouteDistanceTrip.value;
+      }else{
 
-         fullDurationTrip.value = fullDurationTrip.value + routeDurationTrip.value;
-         fullDistanceTrip.value = fullDistanceTrip.value + routeDistanceTrip.value;
-       }
+        fullDurationTrip.value = fullDurationTrip.value + routeDurationTrip.value;
+        fullDistanceTrip.value = fullDistanceTrip.value + routeDistanceTrip.value;
 
-     }
-     print('-------------------------------------------');
-      update();
+      }
+
+    }
+
+    startWalkDurationTrip.value = tripFirstWalkDirData['routes'][0]['duration']/ 60;
+    secondWalkDurationTrip.value = tripSecondWalkDirData['routes'][0]['duration']/ 60;
+    startWalkDistanceTrip.value = tripFirstWalkDirData['routes'][0]['distance']/ 1000;
+    secondWalkDistanceTrip.value =tripSecondWalkDirData['routes'][0]['distance']/ 1000;
+    print('-------------------------------------------');
+    update();
+  }
+
+  calculateFullDurationDistance(bool isLong ,bool isRoute2){
+    //جمع كمل المدة الزمنية للرحلة
+    print('m w duration ${startWalkDurationTrip}');
+    print('m w2 duration ${secondWalkDurationTrip}');
+    print('m route1 duration ${routeDurationTrip}');
+    print('m route2 duration ${route2DurationTrip}');
+    if(isMultiMode.value ==true){
+
     }else{
       fullDurationTrip.value =
       ((tripFirstWalkDirData['routes'][0]['duration']) / 60 +
           (tripSecondWalkDirData['routes'][0]['duration']) / 60 +
           (tripStationDirData['routes'][0]['duration']) / 60);
-      startWalkDurationTrip.value = tripFirstWalkDirData['routes'][0]['duration'];
-      secondWalkDurationTrip.value  = tripSecondWalkDirData['routes'][0]['duration'];
-      routeDurationTrip.value = tripStationDirData['routes'][0]['duration'];
-
 // distance
       fullDistanceTrip.value =
           ((tripFirstWalkDirData['routes'][0]['distance']) /1000 +
               (tripSecondWalkDirData['routes'][0]['distance']) /1000 +
               (tripStationDirData['routes'][0]['distance']) ) /1000;
-      startWalkDistanceTrip.value = tripFirstWalkDirData['routes'][0]['distance'];
-      secondWalkDistanceTrip.value  = tripSecondWalkDirData['routes'][0]['distance'];
-      routeDistanceTrip.value = tripStationDirData['routes'][0]['distance'];
-
 
       if(isLongTrip.value ==true){
-        secondRouteDurationTrip.value = tripStationDirData2['routes'][0]['duration'] /60;
-        secondRouteDistanceTrip.value = tripStationDirData2['routes'][0]['distance']/1000;
         fullDurationTrip.value = fullDurationTrip.value + (tripStationDirData2['routes'][0]['duration']) / 60;
         fullDistanceTrip.value = fullDistanceTrip.value + (tripStationDirData2['routes'][0]['distance']) / 1000;
 

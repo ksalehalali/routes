@@ -61,7 +61,7 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: Image.asset('assets/animation/GIF-Logo-3.gif',fit: BoxFit.fill,),
+      child: Image.asset('assets/animation/ROUTES-Animated Logo.gif',fit: BoxFit.fill,),
       // child: Lottie.asset(
       //   'assets/animation/17314-bus.json',
       //   height: 122,
