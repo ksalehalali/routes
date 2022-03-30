@@ -302,7 +302,7 @@ class AllRoutes extends GetxController {
         update();
       } else {
         print('error :: ${response.body}');
-        print('all route no ${response.statusCode} \n${stationQuery}');
+        print('status code ${response.statusCode} \n${stationQuery}');
         return;
       }
     }

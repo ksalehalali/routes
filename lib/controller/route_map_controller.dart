@@ -100,11 +100,17 @@ class RouteMapController extends GetxController {
     fullDurationTrip.value = 0.0;
     stationMarkers.value = [];
     tripFirstWalkWayPointsG.value = [];
-
+    routePoints.value =[];
     tripSecondWalkWayPointsG.value = [];
 
     stationLocationPoints.value = [];
     tripStationWayPointsG.value = [];
+    stationLocationPoints2.value = [];
+    tripStationWayPointsRoute2.value = [];
+    tripStationWayPointsRoute1.value = [];
+    route1.value =[];
+    route2.value =[];
+
     stationMarkers.value = [];
     tripRouteData.value = {};
     tripStationDirData2.value = {};
@@ -116,9 +122,9 @@ class RouteMapController extends GetxController {
     trip.endPoint.longitude = 0.0;
     // trip.startPointAddress = '';
      trip.endPointAddress = '';
-    startStation = {};
-    endStation= {};
-    sharedStation= {};
+    // startStation = {};
+    // endStation= {};
+    // sharedStation= {};
     isMultiMode.value =false;
     update();
   }
@@ -395,6 +401,7 @@ class RouteMapController extends GetxController {
         print("find route res ::$jsonResponse");
         stationMarkers.value = [];
         tripRouteData.value = jsonResponse;
+
         startStation = jsonResponse["description"]['startStation'];
         endStation = jsonResponse["description"]['endStation'];
 
@@ -667,7 +674,6 @@ class RouteMapController extends GetxController {
     var jsonResponse = jsonDecode(response.body);
 
     jsonResponse = jsonDecode(response.body);
-    multiRouteTripData.value = jsonResponse;
     if (jsonResponse["status"] == false) {
       print('there is no route !! .......');
       Timer(3.seconds, () {
@@ -679,6 +685,7 @@ class RouteMapController extends GetxController {
       isMultiMode.value = false;
       return;
     }else if(jsonResponse["status"] == true){
+      multiRouteTripData.value = jsonResponse;
       locationController.tripCreatedDone.value =true;
       isMultiMode.value =true;
       print('findeMultiRoute1 res :: $jsonResponse');
@@ -687,6 +694,7 @@ class RouteMapController extends GetxController {
       sharedStation = jsonResponse['sharedPoint1'];
       sharedStation2 = jsonResponse['sharedPoint2'];
       endStation = jsonResponse['endStation'];
+
 
       print('route1 = ${jsonResponse['rout1'][0]['route']} ---- route 2 = ${jsonResponse['rout2'][0]['route']}');
       print('route1 = ${jsonResponse['rout1']} --- ');
@@ -984,6 +992,7 @@ class RouteMapController extends GetxController {
       }
 
       ///to do cal walking
+
       fullDurationTrip.value = fullDurationTrip.value + tripFirstWalkDirData['routes'][0]['duration']/ 60;
       fullDistanceTrip.value = fullDistanceTrip.value + tripFirstWalkDirData['routes'][0]['distance']/ 1000;
       fullDurationTrip.value = fullDurationTrip.value + tripSecondWalkDirData['routes'][0]['duration']/ 60;
@@ -992,9 +1001,11 @@ class RouteMapController extends GetxController {
     }else {
       if(isLong){
         ///
+
         fullDurationTrip.value = fullDurationTrip.value + secondRouteDurationTrip.value;
         fullDistanceTrip.value = fullDistanceTrip.value + secondRouteDistanceTrip.value;
       }else{
+        fullDurationTrip.value = fullDurationTrip.value + routeDurationTrip.value;
 
         fullDurationTrip.value = fullDurationTrip.value + routeDurationTrip.value;
         fullDistanceTrip.value = fullDistanceTrip.value + routeDistanceTrip.value;
@@ -1044,14 +1055,28 @@ class RouteMapController extends GetxController {
   callSaveTrip() async {
     //    save trip
     print('intIndex = $intIndex');
-    trip.startStationId = tripRouteData['description']['startStation']['id'];
-    trip.endStationId = tripRouteData['description']['endStation']['id'];
-    trip.routeId = tripRouteData['description']['res'][0]['routeID'];
-    trip.routeName = tripRouteData['description']['res'][0]['route'];
-    trip.startPoint.latitude =
-        tripRouteData['description']['startPoint']['latitude'];
+    if(isMultiMode ==false){
+      trip.startStationId = tripRouteData['description']['startStation']['id'];
+      trip.endStationId = tripRouteData['description']['endStation']['id'];
+      trip.routeId = tripRouteData['description']['res'][0]['routeID'];
+      trip.routeName = tripRouteData['description']['res'][0]['route'];
+      trip.startPoint.latitude =
+      tripRouteData['description']['startPoint']['latitude'];
+      trip.startPoint.latitude =
+      tripRouteData['description']['startPoint']['longitude'];
+      await tripController.saveTrip();
+    }else{
+      trip.startStationId = multiRouteTripData['startStation']['id'];
+      trip.endStationId = multiRouteTripData['endStation']['id'];
+      trip.routeId = multiRouteTripData['rout1'][0]['routeID'];
+      trip.routeName = multiRouteTripData['rout1'][0]['route'];
+      trip.startPoint.latitude =
+      multiRouteTripData['startPoint']['latitude'];
+      trip.startPoint.longitude =
+      multiRouteTripData['startPoint']['longitude'];
+      await tripController.saveTrip();
+    }
 
-    await tripController.saveTrip();
   }
 
   @override

@@ -201,6 +201,7 @@ class _WalletScreenState extends State<WalletScreen> {
                           )
                         ],
                       ),
+
                       SizedBox(
                         height: screenSize.height * 0.1 - 62,
                       ),

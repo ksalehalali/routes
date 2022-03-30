@@ -60,20 +60,45 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
-      child: Image.asset('assets/animation/ROUTES-Animated Logo.gif',fit: BoxFit.fill,),
-      // child: Lottie.asset(
-      //   'assets/animation/17314-bus.json',
-      //   height: 122,
-      //   width: 122,
-      //   controller: _controller,
-      //   onLoaded: (composition) {
-      //     // Configure the AnimationController with the duration of the
-      //     // Lottie file and start the animation.
-      //     _controller..duration = composition.duration
-      //       ..forward();
-      //   },
-      // ),
+      decoration: BoxDecoration(
+          gradient: LinearGradient(colors: [
+
+            routes_color2,
+            routes_color,
+          ]
+          )
+          ,
+          color: Colors.white
+      ),
+      child: SafeArea(
+        left: false,
+        right: false,
+        child: Container(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(colors: [
+
+                routes_color6,
+                routes_color,
+              ]
+              )
+              ,
+              color: Colors.white
+          ),
+          child: Image.asset('assets/animation/ROUTES-Animated Logo.gif',fit: BoxFit.fill,),
+          // child: Lottie.asset(
+          //   'assets/animation/17314-bus.json',
+          //   height: 122,
+          //   width: 122,
+          //   controller: _controller,
+          //   onLoaded: (composition) {
+          //     // Configure the AnimationController with the duration of the
+          //     // Lottie file and start the animation.
+          //     _controller..duration = composition.duration
+          //       ..forward();
+          //   },
+          // ),
+        ),
+      ),
     );
   }
 }

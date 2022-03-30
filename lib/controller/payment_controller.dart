@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:routes/controller/route_map_controller.dart';
 import 'package:routes/model/transaction_model.dart';
 
 import '../Data/current_data.dart';
@@ -20,11 +21,13 @@ class PaymentController extends GetxController {
   var gotMyBalance = false.obs;
   var gotPayments = false.obs;
   var gotRecharges = false.obs;
-
+  var openCam =false.obs;
   var allTrans = <TransactionModel>[].obs;
   int indexA = 0;
   int indexB = 0;
   var allTransSorted = <TransactionModel>[].obs;
+
+
   Future<bool> pay(bool isDirect) async {
     var headers = {
       'Authorization': 'bearer ${user.accessToken}',
@@ -43,6 +46,7 @@ class PaymentController extends GetxController {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
+      openCam.value =false;
       if(isDirect==true){
         directPaymentDone.value = true;
         directPaymentFailed.value =false;
@@ -59,10 +63,21 @@ class PaymentController extends GetxController {
       print('value payed :: ${json}');
       //to do
       // بعد اتمام الدفعة يجب تعديل الرحلة المحفوظة لتاخذ paymentId , busId
-
+      Get.dialog(CustomDialog(
+        fromPaymentLists: false,
+        failedPay: false,
+        payment: PaymentSaved(
+            id: tripToSave.id,
+            routeName: paymentSaved.routeName,
+            userName: paymentSaved.userName,
+            date: DateTime.now().toString(),
+            createdDate: DateTime.now().toString(),
+            value: paymentSaved.value),
+      ));
       return true;
     }
     else {
+      Get.dialog(CustomDialog(fromPaymentLists: false, failedPay: true));
       var json = jsonDecode(await response.stream.bytesToString());
       print(json);
       if(isDirect==true){

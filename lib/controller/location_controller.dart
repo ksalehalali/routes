@@ -28,7 +28,6 @@ class LocationController extends GetxController {
   Address? pickUpLocation;
   Address? dropOffLocation ;
 
-
   void changePickUpAddress(String pickUpAddressV) {
     pickUpAddress.value = pickUpAddressV;
     update();

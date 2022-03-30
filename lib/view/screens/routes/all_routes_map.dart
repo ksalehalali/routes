@@ -36,7 +36,6 @@ class _AllRoutesMapState extends State<AllRoutesMap> {
   double bottomPaddingOfMap = 0;
   final RouteMapController routeMapController = Get.find();
   final LocationController locationController = Get.find();
-  final PaymentController paymentController = Get.find();
   final allRouteController = Get.put(AllRoutes());
   late final MapController mapController;
 

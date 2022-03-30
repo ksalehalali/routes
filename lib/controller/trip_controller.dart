@@ -10,6 +10,8 @@ import '../model/tripModel.dart';
 class TripController extends GetxController {
   var trips = [].obs;
   var total = 0.obs;
+  var jsonResponse;
+
   Future<void> getMyTrips()async{
 
     trips.clear() ;
@@ -46,8 +48,7 @@ class TripController extends GetxController {
       'Authorization': 'bearer ${user.accessToken}',
       'Content-Type': 'application/json'
     };
-    var request = http.Request('POST', Uri.parse('https://route.click68.com/api/CreateTrip'));
-    request.body = json.encode({
+    final queryParameters = {
       "StartStationID": trip.startStationId,
       "RouteID": trip.routeId,
       "EndStationID": trip.endStationId,
@@ -55,21 +56,23 @@ class TripController extends GetxController {
       "StartPointLut":trip.startPoint.latitude,
       "EndPointLong": trip.endPoint.longitude,
       "EndPointLut":trip.endPoint.latitude
-    });
-    request.headers.addAll(headers);
+    };
 
-    http.StreamedResponse response = await request.send();
+    print(queryParameters);
+    final url = Uri.parse(baseURL + "/api/CreateTrip");
 
+    final response = await http.post(url,
+        headers: headers, body: jsonEncode(queryParameters));
+
+    print(response.statusCode);
     if (response.statusCode == 200) {
-       var json = jsonDecode(await response.stream.bytesToString());
-      // print("trip id :: ${json['description']['id']}");
-       tripToSave.id = json['description']['id'];
-    }
-    else {
-      print(response.reasonPhrase);
+      jsonResponse = jsonDecode(response.body);
+      print(jsonResponse);
+      tripToSave.id = jsonResponse['description']['id'];
     }
 
   }
+
 
 
 }

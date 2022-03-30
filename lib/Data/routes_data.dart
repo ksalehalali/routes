@@ -277,4 +277,10 @@ final allRoutes = <RouteModel>[
       area: "KPTC Bus Depot (Hasawi), 602 Rd., Farwaniya Hospital, 6th Ring Rd., Kuwait Shooting Federation, Doha Rd., Jahra Road (80 No. road), Trolley Convenience Store, Mutlaa Police Station, New Abdaly Supermarket, Abdaly",
       from_To: "Jleeb to Abdaly",
       company: "CityBus"),
+  const RouteModel(
+      id: "02104774-681e-4068-a88e-08d9e6387205",
+      name: "747",
+      area: "Hassawi, Jleeb Round-About, German Clinic, Abbassiya, 100 Rd, Airport, Farwaniyah",
+      from_To: "Hassawi to Jleeb to Airport (Farwaniyah to Airport)",
+      company: "CityBus"),
 ];

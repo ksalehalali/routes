@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
@@ -74,7 +72,7 @@ class _HomeState extends State<Home> {
                   child: GoogleMap(initialCameraPosition: cameraPosition,
                     mapToolbarEnabled: true,
 
-                    padding: EdgeInsets.only(top: 100,bottom: 120),
+                    padding: EdgeInsets.only(top: 100,bottom: 140),
                     myLocationEnabled: true,
                     myLocationButtonEnabled: true,
 

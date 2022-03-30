@@ -15,6 +15,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:routes/model/payment_saved_model.dart';
+import 'package:routes/view/widgets/QRCodeScanner.dart';
 import 'package:routes/view/widgets/dialogs.dart';
 import 'package:routes/view/widgets/headerDesgin.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -46,6 +47,7 @@ class _MapState extends State<Map> {
   bool getingAddress = true;
   bool showMap = false;
   bool showStops = false;
+  bool openCamera =false;
   var assistantMethods = AssistantMethods();
   Position? positionFromPin;
   double? sizeOfSheet = 0.0;
@@ -80,16 +82,16 @@ class _MapState extends State<Map> {
       });
     });
 
-    //
-    if (locationController.tripCreatedDone.value == true) {
-      Timer(Duration(milliseconds: 40), () {
-        panelController.open();
-      });
-    }
+   //
+   //    if (locationController.tripCreatedDone.value == true) {
+   //      Tier(Duration(milliseconds: 40), () {
+   //      panelController.open();
+   //    });
+   //  }
 
     initLocationService();
     //
-    Timer(400.milliseconds, () {
+    Timer(300.milliseconds, () {
       print('dialog timer -----------------------------------------==');
       if (paymentController.paymentDone.value == true &&
           paymentController.directPaymentFailed.value == false) {
@@ -254,7 +256,7 @@ class _MapState extends State<Map> {
           minHeight: screenSize.height * 0.2 - 20.0,
           panelBuilder: (scrollContainer) =>
               routeMapController.isMultiMode.value == true
-                  ? _buldDetailsMultiRoutes()
+                  ? _buildDetailsMultiRoutes()
                   : _buildDetailsOneRoute(),
           body: Stack(children: [
             google_maps.GoogleMap(
@@ -502,6 +504,8 @@ class _MapState extends State<Map> {
                 ),
               ),
             ),
+            paymentController.openCam.value ==true? QRScanner():Container(),
+
           ]),
         ),
         floatingActionButton: locationController.tripCreatedDone.value == true
@@ -559,12 +563,9 @@ class _MapState extends State<Map> {
               fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),
         ),
         onPressed: () {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => QRViewExample(
-                        context: context,
-                      )));
+          setState(() {
+            paymentController.openCam.value =true;
+          });
         },
       );
 
@@ -612,7 +613,7 @@ class _MapState extends State<Map> {
     setState(() {});
   }
 
-  Widget _buldDetailsMultiRoutes() {
+  Widget _buildDetailsMultiRoutes() {
     final String timeC = DateTime.now().hour > 11 ? 'PM' : 'AM';
 
     return AnimatedSize(
@@ -921,11 +922,24 @@ class _MapState extends State<Map> {
                                         SizedBox(
                                           height: screenSize.height * 0.1 - 69,
                                         ),
-                                        Text(
-                                          'Board at Route ${routeMapController.multiRouteTripData["startStation"]['rout'].toString()}',
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.black),
+                                        Row(
+                                          children: [
+                                            Text(
+                                              'Board at Route',
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.black),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                              child: Text(
+                                                '${routeMapController.multiRouteTripData["startStation"]['rout'].toString()}',
+                                                style: TextStyle(
+                                                    fontSize: 18,
+                                                    color: Colors.black,fontWeight: FontWeight.w700),
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                         SizedBox(
                                           width: screenSize.width * 0.7 - 20,
@@ -935,18 +949,39 @@ class _MapState extends State<Map> {
                                             maxLines: 1,
                                             style: TextStyle(
                                                 fontSize: 14,
-                                                color: Colors.black),
+                                                color: Colors.black,fontWeight: FontWeight.w500),
                                           ),
                                         ),
                                         SizedBox(
                                           height: screenSize.height * 0.1 - 62,
                                         ),
-                                        Text(
-                                          'Change to ${routeMapController.route2[0]['route'].toString()} ',
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              color: Colors.black),
+                                        Row(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Change to ',
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colors.black),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                              child: SvgPicture.asset(
+                                                "assets/icons/shuffle_arrow.svg",
+                                                height: 16,
+                                                width: 16,
+                                                color: Colors.grey[600],
+                                              ),
+                                            ),
+                                            Text(
+                                              '${routeMapController.route2[0]['route'].toString()} ',
+                                              style: TextStyle(
+                                                  fontSize: 17,
+                                                  color: Colors.black,fontWeight: FontWeight.w700),
+                                            ),
+                                          ],
                                         ),
+
                                         SizedBox(
                                           width: screenSize.width * 0.7 - 20,
                                           child: Text(
@@ -955,7 +990,7 @@ class _MapState extends State<Map> {
                                             maxLines: 1,
                                             style: TextStyle(
                                                 fontSize: 14,
-                                                color: Colors.black),
+                                                color: Colors.black,fontWeight: FontWeight.w500),
                                           ),
                                         ),
                                         SizedBox(
@@ -1020,7 +1055,7 @@ class _MapState extends State<Map> {
                                             maxLines: 1,
                                             style: TextStyle(
                                                 fontSize: 14,
-                                                color: Colors.black),
+                                                color: Colors.black,fontWeight: FontWeight.w500),
                                           ),
                                         ),
                                         SizedBox(
@@ -1223,17 +1258,17 @@ class _MapState extends State<Map> {
                                                   height:
                                                       screenSize.height * 0.1),
                                               Text(
-                                                  '${DateFormat('HH:mm').format(timeDrew!.add(routeMapController.startWalkDurationTrip.value.seconds)).toString()} $timeC'),
+                                                  '${DateFormat('HH:mm').format(timeDrew!.add(routeMapController.startWalkDurationTrip.value.minutes)).toString()} $timeC'),
                                               SizedBox(
                                                   height: heightLineStops - 18),
                                               Text(
-                                                  '${DateFormat('HH:mm').format(timeDrew!.add(routeMapController.routeDurationTrip.value.seconds + routeMapController.startWalkDurationTrip.value.seconds + routeMapController.secondRouteDurationTrip.value.seconds)).toString()} $timeC'),
+                                                  '${DateFormat('HH:mm').format(timeDrew!.add(routeMapController.routeDurationTrip.value.minutes + routeMapController.startWalkDurationTrip.value.minutes + routeMapController.secondRouteDurationTrip.value.minutes)).toString()} $timeC'),
                                               SizedBox(
                                                   height:
                                                       screenSize.height * 0.1 -
                                                           60),
                                               Text(
-                                                  '${DateFormat('HH:mm').format(timeDrew!.add(routeMapController.secondRouteDurationTrip.value.seconds + routeMapController.routeDurationTrip.value.seconds + routeMapController.startWalkDurationTrip.value.seconds + routeMapController.secondWalkDurationTrip.value.seconds)).toString()} $timeC'),
+                                                  '${DateFormat('HH:mm').format(timeDrew!.add(routeMapController.secondRouteDurationTrip.value.minutes + routeMapController.routeDurationTrip.value.minutes + routeMapController.startWalkDurationTrip.value.minutes + routeMapController.secondWalkDurationTrip.value.minutes)).toString()} $timeC'),
                                             ],
                                           ),
                                         ),
@@ -1890,17 +1925,17 @@ class _MapState extends State<Map> {
                                                 height:
                                                     screenSize.height * 0.1),
                                             Text(
-                                                '${DateFormat('HH:mm').format(timeDrew!.add(routeMapController.startWalkDurationTrip.value.seconds)).toString()} $timeC'),
+                                                '${DateFormat('HH:mm').format(timeDrew!.add(routeMapController.startWalkDurationTrip.value.minutes)).toString()} $timeC'),
                                             SizedBox(
                                                 height: heightLineStops - 18),
                                             Text(
-                                                '${DateFormat('HH:mm').format(timeDrew!.add(routeMapController.routeDurationTrip.value.seconds + routeMapController.startWalkDurationTrip.value.seconds + routeMapController.secondRouteDurationTrip.value.seconds)).toString()} $timeC'),
+                                                '${DateFormat('HH:mm').format(timeDrew!.add(routeMapController.routeDurationTrip.value.minutes + routeMapController.startWalkDurationTrip.value.minutes + routeMapController.secondRouteDurationTrip.value.minutes)).toString()} $timeC'),
                                             SizedBox(
                                                 height:
                                                     screenSize.height * 0.1 -
                                                         60),
                                             Text(
-                                                '${DateFormat('HH:mm').format(timeDrew!.add(routeMapController.secondRouteDurationTrip.value.seconds + routeMapController.routeDurationTrip.value.seconds + routeMapController.startWalkDurationTrip.value.seconds + routeMapController.secondWalkDurationTrip.value.seconds)).toString()} $timeC'),
+                                                '${DateFormat('HH:mm').format(timeDrew!.add(routeMapController.secondRouteDurationTrip.value.minutes + routeMapController.routeDurationTrip.value.minutes + routeMapController.startWalkDurationTrip.value.minutes + routeMapController.secondWalkDurationTrip.value.minutes)).toString()} $timeC'),
                                           ],
                                         ),
                                       ),
@@ -1922,101 +1957,3 @@ class _MapState extends State<Map> {
   }
 }
 
-// QR Code Scanner
-class QRViewExample extends StatefulWidget {
-  BuildContext? context;
-
-  QRViewExample({Key? key, this.context}) : super(key: key);
-
-  @override
-  _QRViewExampleState createState() => _QRViewExampleState();
-}
-
-class _QRViewExampleState extends State<QRViewExample> {
-  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
-  final PaymentController paymentController = Get.find();
-
-  Barcode? result;
-  QRViewController? controller;
-
-  // In order to get hot reload to work we need to pause the camera if the platform
-  // is android, or resume the camera if the platform is iOS.
-  @override
-  void reassemble() {
-    super.reassemble();
-    if (Platform.isAndroid) {
-      controller!.pauseCamera();
-    } else if (Platform.isIOS) {
-      controller!.resumeCamera();
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: InkWell(
-          onTap: () {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Map()));
-          },
-          child: Icon(Icons.arrow_back),
-        ),
-        foregroundColor: Colors.black,
-        backgroundColor: Colors.white.withOpacity(0.0),
-        elevation: 0.0,
-      ),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            flex: 5,
-            child: QRView(
-              key: qrKey,
-              onQRViewCreated: _onQRViewCreated,
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Center(
-              child: (result != null)
-                  ? Text(
-                      'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-                  : Text('Scan a code'),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  void _onQRViewCreated(QRViewController controller) {
-    this.controller = controller;
-    controller.scannedDataStream.listen((scanData) async {
-      result = scanData;
-      print(scanData.code);
-      controller.stopCamera();
-      var json = jsonDecode(result!.code!);
-      tripToSave.busId = json['busId'];
-      paymentSaved.busId = json['busId'];
-      paymentSaved.routeId = json['routeId'];
-      paymentSaved.value = json['value'];
-
-      var pay = await paymentController.pay(false);
-      if (pay == true) {
-        print(pay);
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Map()));
-      } else {
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => Map()));
-        print(pay);
-      }
-    });
-  }
-
-  @override
-  void dispose() {
-    controller?.dispose();
-    super.dispose();
-  }
-}
