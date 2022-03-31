@@ -66,17 +66,17 @@ class PaymentController extends GetxController {
      if(isDirect ==false) panelController.open();
       openCam.value =false;
 
-      // Get.dialog(CustomDialog(
-      //   fromPaymentLists: false,
-      //   failedPay: false,
-      //   payment: PaymentSaved(
-      //       id:  paymentSaved.id,
-      //       routeName: paymentSaved.routeName,
-      //       userName: paymentSaved.userName,
-      //       date: DateTime.now().toString(),
-      //       createdDate: DateTime.now().toString(),
-      //       value: paymentSaved.value),
-      // ));
+      Get.dialog(CustomDialog(
+        fromPaymentLists: false,
+        failedPay: false,
+        payment: PaymentSaved(
+            id:  paymentSaved.id,
+            routeName: paymentSaved.routeName,
+            userName: paymentSaved.userName,
+            date: DateTime.now().toString(),
+            createdDate: DateTime.now().toString(),
+            value: paymentSaved.value),
+      ));
       update();
       return true;
     }
