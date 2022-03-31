@@ -1,4 +1,5 @@
 // QR Code Scanner
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -12,9 +13,10 @@ import '../../controller/payment_controller.dart';
 import 'package:routes/view/map.dart';
 
 class QRScanner extends StatefulWidget {
+  final bool isDirectPay;
   BuildContext? context;
 
-  QRScanner({Key? key, this.context}) : super(key: key);
+  QRScanner({Key? key, this.context,required this.isDirectPay}) : super(key: key);
 
   @override
   _QRScannerState createState() => _QRScannerState();
@@ -45,8 +47,7 @@ class _QRScannerState extends State<QRScanner> {
       appBar: AppBar(
         leading: InkWell(
           onTap: () {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Map()));
+            paymentController.openCam.value =false;
           },
           child: Icon(Icons.arrow_back),
         ),
@@ -89,17 +90,27 @@ class _QRScannerState extends State<QRScanner> {
       paymentSaved.routeId = json['routeId'];
       paymentSaved.value = json['value'];
 
-      var pay = await paymentController.pay(false);
-      if (pay == true) {
-        print(pay);
+     if(widget.isDirectPay ==true){
 
-        // Navigator.pushReplacement(
-        //     context, MaterialPageRoute(builder: (context) => Map()));
-      } else {
-        // Navigator.pushReplacement(
-        //     context, MaterialPageRoute(builder: (context) => Map()));
-        print(pay);
-      }
+      // for(int i =0; i<200;i++){
+      //  Timer(5.milliseconds, ()async{
+         var pay = await paymentController.pay(true);
+         if (pay == true) {
+           print(pay);
+         } else {
+           print(pay);
+         }
+      // });
+     // }
+     }else{
+       var pay = await paymentController.pay(false);
+       if (pay == true) {
+         print(pay);
+       } else {
+         print(pay);
+       }
+     }
+
     });
   }
 

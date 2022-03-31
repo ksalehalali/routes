@@ -300,7 +300,7 @@ class CustomDialog extends StatelessWidget {
                           height: 4.0,
                         ),
                         Text(
-                          '${payment!.id!}',
+                          payment!.id!,
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.w700),
                         ),

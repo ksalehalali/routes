@@ -8,6 +8,7 @@ import 'package:routes/model/transaction_model.dart';
 import '../Data/current_data.dart';
 import '../model/charge_toSave_model.dart';
 import '../model/payment_saved_model.dart';
+import '../view/map.dart';
 import '../view/widgets/dialogs.dart';
 class PaymentController extends GetxController {
   var paymentDone = false.obs;
@@ -46,7 +47,6 @@ class PaymentController extends GetxController {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      openCam.value =false;
       if(isDirect==true){
         directPaymentDone.value = true;
         directPaymentFailed.value =false;
@@ -63,17 +63,21 @@ class PaymentController extends GetxController {
       print('value payed :: ${json}');
       //to do
       // بعد اتمام الدفعة يجب تعديل الرحلة المحفوظة لتاخذ paymentId , busId
-      Get.dialog(CustomDialog(
-        fromPaymentLists: false,
-        failedPay: false,
-        payment: PaymentSaved(
-            id: tripToSave.id,
-            routeName: paymentSaved.routeName,
-            userName: paymentSaved.userName,
-            date: DateTime.now().toString(),
-            createdDate: DateTime.now().toString(),
-            value: paymentSaved.value),
-      ));
+     if(isDirect ==false) panelController.open();
+      openCam.value =false;
+
+      // Get.dialog(CustomDialog(
+      //   fromPaymentLists: false,
+      //   failedPay: false,
+      //   payment: PaymentSaved(
+      //       id:  paymentSaved.id,
+      //       routeName: paymentSaved.routeName,
+      //       userName: paymentSaved.userName,
+      //       date: DateTime.now().toString(),
+      //       createdDate: DateTime.now().toString(),
+      //       value: paymentSaved.value),
+      // ));
+      update();
       return true;
     }
     else {
@@ -83,10 +87,12 @@ class PaymentController extends GetxController {
       if(isDirect==true){
         directPaymentDone.value = false;
         directPaymentFailed.value =true;
+        openCam.value =false;
 
       }{
         paymentDone.value = false;
         paymentFailed.value =true;
+        openCam.value =false;
 
       }
 update();
@@ -157,7 +163,7 @@ update();
     var request = http.Request('POST', Uri.parse('https://route.click68.com/api/ListChrgingWalletByUser'));
     request.body = json.encode({
       "PageNumber": 0,
-      "PageSize": 50
+      "PageSize": 100
     });
     request.headers.addAll(headers);
 
@@ -209,7 +215,7 @@ update();
     var request = http.Request('POST', Uri.parse('https://route.click68.com/api/ListPaymentWalletByUser'));
     request.body = json.encode({
       "PageNumber": 1,
-      "PageSize": 50
+      "PageSize": 150
     });
     request.headers.addAll(headers);
 

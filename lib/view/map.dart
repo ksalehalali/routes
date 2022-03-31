@@ -82,41 +82,8 @@ class _MapState extends State<Map> {
       });
     });
 
-   //
-   //    if (locationController.tripCreatedDone.value == true) {
-   //      Tier(Duration(milliseconds: 40), () {
-   //      panelController.open();
-   //    });
-   //  }
-
     initLocationService();
-    //
-    Timer(300.milliseconds, () {
-      print('dialog timer -----------------------------------------==');
-      if (paymentController.paymentDone.value == true &&
-          paymentController.directPaymentFailed.value == false) {
-        Get.dialog(CustomDialog(
-          fromPaymentLists: false,
-          failedPay: false,
-          payment: PaymentSaved(
-              id: tripToSave.id,
-              routeName: paymentSaved.routeName,
-              userName: paymentSaved.userName,
-              date: DateTime.now().toString(),
-              createdDate: DateTime.now().toString(),
-              value: paymentSaved.value),
-        ));
-        paymentController.paymentDone.value = false;
-        paymentController.paymentFailed.value = false;
-        paymentController.paymentDone.value = false;
-      } else if (paymentController.paymentDone.value == false &&
-          paymentController.paymentFailed.value == true) {
-        Get.dialog(CustomDialog(fromPaymentLists: false, failedPay: true));
-        paymentController.paymentDone.value = false;
-        paymentController.paymentFailed.value = false;
-        paymentController.paymentFailed.value = false;
-      }
-    });
+
   }
 
   void onMapEvent(MapEvent mapEvent) {
@@ -504,7 +471,7 @@ class _MapState extends State<Map> {
                 ),
               ),
             ),
-            paymentController.openCam.value ==true? QRScanner():Container(),
+            paymentController.openCam.value ==true? QRScanner(isDirectPay: false,):Container(),
 
           ]),
         ),
@@ -565,6 +532,7 @@ class _MapState extends State<Map> {
         onPressed: () {
           setState(() {
             paymentController.openCam.value =true;
+            panelController.close();
           });
         },
       );
