@@ -173,13 +173,13 @@ class LoginController extends GetxController {
     else if (response.statusCode == 200){
       var jsonResponse = json.decode(response.body);
       if(jsonResponse["status"]){
-        print(jsonResponse["description"]);
+        print("user == ${jsonResponse["description"]}");
         print('==================================');
-        print("my token is ::: ${jsonResponse["description"]['token']}");
         user.id = jsonResponse["description"]['id'];
         // TODO: store token in shared preferences then navigate to the following screen
         storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], password, jsonResponse["description"]["id"]);
         user.accessToken = jsonResponse["description"]["token"];
+        user.name = jsonResponse["description"]["name"];
         print(jsonResponse["description"]["token"]);
 //        Get.offAll(MainScreen(indexOfScreen: 0,));
      Timer(Duration(milliseconds: 500), (){

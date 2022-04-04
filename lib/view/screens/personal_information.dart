@@ -3,8 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:routes/view/screens/personal_information_edit.dart';
 import '../../Assistants/globals.dart';
+import '../../Data/current_data.dart';
 import '../../controller/personal_information_controller.dart';
 
 
@@ -139,6 +141,12 @@ class _PersonalInformationState extends State<PersonalInformation> {
                   ),
                 ),
                 SizedBox(height: 32.0,),
+
+                QrImage(
+                  data: "{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\"}",
+                  version: QrVersions.auto,
+                  size: 200.0,
+                ),
               ],
             ),
           ),

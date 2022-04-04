@@ -18,7 +18,7 @@ class AssistantMethods {
   Future<String> searchCoordinateAddress(Position position, context, bool homeCall) async {
     String placeAddress = "";
 
-    var res = await RequestAssistant.getRequest('https://api.mapbox.com/geocoding/v5/mapbox.places/${position.longitude},${position.latitude}.json?access_token=pk.eyJ1Ijoia2hhbGVkOTg4MjQiLCJhIjoiY2t6Mmg5NjlmMW5rZzJubXY4NTN4enp5YSJ9.37lqCbPUZEusWKQtoc_FIQ');
+    var res = await RequestAssistant.getRequest('https://api.mapbox.com/geocoding/v5/mapbox.places/${position.longitude},${position.latitude}.json?access_token=$mapbox_token');
     if (res != "failed") {
       if (locationController.startAddingPickUp.value == true) {
         locationController.changePickUpAddress(res['features'][0]['place_name']);

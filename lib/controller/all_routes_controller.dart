@@ -244,7 +244,7 @@ class AllRoutes extends GetxController {
       await findStationDirection(stationQuery3, false);
       await findStationDirection(stationQuery4, false);
       cameraPosition = CameraPosition(target:LatLng(stationLocationPoints[centerIndex.value].latitude,stationLocationPoints[centerIndex.value].longitude),zoom: 12.0 );
-      newGoogleMapController!.animateCamera(
+      homeMapController!.animateCamera(
           CameraUpdate.newCameraPosition(cameraPosition!));
     } else if (jsonResponse.length <= 75 && jsonResponse.length > 49) {
       await findStationDirection(stationQuery, false);
@@ -253,19 +253,19 @@ class AllRoutes extends GetxController {
 
       await findStationDirection(stationQuery3, false);
       cameraPosition = CameraPosition(target:LatLng(stationLocationPoints[centerIndex.value].latitude,stationLocationPoints[centerIndex.value].longitude),zoom: 12 );
-      newGoogleMapController!.animateCamera(
+      homeMapController!.animateCamera(
           CameraUpdate.newCameraPosition(cameraPosition!));
     }else if(jsonResponse.length <= 49 && jsonResponse.length > 24 ){
       await findStationDirection(stationQuery, false);
 
        await findStationDirection(stationQuery2, false);
       cameraPosition = CameraPosition(target:LatLng(stationLocationPoints[centerIndex.value].latitude,stationLocationPoints[centerIndex.value].longitude),zoom: 12 );
-      newGoogleMapController!.animateCamera(
+      homeMapController!.animateCamera(
           CameraUpdate.newCameraPosition(cameraPosition!));
     }else if( jsonResponse.length < 24){
       await findStationDirection(stationQuery, false);
       cameraPosition = CameraPosition(target:LatLng(stationLocationPoints[centerIndex.value].latitude,stationLocationPoints[centerIndex.value].longitude),zoom: 12 );
-      newGoogleMapController!.animateCamera(
+      homeMapController!.animateCamera(
           CameraUpdate.newCameraPosition(cameraPosition!));
     }
     update();

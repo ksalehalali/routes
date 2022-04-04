@@ -261,28 +261,6 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  void findPlace(String placeName) async {
-    if (placeName.length > 1) {
-      String autoCompleteUrl =
-          "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=$placeName&key=$mapKey&sessiontoken=1234567890&components=country:kw";
-
-      var res = await RequestAssistant.getRequest(autoCompleteUrl);
-
-      if (res == "failed") {
-        return;
-      }
-      if (res["status"] == "OK") {
-        var predictions = res["predictions"];
-
-        var placesList = (predictions as List)
-            .map((e) => PlacePredictions.fromJson(e))
-            .toList();
-        setState(() {
-          //placePredictionList = placesList;
-        });
-      }
-    }
-  }
 }
 
 class PredictionTile extends StatelessWidget {
@@ -305,7 +283,8 @@ class PredictionTile extends StatelessWidget {
           initialPoint.longitude = locationController.currentLocation.value.longitude;
           locationController.buttonString.value = ' Confirm Drop off spot';
           locationController.startAddingDropOff.value = true;
-
+          locationController.startAddingPickUpStatus(false);
+          locationController.startAddingDropOffStatus(true);
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => Map()),

@@ -66,6 +66,8 @@ class _MapState extends State<Map> {
     target: google_maps.LatLng(29.370314422169248, 47.98216642044717),
     zoom: 14.4746,
   );
+  GlobalKey _formKey = GlobalKey();
+  GlobalKey _formKey2 = GlobalKey();
 
   @override
   void initState() {
@@ -386,7 +388,24 @@ class _MapState extends State<Map> {
                   geodesic: true,
                 ),
               },
-              onCameraMoveStarted: () {},
+              onCameraMoveStarted: () {
+                print('onCameraMoveStarted');
+              },
+              onCameraIdle: ()async{
+                print('onCameraIdle');
+                addressText = await assistantMethods.searchCoordinateAddress(
+                    positionFromPin!, context, false);
+                getingAddress = true;
+                if (locationController.addDropOff.value == true &&
+                    locationController.addPickUp.value == true) {
+                } else {
+                  if (locationController.startAddingPickUp.value == true) {
+                    trip.startPointAddress = addressText!;
+                  } else {
+                    trip.endPointAddress = addressText!;
+                  }
+                }
+              },
               onCameraMove: (camera) async {
                 locationController.updatePinPos(
                     camera.target.latitude, camera.target.longitude);
@@ -401,18 +420,7 @@ class _MapState extends State<Map> {
                   accuracy: 1.0,
                 );
 
-                addressText = await assistantMethods.searchCoordinateAddress(
-                    positionFromPin!, context, false);
-                getingAddress = true;
-                if (locationController.addDropOff.value == true &&
-                    locationController.addPickUp.value == true) {
-                } else {
-                  if (locationController.startAddingPickUp.value == true) {
-                    trip.startPointAddress = addressText!;
-                  } else {
-                    trip.endPointAddress = addressText!;
-                  }
-                }
+
               },
               onMapCreated: (google_maps.GoogleMapController controller) {
                 _controllerMaps.complete(controller);
@@ -1565,7 +1573,9 @@ class _MapState extends State<Map> {
                 () => Container(
                   child: locationController.tripCreatedDone.value == true
                       ? Expanded(
+                    key:_formKey2 ,
                           child: ListView(
+                            key: _formKey,
                             padding: EdgeInsets.zero,
                             children: [
                               SizedBox(

@@ -39,7 +39,7 @@ class _HomeState extends State<Home> {
     CameraPosition cameraPosition =
     new CameraPosition(target: latLngPosition, zoom: 15);
     print("init point $initialPoint");
-    newGoogleMapController!.animateCamera(
+    homeMapController!.animateCamera(
         CameraUpdate.newCameraPosition(cameraPosition));
     // var assistantMethods = AssistantMethods();
     // String address = await assistantMethods.searchCoordinateAddress(
@@ -63,6 +63,7 @@ class _HomeState extends State<Home> {
         color: Colors.white
       ),
       child: SafeArea(
+        bottom: false,
         child: Scaffold(
           body: Stack(
             children: [
@@ -78,7 +79,7 @@ class _HomeState extends State<Home> {
 
                     onMapCreated: (GoogleMapController controller) {
                       _controllerMaps.complete(controller);
-                      newGoogleMapController = controller;
+                      homeMapController = controller;
                       setState(() {
                         bottomPaddingOfMap = 320.0;
                       });
@@ -86,44 +87,14 @@ class _HomeState extends State<Home> {
                     },
                   ),
               ),
-              // SizedBox(
-              //   height: screenSize.height * .4,
-              //   width: double.infinity,
-              //   child: InkWell(
-              //     onTap: (){
-              //       Navigator.push(context, MaterialPageRoute(builder: (context)=>AllRoutesMap()));
-              //     },
-              //     child: Carousel(
-              //       dotSize: 6.0,
-              //       dotSpacing: 15.0,
-              //       autoplayDuration: 6.seconds,
-              //       showIndicator: true,
-              //       animationDuration: 600.milliseconds,
-              //       dotBgColor: routes_color.withOpacity(0.4),
-              //       dotColor: Colors.white,
-              //       dotIncreasedColor: Colors.red,
-              //       dotPosition: DotPosition.bottomCenter,
-              //       images: [
-              //         Image.asset('assets/images/routes/fc3cde7b3a4645919cfedda7a46dc87c-0001.jpeg', fit: BoxFit.fill),
-              //         Image.asset('assets/images/bus/kgl.jpeg', fit: BoxFit.fill),
-              //         // Image.asset('assets/images/bus/a62b7b51-fbdc-4a0e-938f-ed8cccd2c8bc.jpeg', fit: BoxFit.cover),
-              //         // Image.asset('assets/images/bus/slide2.jpeg', fit: BoxFit.cover),
-              //         // Image.asset('assets/images/routes_fullBlue_logo.jpeg', fit: BoxFit.cover),
-              //
-              //
-              //       ],
-              //     ),
-              //   ),
-              // ),
-             // SizedBox(height: screenSize.height *.1 ,),
             Positioned(
-                top: screenSize.height *0.8 -80,
+                top: screenSize.height *0.7-28,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.grey[100],
                     borderRadius: BorderRadius.only(topLeft:Radius.circular(18),topRight: Radius.circular(18))
                   ),
-                  height: screenSize.height *0.2+50,
+                  height: screenSize.height *0.2+80,
                   width: screenSize.width,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

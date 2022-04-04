@@ -29,7 +29,7 @@ class AllRoutesMap extends StatefulWidget {
   @override
   _AllRoutesMapState createState() => _AllRoutesMapState();
 }
-google_maps.GoogleMapController? newGoogleMapController;
+google_maps.GoogleMapController? homeMapController;
 
 class _AllRoutesMapState extends State<AllRoutesMap> {
   Completer<google_maps.GoogleMapController> _controllerMaps = Completer();
@@ -63,7 +63,7 @@ class _AllRoutesMapState extends State<AllRoutesMap> {
     google_maps.CameraPosition cameraPosition =
     new google_maps.CameraPosition(target: latLngPosition, zoom: 15);
     print("init point $initialPoint");
-    newGoogleMapController!.animateCamera(
+    homeMapController!.animateCamera(
         google_maps.CameraUpdate.newCameraPosition(cameraPosition));
     var assistantMethods = AssistantMethods();
     String address = await assistantMethods.searchCoordinateAddress(
@@ -137,7 +137,7 @@ class _AllRoutesMapState extends State<AllRoutesMap> {
               },
               onMapCreated: (google_maps.GoogleMapController controller) {
                 _controllerMaps.complete(controller);
-                newGoogleMapController = controller;
+                homeMapController = controller;
                 setState(() {
                   bottomPaddingOfMap = 320.0;
                 });

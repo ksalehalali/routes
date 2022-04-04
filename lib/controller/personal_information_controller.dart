@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
 import '../Assistants/globals.dart';
+import '../Data/current_data.dart';
 
 class PersonalInformationController extends GetxController {
 
@@ -55,6 +56,7 @@ class PersonalInformationController extends GetxController {
 
     if(response["status"]) {
       print(response["description"]["name"]);
+      user.name = response["description"]["name"];
       if(response["description"]["name"] != null)
       nameHint.value = response["description"]["name"];
       if(response["description"]["email"] != null)

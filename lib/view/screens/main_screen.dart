@@ -73,7 +73,8 @@ class _MainScreenState extends State<MainScreen> {
     initialPoint.longitude = position.longitude;
     initialPointToFirstMap.latitude = position.latitude;
     initialPointToFirstMap.longitude = position.longitude;
-
+    homeMapController!.animateCamera(
+        google_maps.CameraUpdate.newCameraPosition(google_maps.CameraPosition(target: google_maps.LatLng(position.latitude,position.longitude,),zoom: 14)));
     currentPosition = geo.Position(longitude: position.longitude, latitude: position.latitude, timestamp: position.timestamp, accuracy: position.accuracy, altitude: position.altitude, heading: position.heading, speed: position.speed, speedAccuracy: position.speedAccuracy);
     print(currentPosition!.latitude);
     print(currentPosition!.longitude);
@@ -110,6 +111,7 @@ class _MainScreenState extends State<MainScreen> {
           )
       ),
       child: SafeArea(
+        bottom: false,
         child: Scaffold(
           body: PageStorage(bucket: bucket, child: currentScreen,
 
