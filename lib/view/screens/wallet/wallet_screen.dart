@@ -56,7 +56,7 @@ class _WalletScreenState extends State<WalletScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: screenSize.height * .1 - 40,
+                height: screenSize.height * .1 - 70,
               ),
               Row(
                 children: [

@@ -91,8 +91,16 @@ class _HomeState extends State<Home> {
                 top: screenSize.height *0.7-28,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.grey[100],
-                    borderRadius: BorderRadius.only(topLeft:Radius.circular(18),topRight: Radius.circular(18))
+                    color: Colors.grey[50],
+                    borderRadius: BorderRadius.only(topLeft:Radius.circular(18),topRight: Radius.circular(18)),
+                      boxShadow: [
+                        BoxShadow(
+                          color: routes_color7,
+                          blurRadius: 6.0,
+                          spreadRadius: 0.5,
+                          offset: Offset(0.7, 0.7),
+                        )
+                      ]
                   ),
                   height: screenSize.height *0.2+80,
                   width: screenSize.width,

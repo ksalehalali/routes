@@ -61,16 +61,16 @@ class _DirectPaymentState extends State<DirectPayment> {
                               "Start direct payment by scanning the QR code via your camera",
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 20,
+                                fontSize: 18,
                               ),
                             ),
                           ),
                           SizedBox(height: 16,),
                           Image.asset(
-                            "${assetsDir}qrCode.jpg",
-                            width: MediaQuery.of(context).size.width * 0.66,
+                            "${assetsDir}scanqrcode2.png",
+                           // width: MediaQuery.of(context).size.width * 0.66,
                           ),
-                         SizedBox(height: screenSize.height*0.2,),
+                         SizedBox(height: screenSize.height*0.1-20,),
                           // QR SCAN BUTTON
                           Container(
                             child: ElevatedButton(
@@ -93,15 +93,16 @@ class _DirectPaymentState extends State<DirectPayment> {
                                 }
                               },
                               child: Text(
-                                "Scan QR Code",
+                                "Scan",
                                 style: TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 17,
+                                  letterSpacing: 1
                                 ),
                               ),
                               style: ElevatedButton.styleFrom(
 
                                   maximumSize: Size(Get.size.width -90,Get.size.width -90),
-                                  minimumSize: Size(Get.size.width -90, 40),primary: routes_color,
+                                  minimumSize: Size(Get.size.width -90, 40),primary: routes_color2,
                                   onPrimary: Colors.white,
                                   alignment: Alignment.center
                               ),

@@ -35,18 +35,31 @@ class PaymentController extends GetxController {
       'Content-Type': 'application/json'
     };
     var request = http.Request('POST', Uri.parse('https://route.click68.com/api/PaymentMyWallet'));
-    request.body = json.encode({
-      "api_key": "\$FhlF]3;.OIic&{>H;_DeW}|:wQ,A8",
-      "api_secret": "Z~P7-_/i!=}?BIwAd*S67LBzUo4O^G",
-      "Value":   paymentSaved.value,
-      "TripID": tripToSave.id,
-      "BusId": paymentSaved.busId
-    });
+
+    if(isDirect ==false){
+      request.body = json.encode({
+        "api_key": "\$FhlF]3;.OIic&{>H;_DeW}|:wQ,A8",
+        "api_secret": "Z~P7-_/i!=}?BIwAd*S67LBzUo4O^G",
+        "Value":   paymentSaved.value,
+        "TripID": tripToSave.id,
+        "BusId": paymentSaved.busId
+      });
+    }else{
+      request.body = json.encode({
+        "api_key": "\$FhlF]3;.OIic&{>H;_DeW}|:wQ,A8",
+        "api_secret": "Z~P7-_/i!=}?BIwAd*S67LBzUo4O^G",
+        "Value":   paymentSaved.value,
+        "BusId": paymentSaved.busId
+      });
+    }
+
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();
+    var jsonResponse = jsonDecode(await response.stream.bytesToString());
+    print(jsonResponse);
 
-    if (response.statusCode == 200) {
+    if (jsonResponse['status']== true) {
       if(isDirect==true){
         directPaymentDone.value = true;
         directPaymentFailed.value =false;
@@ -54,15 +67,13 @@ class PaymentController extends GetxController {
         paymentFailed.value =false;
         paymentDone.value = true;
       }
-      var json = jsonDecode(await response.stream.bytesToString());
-      print(json);
-      user.totalBalance = double.parse(json['description']['total']);
-       paymentSaved.id = json['description']['paymentId'];
-       paymentSaved.routeName = json['description']['routeName'];
-       paymentSaved.userName = json['description']['userName'];
-      print('value payed :: ${json}');
-      //to do
-      // بعد اتمام الدفعة يجب تعديل الرحلة المحفوظة لتاخذ paymentId , busId
+
+      user.totalBalance = double.parse(jsonResponse['description']['total']);
+       paymentSaved.id = jsonResponse['description']['paymentId'];
+       paymentSaved.routeName = jsonResponse['description']['routeName'];
+       paymentSaved.userName = jsonResponse['description']['userName'];
+      print('value payed :: ${jsonResponse}');
+
      if(isDirect ==false) panelController.open();
       openCam.value =false;
 
@@ -81,6 +92,7 @@ class PaymentController extends GetxController {
       return true;
     }
     else {
+      openCam.value =false;
       Get.dialog(CustomDialog(fromPaymentLists: false, failedPay: true));
       var json = jsonDecode(await response.stream.bytesToString());
       print(json);
@@ -225,7 +237,7 @@ update();
       var json = jsonDecode(await response.stream.bytesToString());
       var data = json['description'];
       totalOfMyPayments.value = json['total'];
-print('payment ::${data[2]}');
+print('payment ::${data[0]}');
       for(int i =0; i < data.length; i++){
         payments.add(
                 PaymentSaved (
