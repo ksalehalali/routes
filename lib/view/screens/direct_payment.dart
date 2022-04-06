@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
@@ -66,9 +67,11 @@ class _DirectPaymentState extends State<DirectPayment> {
                             ),
                           ),
                           SizedBox(height: 16,),
-                          Image.asset(
-                            "${assetsDir}scanqrcode2.png",
-                           // width: MediaQuery.of(context).size.width * 0.66,
+                          DelayedDisplay(
+                            child: Image.asset(
+                              "${assetsDir}scanqrcode2.png",
+                             // width: MediaQuery.of(context).size.width * 0.66,
+                            ),
                           ),
                          SizedBox(height: screenSize.height*0.1-20,),
                           // QR SCAN BUTTON

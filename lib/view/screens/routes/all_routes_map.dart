@@ -145,44 +145,9 @@ class _AllRoutesMapState extends State<AllRoutesMap> {
               },
             ),
 
-          //HamburgerButton for drawer
-          Positioned(
-            top: 45.0,
-            left: 22.0,
-            child: InkWell(
-              onTap: () {
-                FocusScope.of(context).unfocus();
-                Navigator.pushReplacement(context,
-                    MaterialPageRoute(builder: (context) => MainScreen(indexOfScreen: 0)));
-              },
-              child: Container(
-                //height: 300.0,
-                decoration: BoxDecoration(
-                    color: Colors.transparent,
-                    borderRadius: BorderRadius.circular(22.0),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.5),
-                        blurRadius: 6.0,
-                        spreadRadius: 0.5,
-                        offset: Offset(0.7, 0.7),
-                      ),
-                    ]),
-                child: CircleAvatar(
-                  backgroundColor: Colors.white.withOpacity(.9),
-                  child: Obx(
-                        () => Icon(
-                      (locationController.tripCreatedDone.value == false)
-                          ? Icons.close
-                          : Icons.close,
-                      color: Colors.black,
-                    ),
-                  ),
-                  radius: 20.0,
-                ),
-              ),
-            ),
-          ),
+
+
+
           Obx(()=> AnimatedPositioned(
                 top:allRouteController.isSearching.value ==true ? screenSize.height -410:screenSize.height -330,
                 duration: 400.milliseconds,
