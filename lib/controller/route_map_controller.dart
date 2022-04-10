@@ -116,6 +116,21 @@ class RouteMapController extends GetxController {
     tripStationDirData2.value = {};
     tripStationWayPoints2G.value = [];
 
+    fullDistanceTrip.value = 0.0;
+    fullDurationTrip.value = 0.0;
+    route2DurationTrip.value =0.0;
+    route2DistanceTrip.value = 0.0;
+    routeDistanceTrip.value =0.0;
+    routeDurationTrip.value =0.0;
+    secondRoute2DistanceTrip.value =0.0;
+    secondRoute2DurationTrip.value = 0.0;
+    secondRouteDurationTrip.value =0.0;
+    secondRouteDistanceTrip.value =0.0;
+    secondWalkDistanceTrip.value = 0.0;
+    secondWalkDurationTrip.value =0.0;
+    startWalkDistanceTrip.value = 0.0;
+    startWalkDurationTrip.value =0.0;
+
     // trip.startPoint.latitude = 0.0;
     // trip.startPoint.longitude = 0.0;
     trip.endPoint.latitude = 0.0;
@@ -660,7 +675,7 @@ class RouteMapController extends GetxController {
         'go to multi routes', 'we trying to get multi routes for you',
         duration: 3.seconds, colorText: Colors.blue[900]);
     isMultiMode.value = true;
-    final url = Uri.parse(baseURL + "/api/FindMultiRoute1");
+    final url = Uri.parse(baseURL + "/api/test/FindMultiRoute");
     final headers = {
       "Content-type": "application/json",
       "Authorization": "Bearer ${user.accessToken}",
@@ -993,10 +1008,10 @@ class RouteMapController extends GetxController {
 
       ///to do cal walking
 
-      fullDurationTrip.value = fullDurationTrip.value + tripFirstWalkDirData['routes'][0]['duration']/ 60;
-      fullDistanceTrip.value = fullDistanceTrip.value + tripFirstWalkDirData['routes'][0]['distance']/ 1000;
-      fullDurationTrip.value = fullDurationTrip.value + tripSecondWalkDirData['routes'][0]['duration']/ 60;
-      fullDistanceTrip.value = fullDistanceTrip.value + tripSecondWalkDirData['routes'][0]['distance']/ 1000;
+      fullDurationTrip.value = fullDurationTrip.value + tripFirstWalkDirData['routes'][0]['duration']/ 60/2;
+      fullDistanceTrip.value = fullDistanceTrip.value + tripFirstWalkDirData['routes'][0]['distance']/ 1000/2;
+      fullDurationTrip.value = fullDurationTrip.value + tripSecondWalkDirData['routes'][0]['duration']/ 60/2;
+      fullDistanceTrip.value = fullDistanceTrip.value + tripSecondWalkDirData['routes'][0]['distance']/ 1000/2;
 
     }else {
       if(isLong){
@@ -1014,10 +1029,10 @@ class RouteMapController extends GetxController {
 
     }
 
-    startWalkDurationTrip.value = tripFirstWalkDirData['routes'][0]['duration']/ 60;
-    secondWalkDurationTrip.value = tripSecondWalkDirData['routes'][0]['duration']/ 60;
-    startWalkDistanceTrip.value = tripFirstWalkDirData['routes'][0]['distance']/ 1000;
-    secondWalkDistanceTrip.value =tripSecondWalkDirData['routes'][0]['distance']/ 1000;
+    // startWalkDurationTrip.value = tripFirstWalkDirData['routes'][0]['duration']/ 60;
+    // secondWalkDurationTrip.value = tripSecondWalkDirData['routes'][0]['duration']/ 60;
+    // startWalkDistanceTrip.value = tripFirstWalkDirData['routes'][0]['distance']/ 1000;
+    // secondWalkDistanceTrip.value =tripSecondWalkDirData['routes'][0]['distance']/ 1000;
     print('-------------------------------------------');
     update();
   }
