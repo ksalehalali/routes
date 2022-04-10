@@ -299,6 +299,7 @@ class RouteMapController extends GetxController {
             tripStationWayPointsRoute2.add(google_maps.LatLng(
                 decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
           }
+          update();
         }else{
           multiTripStationDirData2Route2.value = decoded;
           routeDurationTrip.value = routeDurationTrip.value +  decoded['routes'][0]['duration'] /60;
@@ -311,7 +312,6 @@ class RouteMapController extends GetxController {
                 decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
           }
         }
-        locationController.tripCreatedStatus(true);
 
         //moving camera
         google_maps.CameraPosition cameraPosition =
@@ -349,10 +349,10 @@ class RouteMapController extends GetxController {
           secondRoute2DistanceTrip.value = secondRoute2DistanceTrip.value + decoded['routes'][0]['distance']/1000;
           decoded = decoded["routes"][0]["geometry"];
           for (int i = 0; i < decoded["coordinates"].length; i++) {
-
             tripStationWayPointsRoute2.add(google_maps.LatLng(
                 decoded["coordinates"][i][1], decoded["coordinates"][i][0]));
           }
+          update();
         }
 
         locationController.tripCreatedStatus(true);
@@ -701,7 +701,6 @@ class RouteMapController extends GetxController {
       return;
     }else if(jsonResponse["status"] == true){
       multiRouteTripData.value = jsonResponse;
-      locationController.tripCreatedDone.value =true;
       isMultiMode.value =true;
       print('findeMultiRoute1 res :: $jsonResponse');
 
@@ -918,6 +917,8 @@ class RouteMapController extends GetxController {
         stationQuery5 = stationQuery5.substring(0,
             stationQuery5.length - 1); // To remove the last semicolon from the string (would cause an error)
         await findStationDirectionMulti(stationQuery5, true,true).then((value) => calculateFullDurationDistanceMulti(true,true));
+        locationController.tripCreatedStatus(true);
+
         return;
       }else if(route2.length <= 50 && route2.length >25){
         for (int i = 0; i  < 24; i++) {
@@ -952,6 +953,8 @@ class RouteMapController extends GetxController {
         stationQuery4 = stationQuery4.substring(0,
             stationQuery4.length - 1); // To remove the last semicolon from the string (would cause an error)
         await findStationDirectionMulti(stationQuery4, true,true).then((value) => calculateFullDurationDistanceMulti(true,true));
+        locationController.tripCreatedStatus(true);
+
         return;
       }else if(route2.length <= 25){
         print('route 2 <25 =========');
@@ -970,6 +973,7 @@ class RouteMapController extends GetxController {
             stationQuery3.length - 1); // To remove the last semicolon from the string (would cause an error)
         await findStationDirectionMulti(stationQuery3, false,true);
         calculateFullDurationDistanceMulti(false,true);
+        locationController.tripCreatedStatus(true);
         update();
         return;
       }
