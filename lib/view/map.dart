@@ -720,6 +720,8 @@ class _MapState extends State<Map> {
                                   }
                                 },
                                 child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Icon(
                                       FontAwesomeIcons.walking,
@@ -727,7 +729,7 @@ class _MapState extends State<Map> {
                                       color: Colors.grey[600],
                                     ),
                                     SizedBox(
-                                      width: 9.0,
+                                      width: 8.0,
                                     ),
                                     Icon(
                                       Icons.arrow_forward_ios_outlined,
@@ -735,7 +737,7 @@ class _MapState extends State<Map> {
                                       color: Colors.grey[600],
                                     ),
                                     SizedBox(
-                                      width: 9.0,
+                                      width: 8.0,
                                     ),
                                     Icon(
                                       FontAwesomeIcons.busAlt,
@@ -743,7 +745,7 @@ class _MapState extends State<Map> {
                                       color: Colors.grey[600],
                                     ),
                                     SizedBox(
-                                      width: 9.0,
+                                      width:8.0,
                                     ),
                                     Container(
                                       decoration: BoxDecoration(
@@ -764,7 +766,7 @@ class _MapState extends State<Map> {
                                                         .toString()
                                                     : '',
                                                 style: TextStyle(
-                                                    fontSize: 16,
+                                                    fontSize: 15,
                                                     color: Colors.white,
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -803,7 +805,7 @@ class _MapState extends State<Map> {
                                                         .toString()
                                                     : '',
                                                 style: TextStyle(
-                                                    fontSize: 16,
+                                                    fontSize: 15,
                                                     color: Colors.white,
                                                     fontWeight:
                                                         FontWeight.bold),
@@ -821,7 +823,7 @@ class _MapState extends State<Map> {
                                         child: Padding(
                                           padding: const EdgeInsets.all(5.0),
                                           child: Obx(() => SizedBox(
-                                                width: 142,
+                                                width: 141,
                                                 child: Text(
                                                   locationController
                                                               .tripCreatedDone
@@ -834,7 +836,7 @@ class _MapState extends State<Map> {
                                                   maxLines: 1,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
-                                                      fontSize: 15,
+                                                      fontSize: 14,
                                                       color: Colors.black,
                                                       fontWeight:
                                                           FontWeight.bold),

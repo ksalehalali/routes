@@ -55,7 +55,7 @@ dependencies:
   flutter_countdown_timer: ^4.1.0
   flutter_credit_card: ^2.0.0
   get_storage:
-  myfatoorah_flutter: ^2.1.0
+  myfatoorah_flutter: ^2.1.5
   intl_phone_number_input: ^0.7.0+2
   url_launcher: ^6.0.20
   flutter_svg: ^1.0.3

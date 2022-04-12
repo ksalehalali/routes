@@ -63,7 +63,12 @@ class MyFatoorah {
                   Get.offAll(MainScreen(indexOfScreen: 1,))
                 }
               else
-                {print(result.error!.message)}
+                {
+                  print('wrong recharge'),
+                  print(result.error!.message),
+                print(result.error!.code)
+
+  }
             });
     return request;
   }

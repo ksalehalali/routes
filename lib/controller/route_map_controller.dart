@@ -709,7 +709,15 @@ class RouteMapController extends GetxController {
       sharedStation2 = jsonResponse['sharedPoint2'];
       endStation = jsonResponse['endStation'];
 
+      if(jsonResponse["description"]=="NO Point"){
+        isMultiMode.value = false;
 
+        Timer(1000.milliseconds, () {
+        Get.snackbar(
+            'there is no route', 'no route please try change your points',
+            backgroundColor: Colors.white,
+            duration: 5.seconds, colorText: Colors.red[900]);
+      });}
       print('route1 = ${jsonResponse['rout1'][0]['route']} ---- route 2 = ${jsonResponse['rout2'][0]['route']}');
       print('route1 = ${jsonResponse['rout1']} --- ');
 
