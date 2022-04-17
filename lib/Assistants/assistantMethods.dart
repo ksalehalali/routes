@@ -15,7 +15,7 @@ import '../model/directionDetails.dart';
 class AssistantMethods {
   final LocationController locationController = Get.find();
 
-  Future<String> searchCoordinateAddress(Position position, context, bool homeCall) async {
+  Future<String> searchCoordinateAddress(Position position, bool homeCall) async {
     String placeAddress = "";
 
     var res = await RequestAssistant.getRequest('https://api.mapbox.com/geocoding/v5/mapbox.places/${position.longitude},${position.latitude}.json?access_token=$mapbox_token');

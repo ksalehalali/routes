@@ -208,7 +208,7 @@ class _MapState extends State<Map> {
         google_maps.CameraUpdate.newCameraPosition(cameraPosition));
     var assistantMethods = AssistantMethods();
     String address = await assistantMethods.searchCoordinateAddress(
-        position, context, false);
+        position,  false);
     print(address);
   }
 
@@ -394,7 +394,7 @@ class _MapState extends State<Map> {
                 onCameraIdle: ()async{
                   print('onCameraIdle');
                   addressText = await assistantMethods.searchCoordinateAddress(
-                      positionFromPin!, context, false);
+                      positionFromPin!, false);
                   getingAddress = true;
                   if (locationController.addDropOff.value == true &&
                       locationController.addPickUp.value == true) {

@@ -67,7 +67,7 @@ class _AllRoutesMapState extends State<AllRoutesMap> {
         google_maps.CameraUpdate.newCameraPosition(cameraPosition));
     var assistantMethods = AssistantMethods();
     String address = await assistantMethods.searchCoordinateAddress(
-        position, context, false);
+        position, false);
     print(address);
   }
 
@@ -122,7 +122,7 @@ class _AllRoutesMapState extends State<AllRoutesMap> {
 
                 addressText =
                 await assistantMethods.searchCoordinateAddress(
-                    positionFromPin!, context, false);
+                    positionFromPin!,false);
                 getingAddress = true;
                 if (locationController.addDropOff.value == true &&
                     locationController.addPickUp.value == true) {

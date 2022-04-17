@@ -3,12 +3,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:location/location.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as google_maps;
 import 'package:routes/view/screens/profile_screen.dart';
 import 'package:routes/view/screens/routes/all_routes_map.dart';
 import 'package:routes/view/screens/wallet/wallet_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:location/location.dart' as loc ;
 
 import '../../Assistants/assistantMethods.dart';
 import '../../Assistants/globals.dart';
@@ -50,21 +50,37 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
     locatePosition();
   }
-  var location = Location();
+  var location = loc.Location();
   final routeMapController = Get.put(RouteMapController());
   geo.Position? currentPosition;
   double bottomPaddingOfMap = 0;
   final LocationController locationController = Get.find();
+  late loc.PermissionStatus _permissionGranted;
 
   void locatePosition() async {
+    loc.Location location = loc.Location.instance;
+    geo.Position? currentPos;
+    loc.PermissionStatus permissionStatus = await location.hasPermission();
+    _permissionGranted = permissionStatus;
+    if (_permissionGranted != loc.PermissionStatus.granted) {
+      final loc.PermissionStatus permissionStatusReqResult =
+      await location.requestPermission();
+
+      _permissionGranted = permissionStatusReqResult;
+    }
+
     setState(() {
       currentScreen = screens[widget.indexOfScreen];
       currentTp = widget.indexOfScreen;
     });
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     user.accessToken = prefs.get('token').toString() ;
 
     geo.Position position = await geo.Geolocator.getCurrentPosition(desiredAccuracy: geo.LocationAccuracy.high);
+    print("--------------------position $position");
+
+
     trip.startPoint.latitude = position.latitude;
     trip.startPoint.longitude = position.longitude;
     routeMapController.startPointLatLng.value.latitude = position.latitude;
@@ -76,8 +92,6 @@ class _MainScreenState extends State<MainScreen> {
     homeMapController!.animateCamera(
         google_maps.CameraUpdate.newCameraPosition(google_maps.CameraPosition(target: google_maps.LatLng(position.latitude,position.longitude,),zoom: 14)));
     currentPosition = geo.Position(longitude: position.longitude, latitude: position.latitude, timestamp: position.timestamp, accuracy: position.accuracy, altitude: position.altitude, heading: position.heading, speed: position.speed, speedAccuracy: position.speedAccuracy);
-    print(currentPosition!.latitude);
-    print(currentPosition!.longitude);
     locationController.currentLocation.value = LatLng(position.latitude,position.longitude);
     locationController.currentLocationG.value = google_maps.LatLng(position.latitude,position.longitude);
     routeMapController.startPointLatLng.value = LatLng(position.latitude,position.longitude);
@@ -86,7 +100,7 @@ class _MainScreenState extends State<MainScreen> {
     if(locationController.startAddingPickUp.value ==false){
       var assistantMethods = AssistantMethods();
       String address =
-      await assistantMethods.searchCoordinateAddress(currentPosition!, context,true);
+      await assistantMethods.searchCoordinateAddress(currentPosition!,true);
       trip.startPointAddress = address;
       trip.startPoint = LocationModel(latLngPosition.latitude, latLngPosition.longitude);
       locationController.gotMyLocation(true);
