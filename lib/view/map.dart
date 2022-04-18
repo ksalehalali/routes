@@ -250,7 +250,7 @@ class _MapState extends State<Map> {
                   ( locationController.tripCreatedDone.value == false &&locationController.showPinOnMap.value == true)
                       ? google_maps.Marker(
                           markerId: google_maps.MarkerId('center'),
-                          position: google_maps.LatLng(locationController.currentLocationG.value.latitude+0.00100,locationController.currentLocationG.value.longitude),
+                          position: google_maps.LatLng(locationController.currentLocationG.value.latitude+0.00110,locationController.currentLocationG.value.longitude),
                           onTap: () {
                             print('object');
                           },
