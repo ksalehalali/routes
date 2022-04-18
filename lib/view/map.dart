@@ -47,7 +47,6 @@ class _MapState extends State<Map> {
   bool getingAddress = true;
   bool showMap = false;
   bool showStops = false;
-  bool openCamera =false;
   var assistantMethods = AssistantMethods();
   Position? positionFromPin;
   double? sizeOfSheet = 0.0;
@@ -68,11 +67,15 @@ class _MapState extends State<Map> {
   );
   GlobalKey _formKey = GlobalKey();
   GlobalKey _formKey2 = GlobalKey();
+  late google_maps.BitmapDescriptor mapMarker;
+  late google_maps.BitmapDescriptor mapMarker2;
+
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    setCustomMarker();
     mapController = MapController();
     mapEventSubscription = mapController.mapEventStream.listen(onMapEvent);
     routeMapController.startPointLatLng.value =
@@ -88,6 +91,11 @@ class _MapState extends State<Map> {
 
   }
 
+  void setCustomMarker()async{
+    mapMarker = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(size: Size(111,111)),'assets/images/dot_icon.png',) ;
+    mapMarker2 = await google_maps.BitmapDescriptor.fromAssetImage(ImageConfiguration(),'assets/icons/pin_loc.png') ;
+
+  }
   void onMapEvent(MapEvent mapEvent) {
     if (mapEvent is MapEventMove && mapEvent.id == _eventKey.toString()) {}
   }
@@ -124,7 +132,8 @@ class _MapState extends State<Map> {
 
   bool _liveUpdate = false;
   bool _permission = false;
-
+  bool showPin=false;
+  bool showDot= false;
   String? _serviceError = '';
 
   var interActiveFlags = InteractiveFlag.all;
@@ -238,17 +247,29 @@ class _MapState extends State<Map> {
                   // google_maps.Marker(markerId: google_maps.MarkerId('a'),position: locationController.currentLocationG.value,onTap: (){
                   //   print('object');
                   // }),
-                  locationController.tripCreatedDone.value == false
+                  ( locationController.tripCreatedDone.value == false &&locationController.showPinOnMap.value == true)
                       ? google_maps.Marker(
                           markerId: google_maps.MarkerId('center'),
-                          position: locationController.currentLocationG.value,
+                          position: google_maps.LatLng(locationController.currentLocationG.value.latitude+0.00100,locationController.currentLocationG.value.longitude),
                           onTap: () {
                             print('object');
                           },
-                          icon: google_maps.BitmapDescriptor.defaultMarker,
+                          icon: mapMarker2,
                         )
                       : google_maps.Marker(
                           markerId: google_maps.MarkerId("center")),
+
+                  locationController.tripCreatedDone.value == false
+                      ? google_maps.Marker(
+                    markerId: google_maps.MarkerId('center2'),
+                    position: locationController.currentLocationG.value,
+                    onTap: () {
+                      print('object');
+                    },
+                    icon: mapMarker,
+                  )
+                      : google_maps.Marker(
+                      markerId: google_maps.MarkerId("center2")),
 
                   locationController.tripCreatedDone.value == true
                       ? google_maps.Marker(
@@ -393,6 +414,7 @@ class _MapState extends State<Map> {
                 },
                 onCameraIdle: ()async{
                   print('onCameraIdle');
+                  locationController.showPinOnMap.value = true;
                   addressText = await assistantMethods.searchCoordinateAddress(
                       positionFromPin!, false);
                   getingAddress = true;
@@ -407,6 +429,7 @@ class _MapState extends State<Map> {
                   }
                 },
                 onCameraMove: (camera) async {
+                 locationController.showPinOnMap.value = false;
                   locationController.updatePinPos(
                       camera.target.latitude, camera.target.longitude);
                   positionFromPin = Position(

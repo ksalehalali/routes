@@ -24,6 +24,7 @@ class LocationController extends GetxController {
   var addDropOff = false.obs;
   var addPickUp = false.obs;
   var tripCreatedDone = false.obs;
+  var showPinOnMap =false.obs;
   var liveLocation = new LatLng(0.0, 0.0).obs;
   var currentLocation = new LatLng(0.0, 0.0).obs;
   var currentLocationG = new google_maps.LatLng(0.0, 0.0).obs;
