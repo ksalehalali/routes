@@ -1,20 +1,26 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:lottie/lottie.dart';
 import 'package:myfatoorah_flutter/myfatoorah_flutter.dart';
 import 'package:myfatoorah_flutter/utils/MFCountry.dart';
 import 'package:myfatoorah_flutter/utils/MFEnvironment.dart';
 import 'package:routes/Assistants/globals.dart';
+import 'Assistants/assistantMethods.dart';
+import 'Data/current_data.dart';
 import 'controller/lang_controller.dart';
 import 'controller/location_controller.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:geolocator/geolocator.dart' as geo;
+import 'package:location/location.dart' as loc ;
 
 import 'controller/payment_controller.dart';
 import 'controller/start_up_controller.dart';
 import 'controller/transactions_controller.dart';
 import 'controller/trip_controller.dart';
 import 'localization/localization.dart';
+import 'model/location.dart';
 
 
 Future<void> main()async {
@@ -51,6 +57,59 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
     // TODO: implement initState
     super.initState();
     startUpController.fetchUserLoginPreference();
+    getLocation();
+  }
+
+  var location = loc.Location();
+  geo.Position? currentPosition;
+  double bottomPaddingOfMap = 0;
+  late loc.PermissionStatus _permissionGranted;
+  final LocationController locationController = Get.find();
+
+  Future getLocation()async{
+    loc.Location location = loc.Location.instance;
+    var assistantMethods = AssistantMethods();
+
+    geo.Position? currentPos;
+    loc.PermissionStatus permissionStatus = await location.hasPermission();
+    _permissionGranted = permissionStatus;
+    if (_permissionGranted != loc.PermissionStatus.granted) {
+      final loc.PermissionStatus permissionStatusReqResult =
+      await location.requestPermission();
+
+      _permissionGranted = permissionStatusReqResult;
+    }
+    loc.LocationData loca = await location.getLocation();
+    print('loca ...............  $loca');
+
+    if(loca.latitude !=null){
+      locationController.changePickUpAddress('Current Location');
+      currentPosition = geo.Position(latitude:loca.latitude! ,longitude:loca.longitude! ,accuracy:loca.accuracy! ,altitude:loca.altitude! ,speedAccuracy:loca.speedAccuracy! ,heading:loca.heading! ,timestamp:DateTime.now(),speed:loca.speed! ,);
+      String address =
+      await assistantMethods.searchCoordinateAddress(currentPosition!,true);
+      trip.startPointAddress = address;
+      trip.startPoint = LocationModel(loca.latitude!, loca.longitude!);
+      locationController.gotMyLocation(true);
+      locationController.changePickUpAddress(address);
+      locationController.addPickUp.value = true;
+    }
+
+    geo.Position position = await geo.Geolocator.getCurrentPosition(desiredAccuracy: geo.LocationAccuracy.high);
+    locationController.gotMyLocation(true);
+    locationController.addPickUp.value = true;
+    locationController.changePickUpAddress('Current Location');
+
+    print("--------------------========== position controller $position");
+    LatLng latLngPosition = LatLng(position.latitude, position.longitude);
+
+    String address =
+    await assistantMethods.searchCoordinateAddress(position,true);
+    trip.startPointAddress = address;
+    trip.startPoint = LocationModel(latLngPosition.latitude, latLngPosition.longitude);
+    locationController.gotMyLocation(true);
+    locationController.changePickUpAddress(address);
+    locationController.addPickUp.value = true;
+
   }
   @override
   void dispose() {
