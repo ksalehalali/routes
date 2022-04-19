@@ -249,27 +249,23 @@ class _MapState extends State<Map> {
                   // }),
                   ( locationController.tripCreatedDone.value == false &&locationController.showPinOnMap.value == true)
                       ? google_maps.Marker(
-                          markerId: google_maps.MarkerId('center'),
-                          position: google_maps.LatLng(locationController.currentLocationG.value.latitude+0.00110,locationController.currentLocationG.value.longitude),
-                          onTap: () {
-                            print('object');
-                          },
-                          icon: mapMarker2,
-                        )
-                      : google_maps.Marker(
-                          markerId: google_maps.MarkerId("center")),
-
-                  locationController.tripCreatedDone.value == false
-                      ? google_maps.Marker(
+                    markerId: google_maps.MarkerId('center'),
+                    position: google_maps.LatLng(locationController.currentLocationG.value.latitude,locationController.currentLocationG.value.longitude),
+                    onTap: () {
+                      print('object');
+                    },
+                    icon: mapMarker2,
+                  )
+                      :locationController.tripCreatedDone.value == false? google_maps.Marker(
                     markerId: google_maps.MarkerId('center2'),
                     position: locationController.currentLocationG.value,
                     onTap: () {
                       print('object');
                     },
-                    icon: mapMarker,
-                  )
-                      : google_maps.Marker(
-                      markerId: google_maps.MarkerId("center2")),
+                    icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
+                        google_maps.BitmapDescriptor.hueRed),
+                  ):google_maps.Marker(markerId: google_maps.MarkerId('center')),
+
 
                   locationController.tripCreatedDone.value == true
                       ? google_maps.Marker(
