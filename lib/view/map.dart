@@ -65,6 +65,8 @@ class _MapState extends State<Map> {
     target: google_maps.LatLng(29.370314422169248, 47.98216642044717),
     zoom: 14.4746,
   );
+  google_maps.CameraPosition cameraPosition =google_maps.CameraPosition(target: google_maps.LatLng(29.370314422169248, 47.98216642044717),zoom: 14.0);
+
   GlobalKey _formKey = GlobalKey();
   GlobalKey _formKey2 = GlobalKey();
   late google_maps.BitmapDescriptor mapMarker;
@@ -238,12 +240,14 @@ class _MapState extends State<Map> {
                   : _buildDetailsOneRoute(),
           body: Stack(children: [
             Obx(()=>google_maps.GoogleMap(
-                initialCameraPosition: _inialLoc,
-                mapToolbarEnabled: true,
-                myLocationEnabled: true,
-                myLocationButtonEnabled: true,
-                padding: EdgeInsets.only(bottom: 136, top: 30),
-                markers: {
+                initialCameraPosition: cameraPosition,
+              mapToolbarEnabled: true,
+
+              padding: EdgeInsets.only(top: 30,bottom: 140),
+              myLocationEnabled: true,
+              myLocationButtonEnabled: true,
+
+              markers: {
                   // google_maps.Marker(markerId: google_maps.MarkerId('a'),position: locationController.currentLocationG.value,onTap: (){
                   //   print('object');
                   // }),
@@ -254,7 +258,8 @@ class _MapState extends State<Map> {
                     onTap: () {
                       print('object');
                     },
-                    icon: mapMarker2,
+                    icon:google_maps.BitmapDescriptor.defaultMarkerWithHue(
+                        google_maps.BitmapDescriptor.hueRed),
                   )
                       :locationController.tripCreatedDone.value == false? google_maps.Marker(
                     markerId: google_maps.MarkerId('center2'),
@@ -263,7 +268,7 @@ class _MapState extends State<Map> {
                       print('object');
                     },
                     icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
-                        google_maps.BitmapDescriptor.hueRed),
+                        google_maps.BitmapDescriptor.hueYellow),
                   ):google_maps.Marker(markerId: google_maps.MarkerId('center')),
 
 
@@ -447,7 +452,7 @@ class _MapState extends State<Map> {
                   setState(() {
                     bottomPaddingOfMap = 320.0;
                   });
-                  locatePosition();
+                 // locatePosition();
                 },
               ),
             ),
@@ -466,6 +471,7 @@ class _MapState extends State<Map> {
                   locationController.startAddingDropOffStatus(true);
                   locationController.startAddingPickUpStatus(false);
                   routeMapController.isMultiMode.value = false;
+                  locationController.showPinOnMap.value =false;
                   //locationController.changePickUpAddress('set pick up');
                   //trip = Trip('', '', LocationModel(0.0,0.0), LocationModel(0.0,0.0), '', '', '', '', '');
                   Navigator.pushReplacement(context,
