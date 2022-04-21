@@ -1,5 +1,8 @@
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:lottie/lottie.dart';
@@ -52,14 +55,47 @@ class MYApp extends StatefulWidget {
 class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
   final startUpController = Get.put(StartUpController());
   late final AnimationController _controller;
+  static const locationChannel = MethodChannel('location');
+  final arguments = {'name':'khaled'};
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     startUpController.fetchUserLoginPreference();
     getLocation();
+    Timer(Duration(milliseconds: 100),() {
+      getCurrentLocationFromChannel();
+    });
   }
+  var assistantMethods = AssistantMethods();
 
+  Future getCurrentLocationFromChannel()async{
+    var value;
+    try{
+      value = await locationChannel.invokeMethod("getCurrentLocation",arguments);
+      var lat = value['lat'];
+      var lng = value['lng'];
+      if(lng >0.0){
+        print("value of url , main :: ${value.toString()}");
+        locationController.changePickUpAddress('Current Location');
+        currentPosition = geo.Position(latitude:lat ,longitude:lng ,accuracy:0.0 ,altitude:lat ,speedAccuracy:0.0 ,heading:0.0 ,timestamp:DateTime.now(),speed:0.0 ,);
+        String address =
+        await assistantMethods.searchCoordinateAddress(currentPosition!,true);
+        trip.startPointAddress = address;
+        trip.startPoint = LocationModel(lat, lng);
+        locationController.gotMyLocation(true);
+        locationController.changePickUpAddress(address);
+        locationController.addPickUp.value = true;
+      }else{
+        print('Wrong coordinates ###');
+      }
+
+    }catch(err){
+      print(err);
+    }
+
+  }
   var location = loc.Location();
   geo.Position? currentPosition;
   double bottomPaddingOfMap = 0;
@@ -68,7 +104,6 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
 
   Future getLocation()async{
     loc.Location location = loc.Location.instance;
-    var assistantMethods = AssistantMethods();
 
     geo.Position? currentPos;
     loc.PermissionStatus permissionStatus = await location.hasPermission();
