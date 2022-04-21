@@ -1,6 +1,7 @@
 
 import 'dart:async';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -28,6 +29,7 @@ import 'model/location.dart';
 
 Future<void> main()async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   final controller =Get.putAsync(() async => LocationController(),permanent: true);
   final paymentController =Get.putAsync(() async => PaymentController(),permanent: true);
   final tripsController =Get.putAsync(() async => TripController(),permanent: true);

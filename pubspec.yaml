@@ -64,8 +64,10 @@ dependencies:
   pull_to_refresh:
   lottie: ^1.2.2
   delayed_display:
-
-
+  firebase_dynamic_links: ^2.0.6
+  firebase_core:
+  cloud_firestore:
+  share:
 
 dev_dependencies:
   flutter_test:

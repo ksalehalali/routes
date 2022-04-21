@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "598321261302",
+    "project_id": "routes-bc27b",
+    "storage_bucket": "routes-bc27b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598321261302:android:32e85b9f71f8ec406d9ad7",
+        "android_client_info": {
+          "package_name": "com.routes.khaled.n.routes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "598321261302-2vv3damh4r7jcm001maiieehj0bjreun.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAXhZ973ut4n3IDiEOm0Rc7ECsDJ6Mc9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "598321261302-2vv3damh4r7jcm001maiieehj0bjreun.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
