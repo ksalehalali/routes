@@ -50,11 +50,13 @@ class _MainScreenState extends State<MainScreen> {
     // TODO: implement initState
 
     super.initState();
+    //initDynamicLinks();
+
     locatePosition();
-    initDynamicLinks();
   }
 
   void initDynamicLinks()async {
+    print('dynamic >>>>>>>>>>>');
      FirebaseDynamicLinks.instance.onLink(
       onSuccess:(PendingDynamicLinkData? dynamicLinkData)async{
         final Uri? deepLink =dynamicLinkData!.link;
@@ -66,7 +68,7 @@ class _MainScreenState extends State<MainScreen> {
       },
 
       onError: (OnLinkErrorException e)async{
-        print('got error $e');
+        print('got error <<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $e');
      }
     );
   }
@@ -76,7 +78,7 @@ class _MainScreenState extends State<MainScreen> {
 
     separatedLink.addAll(url.path.split('/'));
 
-    print(" the token that i'm interested in is ${separatedLink[1]}");
+    print(" >>>>>>>>>>>>>>>>>>>>>>>>> the token that i'm interested in is ${separatedLink[1]}");
   }
 
   buildDynamicLinks(String title,String image,String docId) async {
@@ -98,9 +100,9 @@ class _MainScreenState extends State<MainScreen> {
           Uri.parse("$image"),
           title: title),
     );
-    //final ShortDynamicLink dynamicUrl = await parameters.buildShortLink();
+    final ShortDynamicLink dynamicUrl = await parameters.buildShortLink();
 
-    String? desc = '${parameters.link.toString()}';
+    String? desc = '${dynamicUrl.shortUrl.toString()}';
 
     await Share.share(desc, subject: title,);
 
@@ -183,9 +185,9 @@ class _MainScreenState extends State<MainScreen> {
       child: SafeArea(
         bottom: false,
         child: Scaffold(
-          appBar: AppBar(leading: IconButton(icon: Icon(Icons.share),onPressed: (){
-            buildDynamicLinks('title', 'image', 'docId');
-          }),),
+          // appBar: AppBar(leading: IconButton(icon: Icon(Icons.share),onPressed: (){
+          //   buildDynamicLinks('title', 'image', 'docId');
+          // }),),
           body: PageStorage(bucket: bucket, child: currentScreen,
 
           ),

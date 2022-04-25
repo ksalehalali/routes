@@ -29,6 +29,13 @@
             {
               "client_id": "598321261302-2vv3damh4r7jcm001maiieehj0bjreun.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "598321261302-9ktg9700aff35r1gec4bf0icvmjhveun.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.routes.khaled.routes"
+              }
             }
           ]
         }

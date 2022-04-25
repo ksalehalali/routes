@@ -7,6 +7,7 @@ import 'package:routes/view/screens/help_screen.dart';
 import 'package:routes/view/screens/personal_information.dart';
 import 'package:routes/view/widgets/headerDesgin.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../Assistants/firebase_dynamic_link.dart';
 import '../../controller/lang_controller.dart';
 import '../../controller/personal_information_controller.dart';
 import 'Auth/login.dart';
@@ -343,7 +344,10 @@ class ProfileScreen extends StatelessWidget {
 
                               Center(
                                 child: InkWell(
-                                  onTap: (){},
+                                  onTap: ()async{
+                                    final genDynUrl=await FirebaseDynamicLinkService.createDynamicLink(false,'a1');
+                                    print(genDynUrl);
+                                  },
                                   child: Text('Terms and conditions',style: TextStyle(fontSize: 15,color: Colors.green[700]),),
                                 ),
                               ),
