@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controller/trip_controller.dart';
+import '../../../controller/trip_controller.dart';
 
 class YourTrips extends StatefulWidget {
   const YourTrips({Key? key}) : super(key: key);

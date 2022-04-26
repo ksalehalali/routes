@@ -61,8 +61,7 @@ class MyFatoorah {
                   chargeSaved.paymentGateway =
                       res['InvoiceTransactions'][0]['PaymentGateway'],
                   Get.offAll(MainScreen(indexOfScreen: 1,))
-                }
-              else
+                } else
                 {
                   print('wrong recharge'),
                   print(result.error!.message),

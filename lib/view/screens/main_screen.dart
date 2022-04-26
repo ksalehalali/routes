@@ -1,11 +1,10 @@
-import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:geolocator/geolocator.dart' as geo;
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as google_maps;
-import 'package:routes/view/screens/profile_screen.dart';
+import 'package:routes/view/screens/profile/profile_screen.dart';
 import 'package:routes/view/screens/routes/all_routes_map.dart';
 import 'package:routes/view/screens/wallet/wallet_screen.dart';
 import 'package:share/share.dart';
@@ -21,7 +20,7 @@ import '../../controller/route_map_controller.dart';
 import '../../model/location.dart';
 import 'Home.dart';
 import 'direct_payment.dart';
-import 'help_screen.dart';
+import 'profile/help_screen.dart';
 
 class  MainScreen extends StatefulWidget {
    int indexOfScreen = 0;
@@ -48,65 +47,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   void initState() {
     // TODO: implement initState
-
     super.initState();
-    //initDynamicLinks();
-
     locatePosition();
   }
 
-  void initDynamicLinks()async {
-    print('dynamic >>>>>>>>>>>');
-     FirebaseDynamicLinks.instance.onLink(
-      onSuccess:(PendingDynamicLinkData? dynamicLinkData)async{
-        final Uri? deepLink =dynamicLinkData!.link;
-
-        if(deepLink != null){
-          //
-          handleMyLink(deepLink);
-        }
-      },
-
-      onError: (OnLinkErrorException e)async{
-        print('got error <<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> $e');
-     }
-    );
-  }
-
-  void handleMyLink(Uri url)async{
-    List<String>  separatedLink = [];
-
-    separatedLink.addAll(url.path.split('/'));
-
-    print(" >>>>>>>>>>>>>>>>>>>>>>>>> the token that i'm interested in is ${separatedLink[1]}");
-  }
-
-  buildDynamicLinks(String title,String image,String docId) async {
-    String url = "https://routesbusapp.page.link";
-    final DynamicLinkParameters parameters = DynamicLinkParameters(
-      uriPrefix: url,
-      link: Uri.parse('$url/$docId'),
-      androidParameters: AndroidParameters(
-        packageName: "com.routes.khaled.n.routes",
-        minimumVersion: 0,
-      ),
-      iosParameters: IosParameters(
-        bundleId: "com.routes.khaled.n.routes",
-        minimumVersion: '0',
-      ),
-      socialMetaTagParameters: SocialMetaTagParameters(
-          description: '',
-          imageUrl:
-          Uri.parse("$image"),
-          title: title),
-    );
-    final ShortDynamicLink dynamicUrl = await parameters.buildShortLink();
-
-    String? desc = '${dynamicUrl.shortUrl.toString()}';
-
-    await Share.share(desc, subject: title,);
-
-  }
 
   var location = loc.Location();
   final routeMapController = Get.put(RouteMapController());
@@ -185,9 +129,6 @@ class _MainScreenState extends State<MainScreen> {
       child: SafeArea(
         bottom: false,
         child: Scaffold(
-          // appBar: AppBar(leading: IconButton(icon: Icon(Icons.share),onPressed: (){
-          //   buildDynamicLinks('title', 'image', 'docId');
-          // }),),
           body: PageStorage(bucket: bucket, child: currentScreen,
 
           ),

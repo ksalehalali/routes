@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import '../../Assistants/globals.dart';
-import '../../controller/personal_information_controller.dart';
-import '../../controller/profile_pic_controller.dart';
+import '../../../Assistants/globals.dart';
+import '../../../controller/personal_information_controller.dart';
+import '../../../controller/profile_pic_controller.dart';
 
 class PersonalInformationEdit extends StatefulWidget {
   @override

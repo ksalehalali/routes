@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:routes/view/screens/wallet/your_transactions.dart';
-import 'package:routes/view/screens/your_trips.dart';
+import 'package:routes/view/screens/profile/your_trips.dart';
 
 class YourActivitiesScreen extends StatefulWidget {
   const YourActivitiesScreen({Key? key}) : super(key: key);

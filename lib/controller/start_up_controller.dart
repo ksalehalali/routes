@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
@@ -10,6 +12,10 @@ import 'login_controller.dart';
 class StartUpController extends GetxController {
 
   final loginController = Get.put(LoginController());
+  var promoterId ="".obs;
+
+
+
   @override
   void onInit()async {
     // TODO: implement onInit
@@ -17,6 +23,11 @@ class StartUpController extends GetxController {
     fetchUserLoginPreference();
   }
 
+  Future saveInstallationForPromoters(String promoterId) async {
+
+
+
+  }
   Future<void> fetchUserLoginPreference() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 
