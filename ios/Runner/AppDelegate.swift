@@ -2,6 +2,7 @@ import UIKit
 import Flutter
 import GoogleMaps
 import CoreLocation
+import Firebase
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate ,CLLocationManagerDelegate {
@@ -12,6 +13,8 @@ import CoreLocation
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
+      FirebaseApp.configure()
+      
       let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
       
       let METHOD_CHANNEL_NAME = "location"

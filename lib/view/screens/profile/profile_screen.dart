@@ -423,7 +423,7 @@ class ProfileScreen extends StatelessWidget {
                                       final genDynUrl=await FirebaseDynamicLinkService.createDynamicLink(false,'a1');
                                       print(genDynUrl);
                                     },
-                                    child:Text('Terms and conditions',style: TextStyle(fontSize: 15,color: Colors.green[700]),),
+                                    child:Obx(()=> Text('Terms and conditions',style: TextStyle(fontSize: 15,color: Colors.green[700]),)),
                                   ),
                                 ),
 
@@ -434,7 +434,7 @@ class ProfileScreen extends StatelessWidget {
                             )
                           ],
                         ),
-                            SizedBox(height:200)
+                            SizedBox(height:220)
                         ]),
                       )),
                   ),

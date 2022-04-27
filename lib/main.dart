@@ -84,7 +84,7 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
       var lat = value['lat'];
       var lng = value['lng'];
       if(lng >0.0){
-        print("value of url , main :: ${value.toString()}");
+        print("value  , main :: ${value.toString()}");
         locationController.changePickUpAddress('Current Location');
         currentPosition = geo.Position(latitude:lat ,longitude:lng ,accuracy:0.0 ,altitude:lat ,speedAccuracy:0.0 ,heading:0.0 ,timestamp:DateTime.now(),speed:0.0 ,);
         String address =

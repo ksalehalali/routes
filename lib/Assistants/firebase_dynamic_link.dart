@@ -16,7 +16,7 @@ class FirebaseDynamicLinkService{
 
     final DynamicLinkParameters parameters = DynamicLinkParameters(
       uriPrefix: 'https://routesbusapp.page.link',
-      link: Uri.parse('https://www.routesme.com/storyData?id=$id'),
+      link: Uri.parse('https://routesbusapp.page.link/all?id=$id'),
       androidParameters: AndroidParameters(
         packageName: 'com.routes.khaled.n.routes',
         minimumVersion: 1,
@@ -24,7 +24,8 @@ class FirebaseDynamicLinkService{
       //  fallbackUrl: Uri.parse('https://www.google.com')
       ),
       iosParameters: IosParameters(
-        fallbackUrl: Uri.parse('https://www.facebook.com'),
+        fallbackUrl: Uri.parse('https://apps.apple.com/us/app/%D8%A3%D8%AD%D9%83%D8%A7%D9%85/id1583579830'),
+        customScheme: 'https://routesbusapp.page.link',
         bundleId: 'com.routes.khaled.n.routes',
         minimumVersion: '1.0.0',
       )
@@ -64,22 +65,26 @@ class FirebaseDynamicLinkService{
 
             startUpController.promoterId.value = id!;
             startUpController.saveInstallationForPromoters(id);
-            // try{
-            //   await firebaseFirestore.collection('Stories').doc(id).get()
-            //       .then((snapshot) {
-            //         StoryData storyData = StoryData.fromSnapshot(snapshot);
-            //
-            //         return Navigator.push(context, MaterialPageRoute(builder: (context) =>
-            //           StoryPage(story: storyData,)
-            //         ));
-            //   });
-            // }catch(e){
-            //   print(e);
-            // }
+
+          }else{
+            return null;
+          }
+        }else{
+          //try
+          if(deepLink!=null){
+            print("deeplink try:: $deepLink");
+            // TODO : Navigate to your pages accordingly here
+            String? id = deepLink.queryParameters['id'];
+
+            startUpController.promoterId.value = id!;
+            startUpController.saveInstallationForPromoters(id);
+
           }else{
             return null;
           }
         }
+
+
       }, onError: (OnLinkErrorException e) async{
         print('link error');
       }

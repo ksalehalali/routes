@@ -23,9 +23,10 @@ class StartUpController extends GetxController {
     fetchUserLoginPreference();
   }
 
-  Future saveInstallationForPromoters(String promoterId) async {
+  Future saveInstallationForPromoters(String promoterIdN) async {
 
-
+    print('from url =............== $promoterIdN');
+    promoterId.value = promoterIdN;
 
   }
   Future<void> fetchUserLoginPreference() async {

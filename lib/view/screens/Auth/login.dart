@@ -9,7 +9,9 @@ import 'package:get/get_instance/src/extension_instance.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:routes/view/screens/Auth/sign_up.dart';
 
+import '../../../Assistants/firebase_dynamic_link.dart';
 import '../../../Assistants/globals.dart';
+import '../../../Data/current_data.dart';
 import '../../../controller/login_controller.dart';
 import '../../../controller/profile_pic_controller.dart';
 import 'confirm_number.dart';
@@ -146,6 +148,8 @@ class _LoginState extends State<Login> {
                                 child: Obx(() => IconButton(
                                     color: Colors.white,
                                     onPressed: () async{
+                                      //FirebaseDynamicLinkService.createDynamicLink(false, 'user.id');
+
                                       // TODO: login API
                                       loginController.isLoginLoading.value = true;
                                       await loginController.makeLoginRequest();
@@ -180,6 +184,7 @@ class _LoginState extends State<Login> {
                             children: [
                               TextButton(
                                 onPressed: () {
+
                                   Navigator.push(
                                     this.context,
                                     new MaterialPageRoute(builder: (context) => new SignUp()),
