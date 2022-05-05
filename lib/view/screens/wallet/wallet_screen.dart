@@ -64,7 +64,7 @@ class _WalletScreenState extends State<WalletScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Available Balance',
+                        'available_balance_txt'.tr,
                         style: TextStyle(
                             fontSize: 15, fontWeight: FontWeight.w500),
                       ),
@@ -108,7 +108,7 @@ class _WalletScreenState extends State<WalletScreen> {
                           height: 5.0,
                         ),
                         Text(
-                          'Add Credit',
+                          'add_redit_btn'.tr,
                           style: TextStyle(
                               fontSize: 17, fontWeight: FontWeight.bold),
                         )
@@ -156,7 +156,7 @@ class _WalletScreenState extends State<WalletScreen> {
                               children: [
                                 AnimatedContainer(duration: 11.seconds,
                                     curve: Curves.easeIn,
-                                    child: Text('Payments',style: TextStyle(color: _color,fontWeight: FontWeight.w600))),
+                                    child: Text('payments_txt'.tr,style: TextStyle(color: _color,fontWeight: FontWeight.w600))),
                                 SizedBox(height: 10.0,),
                                 AnimatedContainer(
                                   curve: Curves.easeInOut,
@@ -186,7 +186,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                     curve: Curves.easeIn,
                                     duration: 14.seconds,
 
-                                    child: Text('Recharges',style: TextStyle(color: _color2,fontWeight: FontWeight.w600),)),
+                                    child: Text('recharges_txt'.tr,style: TextStyle(color: _color2,fontWeight: FontWeight.w600),)),
                                 SizedBox(height: 10.0,),
                                 AnimatedContainer(
                                   curve: Curves.easeInOut,

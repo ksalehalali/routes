@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:myfatoorah_flutter/model/initpayment/SDKInitiatePaymentResponse.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:routes/model/payment_saved_model.dart';
 
 import '../../Assistants/globals.dart';
@@ -286,7 +287,7 @@ class CustomDialog extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: 22.0,
+                      height: 16.0,
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -329,7 +330,7 @@ class CustomDialog extends StatelessWidget {
                               fontSize: 16, fontWeight: FontWeight.w500),
                         ),
                         SizedBox(
-                          height: 24.0,
+                          height: 16.0,
                         ),
                         // Text(
                         //   'your balance ',
@@ -362,7 +363,7 @@ class CustomDialog extends StatelessWidget {
                               fontSize: 16, fontWeight: FontWeight.w500),
                         ),
                         SizedBox(
-                          height: 24.0,
+                          height: 16.0,
                         ),
                         Text(
                           'Value',
@@ -378,7 +379,14 @@ class CustomDialog extends StatelessWidget {
                               fontSize: 14, fontWeight: FontWeight.w700),
                         ),
                         SizedBox(
-                          height: 16.0,
+                          height: 1.0,
+                        ),
+                        Center(
+                          child: QrImage(
+                            data: "{\"userId\":\"${user.id!}\",\"paymentId\":\"${payment!.id}\"}",
+                            version: QrVersions.auto,
+                            size: 170.0,
+                          ),
                         ),
                       ],
                     ),

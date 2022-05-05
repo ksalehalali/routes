@@ -13,8 +13,8 @@ class PlacePredictions {
     id =json["id"];
     text =json["text"];
     place_name =json["place_name"];
-    lat = json["center"][1];
-    lng = json["center"][0];
+    lat = json["center"][1].toDouble();
+    lng = json["center"][0].toDouble();
 
   }
 

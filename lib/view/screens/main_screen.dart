@@ -154,7 +154,7 @@ class _MainScreenState extends State<MainScreen> {
                           MaterialStateProperty.all(TextStyle(fontSize: 12))),
                       child: NavigationDestination(
 //                    icon: Icon(Icons.home_outlined,color: Colors.blue[900]),
-                        label: 'Home',
+                        label: 'home_btn'.tr,
                         icon: SvgPicture.asset("${assetsDir}home_svg.svg", width: 20, color: Colors.grey[600],),
                         selectedIcon: SvgPicture.asset("${assetsDir}home_svg.svg", width: 25, color: Colors.blue[900],),
                       )),
@@ -165,7 +165,7 @@ class _MainScreenState extends State<MainScreen> {
                           MaterialStateProperty.all(TextStyle(fontSize: 12))),
                       child: NavigationDestination(
                         icon: SvgPicture.asset("${assetsDir}pay.svg", width: 20, color: Colors.grey[600],),
-                        label: 'Pay',
+                        label: 'pay_btn'.tr,
                         selectedIcon: SvgPicture.asset("${assetsDir}pay.svg", width: 25, color: Colors.blue[900],),
                       )),
                   NavigationBarTheme(
@@ -175,7 +175,7 @@ class _MainScreenState extends State<MainScreen> {
                           MaterialStateProperty.all(TextStyle(fontSize: 12))),
                       child: NavigationDestination(
                         icon: SvgPicture.asset("${assetsDir}wallet.svg", width: 20, color: Colors.grey[600],),
-                        label: 'Wallet',
+                        label: 'wallet_btn'.tr,
                         selectedIcon: SvgPicture.asset("${assetsDir}wallet.svg", width: 25, color: Colors.blue[900],),
                       )),
                   NavigationBarTheme(
@@ -185,7 +185,7 @@ class _MainScreenState extends State<MainScreen> {
                           MaterialStateProperty.all(TextStyle(fontSize: 12))),
                       child: NavigationDestination(
                         icon: SvgPicture.asset("${assetsDir}routes.svg", width: 20, color: Colors.grey[600],),
-                        label: 'Routes',
+                        label: 'routes_btn'.tr,
                         selectedIcon: SvgPicture.asset("${assetsDir}routes.svg", width: 25, color: Colors.blue[900],),
                       )),
 
@@ -196,7 +196,7 @@ class _MainScreenState extends State<MainScreen> {
                           MaterialStateProperty.all(TextStyle(fontSize: 12))),
                       child: NavigationDestination(
                         icon: SvgPicture.asset("${assetsDir}profile.svg", width: 20, color: Colors.grey[600],),
-                        label: 'Profile',
+                        label: 'profile_btn'.tr,
                         selectedIcon: SvgPicture.asset("${assetsDir}profile.svg", width: 25, color: Colors.blue[900],),
                       )),
                 ])

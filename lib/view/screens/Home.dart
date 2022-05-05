@@ -124,7 +124,7 @@ class _HomeState extends State<Home> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(22.0),
-                        child: Text('Where to?',style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[900],fontSize: 22),),
+                        child: Text('where_to_txt'.tr,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[900],fontSize: 22),),
                       ),
 
 
@@ -145,7 +145,7 @@ class _HomeState extends State<Home> {
                                 SizedBox(width: 8.0,),
                                 SvgPicture.asset("assets/icons/search.svg", width: 28, color: Colors.grey[900],),
                                 SizedBox(width: 8.0,),
-                                Text('Enter your destination',style: TextStyle(fontWeight: FontWeight.w400,color: Colors.grey[500]),)
+                                Text('enter_your_destination_txt'.tr,style: TextStyle(fontWeight: FontWeight.w400,color: Colors.grey[500]),)
                               ],
                             ),
 

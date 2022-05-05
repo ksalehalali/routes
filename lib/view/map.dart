@@ -65,7 +65,7 @@ class _MapState extends State<Map> {
     target: google_maps.LatLng(29.370314422169248, 47.98216642044717),
     zoom: 14.4746,
   );
-  google_maps.CameraPosition cameraPosition =google_maps.CameraPosition(target: google_maps.LatLng(29.370314422169248, 47.98216642044717),zoom: 14.0);
+  google_maps.CameraPosition cameraPosition =google_maps.CameraPosition(target: google_maps.LatLng(initialPoint.latitude, initialPoint.longitude),zoom: 14.0);
 
   GlobalKey _formKey = GlobalKey();
   GlobalKey _formKey2 = GlobalKey();
@@ -229,289 +229,303 @@ class _MapState extends State<Map> {
 
     return Obx(
       () => Scaffold(
-        body: SlidingUpPanel(
-          isDraggable: false,
-          controller: panelController,
-          maxHeight: screenSize.height * 0.4 + 66,
-          minHeight: screenSize.height * 0.2 - 20.0,
-          panelBuilder: (scrollContainer) =>
-              routeMapController.isMultiMode.value == true
-                  ? _buildDetailsMultiRoutes()
-                  : _buildDetailsOneRoute(),
-          body: Stack(children: [
-            Obx(()=>google_maps.GoogleMap(
-                initialCameraPosition: cameraPosition,
-              mapToolbarEnabled: true,
+        body: Stack(
+          children: [
 
-              padding: EdgeInsets.only(top: 30,bottom: 140),
-              myLocationEnabled: true,
-              myLocationButtonEnabled: true,
+            SlidingUpPanel(
+              isDraggable: false,
+              controller: panelController,
+              maxHeight: screenSize.height * 0.4 + 66,
+              minHeight: screenSize.height * 0.2 - 20.0,
+              panelBuilder: (scrollContainer) =>
+                  routeMapController.isMultiMode.value == true
+                      ? _buildDetailsMultiRoutes()
+                      : _buildDetailsOneRoute(),
+              body: Stack(children: [
 
-              markers: {
-                  // google_maps.Marker(markerId: google_maps.MarkerId('a'),position: locationController.currentLocationG.value,onTap: (){
-                  //   print('object');
-                  // }),
-                  ( locationController.tripCreatedDone.value == false &&locationController.showPinOnMap.value == true)
-                      ? google_maps.Marker(
-                    markerId: google_maps.MarkerId('center'),
-                    position: google_maps.LatLng(locationController.currentLocationG.value.latitude,locationController.currentLocationG.value.longitude),
-                    onTap: () {
-                      print('object');
+
+                Obx(()=>google_maps.GoogleMap(
+                    initialCameraPosition: cameraPosition,
+                  mapToolbarEnabled: true,
+
+                  padding: EdgeInsets.only(top: 30,bottom: 140),
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: true,
+
+                  markers: {
+                      // google_maps.Marker(markerId: google_maps.MarkerId('a'),position: locationController.currentLocationG.value,onTap: (){
+                      //   print('object');
+                      // }),
+                      ( locationController.tripCreatedDone.value == false &&locationController.showPinOnMap.value == true)
+                          ? google_maps.Marker(
+                        markerId: google_maps.MarkerId('center'),
+                        position: google_maps.LatLng(locationController.currentLocationG.value.latitude,locationController.currentLocationG.value.longitude),
+                        onTap: () {
+                          print('object');
+                        },
+                        icon:google_maps.BitmapDescriptor.defaultMarkerWithHue(
+                            google_maps.BitmapDescriptor.hueRed),
+                      )
+                          :locationController.tripCreatedDone.value == false? google_maps.Marker(
+                        markerId: google_maps.MarkerId('center2'),
+                        position: locationController.currentLocationG.value,
+                        onTap: () {
+                          print('object');
+                        },
+                        icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
+                            google_maps.BitmapDescriptor.hueYellow),
+                      ):google_maps.Marker(markerId: google_maps.MarkerId('center')),
+
+
+                      locationController.tripCreatedDone.value == true
+                          ? google_maps.Marker(
+                              icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
+                                  google_maps.BitmapDescriptor.hueYellow),
+                              infoWindow: google_maps.InfoWindow(
+                                  title:
+                                      '${routeMapController.startStation['title'].toString()}',
+                                  snippet: routeMapController.startStation['station']
+                                      .toString()),
+                              position: google_maps.LatLng(
+                                  routeMapController.startStation['latitude'],
+                                  routeMapController.startStation['longitude']),
+                              markerId: google_maps.MarkerId("pickUpId"))
+                          : google_maps.Marker(
+                              markerId: google_maps.MarkerId("pickUpId")),
+
+                      locationController.tripCreatedDone.value == true &&
+                              routeMapController.isMultiMode.value == true
+                          ? google_maps.Marker(
+                              icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
+                                  google_maps.BitmapDescriptor.hueOrange),
+                              infoWindow: google_maps.InfoWindow(
+                                  title:
+                                      '${routeMapController.sharedStation['title'].toString()}',
+                                  snippet:
+                                      routeMapController.sharedStation['station']),
+                              position: google_maps.LatLng(
+                                  routeMapController.sharedStation['latitude'],
+                                  routeMapController.sharedStation['longitude']),
+                              markerId: google_maps.MarkerId("sharedId"))
+                          : google_maps.Marker(
+                              markerId: google_maps.MarkerId("sharedId")),
+
+                      locationController.tripCreatedDone.value == true &&
+                              routeMapController.isMultiMode.value == true
+                          ? google_maps.Marker(
+                              icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
+                                google_maps.BitmapDescriptor.hueOrange,
+                              ),
+                              infoWindow: google_maps.InfoWindow(
+                                  title:
+                                      '${routeMapController.sharedStation2['title'].toString()}',
+                                  snippet:
+                                      routeMapController.sharedStation2['station']),
+                              position: google_maps.LatLng(
+                                  routeMapController.sharedStation2['latitude'],
+                                  routeMapController.sharedStation2['longitude']),
+                              markerId: google_maps.MarkerId("shared2Id"))
+                          : google_maps.Marker(
+                              markerId: google_maps.MarkerId("shared2Id")),
+
+                      //
+                      locationController.tripCreatedDone.value == true
+                          ? google_maps.Marker(
+                              icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
+                                  google_maps.BitmapDescriptor.hueBlue),
+                              infoWindow: google_maps.InfoWindow(
+                                  title:
+                                      '${routeMapController.endStation['title'].toString()}',
+                                  snippet: routeMapController.endStation['station']),
+                              position: google_maps.LatLng(
+                                  routeMapController.endStation['latitude'],
+                                  routeMapController.endStation['longitude']),
+                              markerId: google_maps.MarkerId("dropOffId"),
+                              onTap: () {
+                                print(routeMapController.endStation['station']
+                                    .toString());
+                              })
+                          : google_maps.Marker(
+                              markerId: google_maps.MarkerId("dropOffId")),
                     },
-                    icon:google_maps.BitmapDescriptor.defaultMarkerWithHue(
-                        google_maps.BitmapDescriptor.hueRed),
-                  )
-                      :locationController.tripCreatedDone.value == false? google_maps.Marker(
-                    markerId: google_maps.MarkerId('center2'),
-                    position: locationController.currentLocationG.value,
-                    onTap: () {
-                      print('object');
-                    },
-                    icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
-                        google_maps.BitmapDescriptor.hueYellow),
-                  ):google_maps.Marker(markerId: google_maps.MarkerId('center')),
-
-
-                  locationController.tripCreatedDone.value == true
-                      ? google_maps.Marker(
-                          icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
-                              google_maps.BitmapDescriptor.hueYellow),
-                          infoWindow: google_maps.InfoWindow(
-                              title:
-                                  '${routeMapController.startStation['title'].toString()}',
-                              snippet: routeMapController.startStation['station']
-                                  .toString()),
-                          position: google_maps.LatLng(
-                              routeMapController.startStation['latitude'],
-                              routeMapController.startStation['longitude']),
-                          markerId: google_maps.MarkerId("pickUpId"))
-                      : google_maps.Marker(
-                          markerId: google_maps.MarkerId("pickUpId")),
-
-                  locationController.tripCreatedDone.value == true &&
-                          routeMapController.isMultiMode.value == true
-                      ? google_maps.Marker(
-                          icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
-                              google_maps.BitmapDescriptor.hueOrange),
-                          infoWindow: google_maps.InfoWindow(
-                              title:
-                                  '${routeMapController.sharedStation['title'].toString()}',
-                              snippet:
-                                  routeMapController.sharedStation['station']),
-                          position: google_maps.LatLng(
-                              routeMapController.sharedStation['latitude'],
-                              routeMapController.sharedStation['longitude']),
-                          markerId: google_maps.MarkerId("sharedId"))
-                      : google_maps.Marker(
-                          markerId: google_maps.MarkerId("sharedId")),
-
-                  locationController.tripCreatedDone.value == true &&
-                          routeMapController.isMultiMode.value == true
-                      ? google_maps.Marker(
-                          icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
-                            google_maps.BitmapDescriptor.hueOrange,
-                          ),
-                          infoWindow: google_maps.InfoWindow(
-                              title:
-                                  '${routeMapController.sharedStation2['title'].toString()}',
-                              snippet:
-                                  routeMapController.sharedStation2['station']),
-                          position: google_maps.LatLng(
-                              routeMapController.sharedStation2['latitude'],
-                              routeMapController.sharedStation2['longitude']),
-                          markerId: google_maps.MarkerId("shared2Id"))
-                      : google_maps.Marker(
-                          markerId: google_maps.MarkerId("shared2Id")),
-
-                  //
-                  locationController.tripCreatedDone.value == true
-                      ? google_maps.Marker(
-                          icon: google_maps.BitmapDescriptor.defaultMarkerWithHue(
-                              google_maps.BitmapDescriptor.hueBlue),
-                          infoWindow: google_maps.InfoWindow(
-                              title:
-                                  '${routeMapController.endStation['title'].toString()}',
-                              snippet: routeMapController.endStation['station']),
-                          position: google_maps.LatLng(
-                              routeMapController.endStation['latitude'],
-                              routeMapController.endStation['longitude']),
-                          markerId: google_maps.MarkerId("dropOffId"),
-                          onTap: () {
-                            print(routeMapController.endStation['station']
-                                .toString());
-                          })
-                      : google_maps.Marker(
-                          markerId: google_maps.MarkerId("dropOffId")),
-                },
-                polylines: {
-                  google_maps.Polyline(
-                    color: Colors.blue.withOpacity(0.7),
-                    polylineId: google_maps.PolylineId("PolylineID"),
-                    jointType: google_maps.JointType.round,
-                    width: 5,
-                    startCap: google_maps.Cap.roundCap,
-                    points: routeMapController.tripStationWayPointsG,
-                    endCap: google_maps.Cap.roundCap,
-                    geodesic: true,
-                  ),
-
-                  //2
-                  locationController.tripCreatedDone.value==true? google_maps.Polyline(
-                    color: Colors.blue.withOpacity(0.9),
-                    polylineId: google_maps.PolylineId("PolylineRoute2ID"),
-                    jointType: google_maps.JointType.round,
-                    width: 4,
-                    startCap: google_maps.Cap.roundCap,
-                    points: routeMapController.tripStationWayPointsRoute2,
-                    endCap: google_maps.Cap.roundCap,
-                    geodesic: true,
-                  ):google_maps.Polyline(polylineId:google_maps.PolylineId("PolylineRoute2ID"), ),
-
-                  //1
-                  google_maps.Polyline(
-                    color: Colors.blue.withOpacity(0.9),
-                    polylineId: google_maps.PolylineId("PolylineRoute1ID"),
-                    jointType: google_maps.JointType.round,
-                    width: 4,
-                    startCap: google_maps.Cap.roundCap,
-                    points: routeMapController.tripStationWayPointsRoute1,
-                    endCap: google_maps.Cap.roundCap,
-                    geodesic: true,
-                  ),
-
-                  google_maps.Polyline(
-                    color: Colors.red.withOpacity(0.6),
-                    polylineId: google_maps.PolylineId("FirstWalkPolylineID"),
-                    jointType: google_maps.JointType.round,
-                    width: 5,
-                    startCap: google_maps.Cap.roundCap,
-                    points: routeMapController.tripFirstWalkWayPointsG,
-                    endCap: google_maps.Cap.roundCap,
-                    geodesic: true,
-                  ),
-                  google_maps.Polyline(
-                    color: Colors.green.withOpacity(0.7),
-                    polylineId: google_maps.PolylineId("SecondWalkPolylineID"),
-                    jointType: google_maps.JointType.round,
-                    width: 5,
-                    startCap: google_maps.Cap.roundCap,
-                    points: routeMapController.tripSecondWalkWayPointsG,
-                    endCap: google_maps.Cap.roundCap,
-                    geodesic: true,
-                  ),
-                  google_maps.Polyline(
-                    color: Colors.blue.withOpacity(0.7),
-                    polylineId: google_maps.PolylineId("StationWayPolyline2ID"),
-                    jointType: google_maps.JointType.mitered,
-                    width: 5,
-                    startCap: google_maps.Cap.roundCap,
-                    points: routeMapController.tripStationWayPoints2G,
-                    endCap: google_maps.Cap.roundCap,
-                    geodesic: true,
-                  ),
-                },
-                onCameraMoveStarted: () {
-                  print('onCameraMoveStarted');
-                },
-                onCameraIdle: ()async{
-                  print('onCameraIdle');
-                  locationController.showPinOnMap.value = true;
-                  addressText = await assistantMethods.searchCoordinateAddress(
-                      positionFromPin!, false);
-                  getingAddress = true;
-                  if (locationController.addDropOff.value == true &&
-                      locationController.addPickUp.value == true) {
-                  } else {
-                    if (locationController.startAddingPickUp.value == true) {
-                      trip.startPointAddress = addressText!;
-                    } else {
-                      trip.endPointAddress = addressText!;
-                    }
-                  }
-                },
-                onCameraMove: (camera) async {
-                 locationController.showPinOnMap.value = false;
-                  locationController.updatePinPos(
-                      camera.target.latitude, camera.target.longitude);
-                  positionFromPin = Position(
-                    longitude: camera.target.longitude,
-                    latitude: camera.target.latitude,
-                    speedAccuracy: 1.0,
-                    altitude: camera.target.latitude,
-                    speed: 1.0,
-                    heading: 1.0,
-                    timestamp: DateTime.now(),
-                    accuracy: 1.0,
-                  );
-
-
-                },
-                onMapCreated: (google_maps.GoogleMapController controller) {
-                  _controllerMaps.complete(controller);
-                  newGoogleMapController = controller;
-                  setState(() {
-                    bottomPaddingOfMap = 320.0;
-                  });
-                 // locatePosition();
-                },
-              ),
-            ),
-
-            //HamburgerButton for drawer
-            Positioned(
-              top: 45.0,
-              left: 22.0,
-              child: InkWell(
-                onTap: () {
-                  locationController.addDropOff.value = false;
-                  //locationController.addPickUp.value = false;
-                  locationController.tripCreatedStatus(false);
-                  routeMapController.resetAll();
-                  paymentController.paymentDone.value = false;
-                  locationController.startAddingDropOffStatus(true);
-                  locationController.startAddingPickUpStatus(false);
-                  routeMapController.isMultiMode.value = false;
-                  locationController.showPinOnMap.value =false;
-                  //locationController.changePickUpAddress('set pick up');
-                  //trip = Trip('', '', LocationModel(0.0,0.0), LocationModel(0.0,0.0), '', '', '', '', '');
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (context) => SearchScreen()));
-                },
-                child: Container(
-                  //height: 300.0,
-                  decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(22.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.5),
-                          blurRadius: 6.0,
-                          spreadRadius: 0.5,
-                          offset: Offset(0.7, 0.7),
-                        ),
-                      ]),
-                  child: CircleAvatar(
-                    backgroundColor: Colors.white.withOpacity(.9),
-                    child: Obx(
-                      () => Icon(
-                        (locationController.tripCreatedDone.value == false)
-                            ? Icons.close
-                            : Icons.close,
-                        color: Colors.black,
+                    polylines: {
+                      google_maps.Polyline(
+                        color: Colors.blue.withOpacity(0.7),
+                        polylineId: google_maps.PolylineId("PolylineID"),
+                        jointType: google_maps.JointType.round,
+                        width: 5,
+                        startCap: google_maps.Cap.roundCap,
+                        points: routeMapController.tripStationWayPointsG,
+                        endCap: google_maps.Cap.roundCap,
+                        geodesic: true,
                       ),
-                    ),
-                    radius: 20.0,
+
+                      //2
+                      locationController.tripCreatedDone.value==true? google_maps.Polyline(
+                        color: Colors.blue.withOpacity(0.9),
+                        polylineId: google_maps.PolylineId("PolylineRoute2ID"),
+                        jointType: google_maps.JointType.round,
+                        width: 4,
+                        startCap: google_maps.Cap.roundCap,
+                        points: routeMapController.tripStationWayPointsRoute2,
+                        endCap: google_maps.Cap.roundCap,
+                        geodesic: true,
+                      ):google_maps.Polyline(polylineId:google_maps.PolylineId("PolylineRoute2ID"), ),
+
+                      //1
+                      google_maps.Polyline(
+                        color: Colors.blue.withOpacity(0.9),
+                        polylineId: google_maps.PolylineId("PolylineRoute1ID"),
+                        jointType: google_maps.JointType.round,
+                        width: 4,
+                        startCap: google_maps.Cap.roundCap,
+                        points: routeMapController.tripStationWayPointsRoute1,
+                        endCap: google_maps.Cap.roundCap,
+                        geodesic: true,
+                      ),
+
+                      google_maps.Polyline(
+                        color: Colors.red.withOpacity(0.6),
+                        polylineId: google_maps.PolylineId("FirstWalkPolylineID"),
+                        jointType: google_maps.JointType.round,
+                        width: 5,
+                        startCap: google_maps.Cap.roundCap,
+                        points: routeMapController.tripFirstWalkWayPointsG,
+                        endCap: google_maps.Cap.roundCap,
+                        geodesic: true,
+                      ),
+                      google_maps.Polyline(
+                        color: Colors.green.withOpacity(0.7),
+                        polylineId: google_maps.PolylineId("SecondWalkPolylineID"),
+                        jointType: google_maps.JointType.round,
+                        width: 5,
+                        startCap: google_maps.Cap.roundCap,
+                        points: routeMapController.tripSecondWalkWayPointsG,
+                        endCap: google_maps.Cap.roundCap,
+                        geodesic: true,
+                      ),
+                      google_maps.Polyline(
+                        color: Colors.blue.withOpacity(0.7),
+                        polylineId: google_maps.PolylineId("StationWayPolyline2ID"),
+                        jointType: google_maps.JointType.mitered,
+                        width: 5,
+                        startCap: google_maps.Cap.roundCap,
+                        points: routeMapController.tripStationWayPoints2G,
+                        endCap: google_maps.Cap.roundCap,
+                        geodesic: true,
+                      ),
+                    },
+                    onCameraMoveStarted: () {
+                      print('onCameraMoveStarted');
+                    },
+                    onCameraIdle: ()async{
+                      print('onCameraIdle');
+                      locationController.showPinOnMap.value = true;
+                      addressText = await assistantMethods.searchCoordinateAddress(
+                          positionFromPin!, false);
+                      getingAddress = true;
+                      if (locationController.addDropOff.value == true &&
+                          locationController.addPickUp.value == true) {
+                      } else {
+                        if (locationController.startAddingPickUp.value == true) {
+                          trip.startPointAddress = addressText!;
+                        } else {
+                          trip.endPointAddress = addressText!;
+                        }
+                      }
+                    },
+                    onCameraMove: (camera) async {
+                     locationController.showPinOnMap.value = false;
+                      locationController.updatePinPos(
+                          camera.target.latitude, camera.target.longitude);
+                      positionFromPin = Position(
+                        longitude: camera.target.longitude,
+                        latitude: camera.target.latitude,
+                        speedAccuracy: 1.0,
+                        altitude: camera.target.latitude,
+                        speed: 1.0,
+                        heading: 1.0,
+                        timestamp: DateTime.now(),
+                        accuracy: 1.0,
+                      );
+
+
+                    },
+                    onMapCreated: (google_maps.GoogleMapController controller) {
+                      _controllerMaps.complete(controller);
+                      newGoogleMapController = controller;
+                      setState(() {
+                        bottomPaddingOfMap = 320.0;
+                      });
+                     // locatePosition();
+                    },
                   ),
                 ),
-              ),
-            ),
-            paymentController.openCam.value ==true? QRScanner(isDirectPay: false,):Container(),
 
-          ]),
+                //HamburgerButton for drawer
+                Positioned(
+                  top: 45.0,
+                  left: 22.0,
+                  child: InkWell(
+                    onTap: () {
+                      locationController.addDropOff.value = false;
+                      //locationController.addPickUp.value = false;
+                      locationController.tripCreatedStatus(false);
+                      routeMapController.resetAll();
+                      paymentController.paymentDone.value = false;
+                      locationController.startAddingDropOffStatus(true);
+                      locationController.startAddingPickUpStatus(false);
+                      routeMapController.isMultiMode.value = false;
+                      locationController.showPinOnMap.value =false;
+                      //locationController.changePickUpAddress('set pick up');
+                      //trip = Trip('', '', LocationModel(0.0,0.0), LocationModel(0.0,0.0), '', '', '', '', '');
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => SearchScreen()));
+                    },
+                    child: Container(
+                      //height: 300.0,
+                      decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(22.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.5),
+                              blurRadius: 6.0,
+                              spreadRadius: 0.5,
+                              offset: Offset(0.7, 0.7),
+                            ),
+                          ]),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.white.withOpacity(.9),
+                        child: Obx(
+                          () => Icon(
+                            (locationController.tripCreatedDone.value == false)
+                                ? Icons.close
+                                : Icons.close,
+                            color: Colors.black,
+                          ),
+                        ),
+                        radius: 20.0,
+                      ),
+                    ),
+                  ),
+                ),
+
+
+                paymentController.openCam.value ==true? QRScanner(isDirectPay: false,):Container(),
+
+              ]),
+            ),
+            locationController.tripCreatedDone.value == true
+                ?Positioned(
+                bottom: 13.0,
+                right: screenSize.width /2 -60,
+                child: buildActionButton() ): Container(),
+          ],
         ),
-        floatingActionButton: locationController.tripCreatedDone.value == true
-            ? buildActionButton()
-            : null,
+        // floatingActionButton: locationController.tripCreatedDone.value == true
+        //     ? buildActionButton()
+        //     : null,
         floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       ),
     );
@@ -535,13 +549,20 @@ class _MapState extends State<Map> {
           borderRadius: BorderRadius.circular(6),
         ),
         foregroundColor: Colors.white,
-        backgroundColor: routes_color,
-        extendedPadding: EdgeInsets.symmetric(horizontal: 9),
+        backgroundColor: routes_color.withOpacity(0.9),
+        extendedPadding: EdgeInsets.symmetric(horizontal: 9,vertical: 0.0),
         icon: Icon(Icons.not_started_outlined),
         label: Text(
-          'Start the trip',
+          'Start trip',
           style: TextStyle(
-              fontSize: 12, color: Colors.white, fontWeight: FontWeight.bold),
+            shadows: [
+              Shadow(
+                color: Colors.black12,
+                offset: Offset(4.0,3.0),
+                blurRadius: 6
+              )
+            ],
+              fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),
         ),
         onPressed: () {
           routeMapController.callSaveTrip();
@@ -553,10 +574,11 @@ class _MapState extends State<Map> {
 
   Widget buildPayButton() => FloatingActionButton.extended(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(6),
         ),
         foregroundColor: Colors.white,
-        backgroundColor: routes_color,
+    backgroundColor: routes_color.withOpacity(0.9),
+    extendedPadding: EdgeInsets.symmetric(horizontal: 16,vertical: 0.0),
         icon: Icon(Icons.payment_rounded),
         label: Text(
           'Pay',

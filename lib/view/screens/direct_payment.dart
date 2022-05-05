@@ -59,7 +59,7 @@ class _DirectPaymentState extends State<DirectPayment> {
                           Container(
                             margin: EdgeInsets.symmetric(horizontal: 16.0),
                             child: Text(
-                              "Start direct payment by scanning the QR code via your camera",
+                              "start_pay_txt".tr,
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                 fontSize: 18,
@@ -86,7 +86,7 @@ class _DirectPaymentState extends State<DirectPayment> {
                                  });
                                 } else {
                                 Fluttertoast.showToast(
-                                msg: "Remaining amount $balanceNum is not enough to complete the payment",
+                                msg: "msg_0_balance".tr,
                                 toastLength: Toast.LENGTH_SHORT,
                                 gravity: ToastGravity.CENTER,
                                 timeInSecForIosWeb: 1,
@@ -96,7 +96,7 @@ class _DirectPaymentState extends State<DirectPayment> {
                                 }
                               },
                               child: Text(
-                                "Scan",
+                                "scan_btn".tr,
                                 style: TextStyle(
                                   fontSize: 17,
                                   letterSpacing: 1

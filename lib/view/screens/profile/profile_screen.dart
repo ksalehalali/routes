@@ -86,7 +86,7 @@ class ProfileScreen extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                    'Your Account',
+                                    'your_account'.tr,
                                     style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[800]),
 
                                   ),
@@ -112,7 +112,7 @@ class ProfileScreen extends StatelessWidget {
                                           width: 8.0,
                                         ),
                                         Text(
-                                          'Personal Information',
+                                          'personal_info'.tr,
                                           style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[600]),
 
                                         ),
@@ -130,36 +130,6 @@ class ProfileScreen extends StatelessWidget {
                                   height: 12.0,
                                 ),
 
-
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    children: [
-                                      Icon(
-                                        Icons.place_outlined,
-                                        size: 32,
-                                        color: Colors.grey,
-                                      ),
-                                      SizedBox(
-                                        width: 8.0,
-                                      ),
-                                      Text(
-                                        'Places and addresses',
-                                        style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[600]),
-                                      ),
-                                      Spacer(),
-                                      Icon(
-                                        Icons.arrow_forward_ios_outlined,
-                                        size: 22,
-                                        color: Colors.grey,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10.0,
-                                ),
                                 InkWell(
                                   onTap: (){
                                     Get.to(()=>YourActivitiesScreen());
@@ -178,7 +148,7 @@ class ProfileScreen extends StatelessWidget {
                                           width: 8.0,
                                         ),
                                         Text(
-                                          'Your activities',
+                                          'your_activities'.tr,
                                           style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[600]),
 
                                         ),
@@ -205,7 +175,7 @@ class ProfileScreen extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: Text(
-                              'Get support',
+                              'get_support_btn'.tr,
                               style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[800]),
 
                             ),
@@ -229,7 +199,7 @@ class ProfileScreen extends StatelessWidget {
                                     width: 8.0,
                                   ),
                                   Text(
-                                    'Help',
+                                    'help_btn'.tr,
                                     style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[600]),
 
                                   ),
@@ -299,7 +269,7 @@ class ProfileScreen extends StatelessWidget {
                                     width: 8.0,
                                   ),
                                   Text(
-                                    'Share App',
+                                    'share_app_btn'.tr,
                                     style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[600]),
 
                                   ),
@@ -348,7 +318,7 @@ class ProfileScreen extends StatelessWidget {
                                         width: 8.0,
                                       ),
                                       Text(
-                                        'Language',
+                                        'btn_Lang'.tr,
                                         style:TextStyle(fontWeight: FontWeight.w400,fontSize: 15,color: Colors.grey[600]),
 
                                       ),
@@ -420,10 +390,10 @@ class ProfileScreen extends StatelessWidget {
                                 Center(
                                   child: InkWell(
                                     onTap: ()async{
-                                      final genDynUrl=await FirebaseDynamicLinkService.createDynamicLink(false,'a1');
-                                      print(genDynUrl);
+                                      // final genDynUrl=await FirebaseDynamicLinkService.createDynamicLink(false,'a1');
+                                      // print(genDynUrl);
                                     },
-                                    child:Obx(()=> Text('Terms and conditions',style: TextStyle(fontSize: 15,color: Colors.green[700]),)),
+                                    child:Text('terms_conditions_btn'.tr,style: TextStyle(fontSize: 15,color: Colors.green[700]),),
                                   ),
                                 ),
 
