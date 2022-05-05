@@ -1002,10 +1002,13 @@ class RouteMapController extends GetxController {
 
   //
   calculateFullDurationDistanceMulti(bool isLong ,bool isRoute2){
+    fullDurationTrip.value  =0.0;
     print('m w duration ${startWalkDurationTrip}');
     print('m w2 duration ${secondWalkDurationTrip}');
     print('m route1 duration ${routeDurationTrip}');
     print('m route2 duration ${route2DurationTrip}');
+
+    print('m route2 2 duration ${ secondRoute2DurationTrip.value}');
 
     if(isRoute2){
       if(isLong){
@@ -1019,11 +1022,10 @@ class RouteMapController extends GetxController {
       }
 
       ///to do cal walking
-
-      fullDurationTrip.value = fullDurationTrip.value + tripFirstWalkDirData['routes'][0]['duration']/ 60/2;
-      fullDistanceTrip.value = fullDistanceTrip.value + tripFirstWalkDirData['routes'][0]['distance']/ 1000/2;
-      fullDurationTrip.value = fullDurationTrip.value + tripSecondWalkDirData['routes'][0]['duration']/ 60/2;
-      fullDistanceTrip.value = fullDistanceTrip.value + tripSecondWalkDirData['routes'][0]['distance']/ 1000/2;
+      // fullDurationTrip.value = fullDurationTrip.value + tripFirstWalkDirData['routes'][0]['duration']/ 60/2;
+      // fullDistanceTrip.value = fullDistanceTrip.value + tripFirstWalkDirData['routes'][0]['distance']/ 1000/2;
+      // fullDurationTrip.value = fullDurationTrip.value + tripSecondWalkDirData['routes'][0]['duration']/ 60/2;
+      // fullDistanceTrip.value = fullDistanceTrip.value + tripSecondWalkDirData['routes'][0]['distance']/ 1000/2;
 
     }else {
       if(isLong){
@@ -1041,10 +1043,6 @@ class RouteMapController extends GetxController {
 
     }
 
-    // startWalkDurationTrip.value = tripFirstWalkDirData['routes'][0]['duration']/ 60;
-    // secondWalkDurationTrip.value = tripSecondWalkDirData['routes'][0]['duration']/ 60;
-    // startWalkDistanceTrip.value = tripFirstWalkDirData['routes'][0]['distance']/ 1000;
-    // secondWalkDistanceTrip.value =tripSecondWalkDirData['routes'][0]['distance']/ 1000;
     print('-------------------------------------------');
     update();
   }

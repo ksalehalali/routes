@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as google_maps;
+import 'package:geolocator/geolocator.dart';
 
 import '../Assistants/assistantMethods.dart';
 import '../Assistants/request-assistant.dart';
@@ -31,6 +32,8 @@ class LocationController extends GetxController {
   var dropOffLocationAddress = ''.obs;
   Address? pickUpLocation;
   Address? dropOffLocation ;
+  Rx<Position> positionFromPin =Position(latitude: 29.37631633045168, accuracy: 0.0, altitude: 0.0, speed: 0.0, speedAccuracy: 0.0, longitude: 47.98637351560368, heading: 0.0, timestamp: null).obs;
+
   @override
   void onInit() {
     // TODO: implement onInit

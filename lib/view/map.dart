@@ -48,7 +48,6 @@ class _MapState extends State<Map> {
   bool showMap = false;
   bool showStops = false;
   var assistantMethods = AssistantMethods();
-  Position? positionFromPin;
   double? sizeOfSheet = 0.0;
   double rotation = 0.0;
   var stops = [];
@@ -88,6 +87,14 @@ class _MapState extends State<Map> {
         showMap = true;
       });
     });
+    if(locationController.startAddingPickUp.value) {
+      routeMapController.startPointLatLng.value.longitude =initialPoint.longitude;
+      routeMapController.startPointLatLng.value.latitude =initialPoint.latitude;
+    }else {
+
+      routeMapController.endPointLatLng.value.longitude =initialPoint.longitude;
+      routeMapController.endPointLatLng.value.latitude =initialPoint.latitude;
+    }
 
     initLocationService();
 
@@ -422,15 +429,18 @@ class _MapState extends State<Map> {
                       print('onCameraIdle');
                       locationController.showPinOnMap.value = true;
                       addressText = await assistantMethods.searchCoordinateAddress(
-                          positionFromPin!, false);
+                          locationController.positionFromPin.value, false);
                       getingAddress = true;
                       if (locationController.addDropOff.value == true &&
                           locationController.addPickUp.value == true) {
+
                       } else {
                         if (locationController.startAddingPickUp.value == true) {
                           trip.startPointAddress = addressText!;
+
                         } else {
                           trip.endPointAddress = addressText!;
+
                         }
                       }
                     },
@@ -438,7 +448,7 @@ class _MapState extends State<Map> {
                      locationController.showPinOnMap.value = false;
                       locationController.updatePinPos(
                           camera.target.latitude, camera.target.longitude);
-                      positionFromPin = Position(
+                      locationController.positionFromPin.value = Position(
                         longitude: camera.target.longitude,
                         latitude: camera.target.latitude,
                         speedAccuracy: 1.0,
@@ -454,6 +464,18 @@ class _MapState extends State<Map> {
                     onMapCreated: (google_maps.GoogleMapController controller) {
                       _controllerMaps.complete(controller);
                       newGoogleMapController = controller;
+                      locationController.positionFromPin.value = Position(
+                        longitude: initialPoint.longitude,
+                        latitude: initialPoint.latitude,
+                        speedAccuracy: 1.0,
+                        altitude:initialPoint.latitude,
+                        speed: 1.0,
+                        heading: 1.0,
+                        timestamp: DateTime.now(),
+                        accuracy: 1.0,
+                      );
+                      locationController.showPinOnMap.value = true;
+
                       setState(() {
                         bottomPaddingOfMap = 320.0;
                       });
@@ -1534,23 +1556,23 @@ class _MapState extends State<Map> {
                         ? ElevatedButton(
                             onPressed: () async {
                               panelController.close();
-                              var newPos = LatLng(positionFromPin!.latitude,
-                                  positionFromPin!.longitude);
+                              var newPos = LatLng(locationController.positionFromPin.value.latitude,
+                                  locationController.positionFromPin.value.longitude);
                               if (locationController
                                       .startAddingPickUp.value ==
                                   true) {
                                 locationController.addPickUp.value = true;
                                 trip.startPoint.latitude =
-                                    positionFromPin!.latitude;
+                                    locationController.positionFromPin.value.latitude;
                                 trip.startPoint.longitude =
-                                    positionFromPin!.longitude;
+                                    locationController.positionFromPin.value.longitude;
                                 routeMapController.startPointLatLng.value =
                                     newPos;
                               } else {
                                 trip.endPoint.latitude =
-                                    positionFromPin!.latitude;
+                                    locationController.positionFromPin.value.latitude;
                                 trip.endPoint.longitude =
-                                    positionFromPin!.longitude;
+                                    locationController.positionFromPin.value.longitude;
                                 locationController.addDropOff.value = true;
                                 routeMapController.endPointLatLng.value =
                                     newPos;

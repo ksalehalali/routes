@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import '../../Assistants/globals.dart';
 import '../../Assistants/request-assistant.dart';
 import '../../Data/current_data.dart';
 import '../../config-maps.dart';
 import '../../controller/location_controller.dart';
+import '../../controller/route_map_controller.dart';
 import '../../model/address.dart';
 import '../../model/placePredictions.dart';
 import '../map.dart';
@@ -285,6 +287,7 @@ class PredictionTile extends StatelessWidget {
           locationController.startAddingDropOff.value = true;
           locationController.startAddingPickUpStatus(false);
           locationController.startAddingDropOffStatus(true);
+
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(builder: (context) => Map()),
@@ -295,6 +298,7 @@ class PredictionTile extends StatelessWidget {
 
           initialPoint.latitude = placePredictions!.lat!;
           initialPoint.longitude = placePredictions!.lng!;
+          locationController.showPinOnMap.value = true;
 
           if (pickUpFilling == false) {
 
@@ -370,6 +374,7 @@ class PredictionTile extends StatelessWidget {
 
   void getPlaceAddressDetails(String placeId, context) async {
     final LocationController locationController = Get.find();
+    final RouteMapController routeMapController = Get.find();
 
     showDialog(
         context: context,
@@ -398,6 +403,16 @@ class PredictionTile extends StatelessWidget {
       initialPoint.longitude = address.longitude!;
       locationController.updateDropOffLocationAddress(address);
 
+      locationController.positionFromPin.value = Position(
+       longitude:address.longitude!,
+       latitude: address.latitude!,
+       speedAccuracy: 1.0,
+       altitude:  address.latitude!,
+       speed: 1.0,
+       heading: 1.0,
+       timestamp: DateTime.now(),
+       accuracy: 1.0,
+     );
       print("this drop off location :: ${address.placeName}");
       print(
           "this drop off location :: lat ${address.latitude} ,long ${address.longitude}");
