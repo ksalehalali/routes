@@ -83,12 +83,18 @@ class ProfileScreen extends StatelessWidget {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'your_account'.tr,
-                                    style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[800]),
+                                InkWell(
+                                  onTap: () {
+                                    print(promoterId);
+                                    Get.snackbar('Promoter Id', promoterId);
+                      },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      'your_account'.tr,
+                                      style:TextStyle(fontWeight: FontWeight.w400,fontSize: 16,color: Colors.grey[800]),
 
+                                    ),
                                   ),
                                 ),
                                 SizedBox(

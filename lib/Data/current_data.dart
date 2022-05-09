@@ -17,3 +17,4 @@ ChargeSaved chargeSaved = ChargeSaved();
 PaymentSaved paymentSaved = PaymentSaved();
 TripToSave tripToSave = TripToSave();
 User user = User(accessToken: ' ');
+String promoterId ="";

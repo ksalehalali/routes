@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:share/share.dart';
 
+import '../Data/current_data.dart';
 import '../controller/start_up_controller.dart';
 
 FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
@@ -64,6 +65,7 @@ class FirebaseDynamicLinkService{
             // TODO : Navigate to your pages accordingly here
 
             startUpController.promoterId.value = id!;
+            promoterId = id;
             startUpController.saveInstallationForPromoters(id);
 
           }else{
@@ -75,9 +77,10 @@ class FirebaseDynamicLinkService{
             print("deeplink try:: $deepLink");
             // TODO : Navigate to your pages accordingly here
             String? id = deepLink.queryParameters['id'];
+            promoterId = id!;
 
-            startUpController.promoterId.value = id!;
-            startUpController.saveInstallationForPromoters(id);
+            startUpController.promoterId.value = id;
+
 
           }else{
             return null;
@@ -98,9 +101,9 @@ class FirebaseDynamicLinkService{
       var isStory = deepLink.pathSegments.contains('storyData');
       if(isStory){ // TODO :Modify Accordingly
         String? id = deepLink.queryParameters['id'];
+        promoterId = id!;
 
-        startUpController.promoterId.value = id!;
-        startUpController.saveInstallationForPromoters(id);
+        startUpController.promoterId.value = id;
         // TODO : Navigate to your pages accordingly here
 
         // try{

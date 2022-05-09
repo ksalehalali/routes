@@ -13,6 +13,7 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Assistants/globals.dart';
+import '../Data/current_data.dart';
 import '../view/screens/main_screen.dart';
 
 class SignUpController extends GetxController {
@@ -255,6 +256,10 @@ class SignUpController extends GetxController {
         var jsonResponse = json.decode(response.body);
         if(jsonResponse["status"]){
           Navigator.pop(context, 'OK');
+          //add the installation to promoter
+
+          saveInstallationForPromoters(promoterId);
+
           Get.to(()=>MainScreen(indexOfScreen: 0,));
         } else{
           Fluttertoast.showToast(
@@ -280,5 +285,30 @@ class SignUpController extends GetxController {
 
   }
 
+  //
+  Future saveInstallationForPromoters(String promoterIdN) async {
+
+    print('from url =............== $promoterIdN');
+
+    var headers = {
+      'Authorization': 'bearer ${user.accessToken}',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse('https://route.click68.com/api/AddPromoterInstallation'));
+    request.body = json.encode({
+      "PromoterID": promoterIdN
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+
+  }
 
 }

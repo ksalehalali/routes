@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart' as geo;
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart' as google_maps;
+import 'package:routes/controller/start_up_controller.dart';
 import 'package:routes/view/screens/profile/profile_screen.dart';
 import 'package:routes/view/screens/routes/all_routes_map.dart';
 import 'package:routes/view/screens/wallet/wallet_screen.dart';
@@ -42,6 +43,7 @@ class _MainScreenState extends State<MainScreen> {
 
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = Home();
+  final StartUpController startUpController = Get.find();
 
   int? currentTp = 0;
   @override
@@ -49,6 +51,7 @@ class _MainScreenState extends State<MainScreen> {
     // TODO: implement initState
     super.initState();
     locatePosition();
+
   }
 
 
@@ -57,6 +60,7 @@ class _MainScreenState extends State<MainScreen> {
   geo.Position? currentPosition;
   double bottomPaddingOfMap = 0;
   final LocationController locationController = Get.find();
+
   late loc.PermissionStatus _permissionGranted;
 
   void locatePosition() async {
