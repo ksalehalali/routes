@@ -7,6 +7,51 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:598321261302:android:eaea6b41536966876d9ad7",
+        "android_client_info": {
+          "package_name": "com.deeplinking2test.deeplinking2test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "598321261302-mk1ud3m4gvn3155k9ghokhp4brd3vi1g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.deeplinking2test.deeplinking2test",
+            "certificate_hash": "44e1186f045f115eac378388d255846aaf41a197"
+          }
+        },
+        {
+          "client_id": "598321261302-2vv3damh4r7jcm001maiieehj0bjreun.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAXhZ973ut4n3IDiEOm0Rc7ECsDJ6Mc9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "598321261302-2vv3damh4r7jcm001maiieehj0bjreun.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "598321261302-197ar1b6ma37onvcudh4p4c3idep9sao.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.routes.khaled.routes",
+                "app_store_id": "962194608"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:598321261302:android:32e85b9f71f8ec406d9ad7",
         "android_client_info": {
           "package_name": "com.routes.khaled.n.routes"
@@ -31,10 +76,56 @@
               "client_type": 3
             },
             {
-              "client_id": "598321261302-9ktg9700aff35r1gec4bf0icvmjhveun.apps.googleusercontent.com",
+              "client_id": "598321261302-197ar1b6ma37onvcudh4p4c3idep9sao.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.routes.khaled.routes"
+                "bundle_id": "com.routes.khaled.routes",
+                "app_store_id": "962194608"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:598321261302:android:a452cecd53abca936d9ad7",
+        "android_client_info": {
+          "package_name": "comdeeplinking.test.deeplinking_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "598321261302-f3khjjh7j6p1an6kd672hkii8ik79m78.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "comdeeplinking.test.deeplinking_test",
+            "certificate_hash": "44e1186f045f115eac378388d255846aaf41a197"
+          }
+        },
+        {
+          "client_id": "598321261302-2vv3damh4r7jcm001maiieehj0bjreun.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDAXhZ973ut4n3IDiEOm0Rc7ECsDJ6Mc9c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "598321261302-2vv3damh4r7jcm001maiieehj0bjreun.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "598321261302-197ar1b6ma37onvcudh4p4c3idep9sao.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.routes.khaled.routes",
+                "app_store_id": "962194608"
               }
             }
           ]

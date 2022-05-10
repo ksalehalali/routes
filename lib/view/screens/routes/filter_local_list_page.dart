@@ -51,7 +51,7 @@ class FilterListRoutesState extends State<FilterListRoutes> {
 
   Widget buildSearch() => SearchWidget(
         text: query,
-        hintText: 'Route Name',
+        hintText: 'route_name_txt'.tr,
         onChanged: searchRoute,
       );
 

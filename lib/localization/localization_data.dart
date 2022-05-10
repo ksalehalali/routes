@@ -40,6 +40,11 @@ Map<String,String> ar ={
 'add_redit_btn':'اضافة رصيد',
 'payments_txt':'الدفعات',
 'recharges_txt':'الشحن',
+  //-
+
+  "route_name_txt":'اسم الخط',
+  "name_txt":'الاسم',
+
 
 };
 
@@ -83,7 +88,18 @@ Map<String,String> en ={
   'add_redit_btn':'Add Credit',
   'payments_txt':'Payments',
   'recharges_txt':'Recharges',
+  //-
 
+  "route_name_txt":'Route Name',
+  //-
+
+  "name_txt":'Name',
+  "email_txt":'Email',
+  //-
+
+  "your_activities":"Your Activities",
+  "history_txt":'History'
+  "tri"
 
 };
 

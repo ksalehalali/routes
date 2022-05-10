@@ -78,7 +78,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Name",
+                        "name_txt".tr,
                         style: TextStyle(
                           color: Colors.grey
                         ),
@@ -124,7 +124,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Email",
+                        "email_txt".tr,
                         style: TextStyle(
                             color: Colors.grey
                         ),
