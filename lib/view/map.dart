@@ -575,7 +575,7 @@ class _MapState extends State<Map> {
         extendedPadding: EdgeInsets.symmetric(horizontal: 9,vertical: 0.0),
         icon: Icon(Icons.not_started_outlined),
         label: Text(
-          'Start trip',
+          'start_trip_txt'.tr,
           style: TextStyle(
             shadows: [
               Shadow(
@@ -603,7 +603,7 @@ class _MapState extends State<Map> {
     extendedPadding: EdgeInsets.symmetric(horizontal: 16,vertical: 0.0),
         icon: Icon(Icons.payment_rounded),
         label: Text(
-          'Pay',
+          'pay_btn'.tr,
           style: TextStyle(
               fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),
         ),
@@ -734,8 +734,8 @@ class _MapState extends State<Map> {
                         },
                         child: Text(
                           locationController.tripCreatedDone.value == false
-                              ? "Set your pickup - Drop Off spot "
-                              : "Start Your Trip.",
+                              ? "Set_your_pickup-Drop_Off_spot_txt".tr
+                              : "Start_Your_Trip._txt".tr,
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.bold),
                         ),
@@ -953,7 +953,7 @@ class _MapState extends State<Map> {
                                         SizedBox(
                                             width: screenSize.width * 0.7 - 20,
                                             child: Text(
-                                              "Start : ${trip.startPointAddress}",
+                                              Get.locale =='ar'?"البداية : ${trip.startPointAddress}" :"Start : ${trip.startPointAddress}",
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style: TextStyle(fontSize: 14),
@@ -962,7 +962,7 @@ class _MapState extends State<Map> {
                                           height: screenSize.height * 0.1 - 69,
                                         ),
                                         Text(
-                                          'Walk to bus stop',
+                                          'Walk_to_bus_stop_txt'.tr,
                                           style: TextStyle(
                                               fontSize: 16,
                                               color: Colors.grey[400]),
@@ -973,7 +973,7 @@ class _MapState extends State<Map> {
                                         Row(
                                           children: [
                                             Text(
-                                              'Board at Route',
+                                              'Board_at_Route_txt'.tr,
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   color: Colors.black),
@@ -1007,7 +1007,7 @@ class _MapState extends State<Map> {
                                           crossAxisAlignment: CrossAxisAlignment.center,
                                           children: [
                                             Text(
-                                              'Change to ',
+                                              'Change_to_txt'.tr,
                                               style: TextStyle(
                                                   fontSize: 16,
                                                   color: Colors.black),
@@ -1089,8 +1089,8 @@ class _MapState extends State<Map> {
                                           height: screenSize.height * 0.1 - 82,
                                         ),
                                         ...stops,
-                                        const Text(
-                                          'Get off at ',
+                                         Text(
+                                          'Get_off_at_txt'.tr,
                                           style: TextStyle(
                                               fontSize: 16,
                                               color: Colors.black),
@@ -1112,7 +1112,7 @@ class _MapState extends State<Map> {
                                         SizedBox(
                                             width: screenSize.width * 0.7 - 20,
                                             child: Text(
-                                              'End : ${trip.endPointAddress}',
+                                              Get.locale =="ar" ?'النهاية : ${trip.endPointAddress}' :'End : ${trip.endPointAddress}',
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                               style: TextStyle(
@@ -1401,8 +1401,8 @@ class _MapState extends State<Map> {
                      },
                      child: Text(
                        locationController.tripCreatedDone.value == false
-                           ? "Set your pickup - Drop Off spot "
-                           : "Start Your Trip.",
+                           ? "Set_your_pickup-Drop_Off_spot_txt".tr
+                           : "Start_Your_Trip._txt".tr,
                        style: TextStyle(
                            fontSize: 16, fontWeight: FontWeight.bold),
                      ),
@@ -1669,7 +1669,7 @@ class _MapState extends State<Map> {
                                     SizedBox(
                                         width: screenSize.width * 0.7 - 20,
                                         child: Text(
-                                          "Start : ${trip.startPointAddress}",
+                                          Get.locale =="ar"?"البداية : ${trip.startPointAddress}" :"Start : ${trip.startPointAddress}",
                                           overflow: TextOverflow.ellipsis,
                                           maxLines: 1,
                                           style: TextStyle(fontSize: 14),
@@ -1678,7 +1678,7 @@ class _MapState extends State<Map> {
                                       height: screenSize.height * 0.1 - 62,
                                     ),
                                     Text(
-                                      'Walk to bus stop',
+                                      'Walk_to_bus_stop_txt'.tr,
                                       style: TextStyle(
                                           fontSize: 16,
                                           color: Colors.grey[400]),
@@ -1687,7 +1687,7 @@ class _MapState extends State<Map> {
                                       height: screenSize.height * 0.1 - 62,
                                     ),
                                     Text(
-                                      'Board at Route ${routeMapController.tripRouteData["description"]["res"][0]['route'].toString()}',
+                                      Get.locale =="ar"?'احجز في الباص ${routeMapController.tripRouteData["description"]["res"][0]['route'].toString()}' :'Board at Route ${routeMapController.tripRouteData["description"]["res"][0]['route'].toString()}',
                                       style: TextStyle(
                                           fontSize: 16,
                                           color: Colors.black),
@@ -1695,7 +1695,7 @@ class _MapState extends State<Map> {
                                     SizedBox(
                                       width: screenSize.width * 0.7 - 20,
                                       child: Text(
-                                        'station name: ${routeMapController.tripRouteData["description"]["startStation"]['title'].toString()}',
+                                        Get.locale =="ar"?'المحطة: ${routeMapController.tripRouteData["description"]["startStation"]['title'].toString()}'  :'station name: ${routeMapController.tripRouteData["description"]["startStation"]['title'].toString()}',
                                         overflow: TextOverflow.ellipsis,
                                         maxLines: 1,
                                         style: TextStyle(
@@ -1732,7 +1732,7 @@ class _MapState extends State<Map> {
                                               CrossAxisAlignment.center,
                                           children: [
                                             Text(
-                                              'Stops (${routeMapController.jsonResponse.length})',
+                                              Get.locale =="ar"?'المحطات (${routeMapController.jsonResponse.length})'  :'Stops (${routeMapController.jsonResponse.length})',
                                               style: TextStyle(
                                                   fontWeight:
                                                       FontWeight.w500,
@@ -1754,8 +1754,8 @@ class _MapState extends State<Map> {
                                       height: screenSize.height * 0.1 - 80,
                                     ),
                                     ...stops,
-                                    const Text(
-                                      'Get off at ',
+                                     Text(
+                                      'Get_off_at_txt'.tr,
                                       style: TextStyle(
                                           fontSize: 16,
                                           color: Colors.black),

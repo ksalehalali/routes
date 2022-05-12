@@ -31,7 +31,7 @@ class _YourTripsState extends State<YourTrips> {
           },
           child: Icon(Icons.arrow_back,color: Colors.blue[900],size: 32,),
         ),
-        title: Text('Your Trips',style: TextStyle(color: Colors.blue[900]),),
+        title: Text('your_trips_txt'.tr,style: TextStyle(color: Colors.blue[900]),),
         centerTitle: true,
       ),
       body: Container(
@@ -42,7 +42,7 @@ class _YourTripsState extends State<YourTrips> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text('History',style: TextStyle(color: Colors.blue[900],fontSize: 16,fontWeight: FontWeight.bold),),
+                    child: Text('history_txt'.tr,style: TextStyle(color: Colors.blue[900],fontSize: 16,fontWeight: FontWeight.bold),),
                   ),
                   Spacer(),
                   Padding(

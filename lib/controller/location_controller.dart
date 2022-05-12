@@ -71,8 +71,8 @@ class LocationController extends GetxController {
     placePredictionList.add(
         PlaceShort(
             placeId: '0',
-            mainText: 'Set Location on map',
-            secondText: 'choose'
+            mainText: 'set_location_on_map_txt'.tr,
+            secondText: 'choose_txt'.tr,
     ));
   }
   void updatePickUpLocationAddress( Address pickUpAddress){

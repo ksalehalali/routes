@@ -43,8 +43,51 @@ Map<String,String> ar ={
   //-
 
   "route_name_txt":'اسم الخط',
-  "name_txt":'الاسم',
+  //-
 
+  "name_txt":'الاسم',
+  "email_txt":'البريد الإلكتروني',
+  //-
+
+  "your_activities":"نشاطاتك",
+  "history_txt":'السجل',
+  "trips_txt":'الرحلات',
+  "transactions_txt":'العمليات',
+  //-
+
+  "help_txt":"مساعدة",
+  "all_topics_txt":'كل المواضيع',
+  "help_with_a_trip_txt":"المساعدة في رحلة",
+  "account_and_payment_options":"الحساب وخيارات الدفع",
+  "need_help_now?":"المساعدة الان؟",
+  "call_support":"اتصل بالدعم",
+  //-
+
+  "your_trips_txt":'رحلاتك',
+  "your_transactions_txt":'عملياتك',
+  //-
+
+  "set_pickup_rop_off_txt":'حدد نقطة الإلتقاط - الوصول',
+  "from_txt":'من',
+  "loading..._txt":'جار التحميل',
+  "to_txt":'الى',
+  "where_To?_txt":"الى اين؟ ",
+  "confirm_drop_off_spot_txt":"تأكيد نقطة الوصول",
+  "confirm_pick_up_spot_txt":"تأكيد نقطة الإلتقاط",
+  //-
+
+  "set_location_on_map_txt":'حدد الموقع من الخريطة',
+  "choose_txt":"اختر",
+  //-
+
+  "start_trip_txt":"Start trip",
+  "pay_btn":"Pay",
+  "Set_your_pickup-Drop_Off_spot_txt":"Set your pickup - Drop Off spot",
+  "Start_Your_Trip._txt":"Start your trip",
+  "Walk_to_bus_stop_txt":"Walk to bus stop",
+  "Board_at_Route_txt":"Board at Route ",
+  "Change_to_txt":"Change to ",
+  "Get_off_at_txt":"Get off at ",
 
 };
 
@@ -98,8 +141,46 @@ Map<String,String> en ={
   //-
 
   "your_activities":"Your Activities",
-  "history_txt":'History'
-  "tri"
+  "history_txt":'History',
+  "trips_txt":'Trips',
+  "transactions_txt":'Transactions',
+  //-
+
+  "help_txt":"Help",
+  "all_topics_txt":'All Topics',
+  "help_with_a_trip_txt":"Help with a trip",
+  "account_and_payment_options":"Account and Payment Options",
+  "need_help_now?":"Need help now?",
+  "call_support":"Call Support",
+  //-
+
+  "your_trips_txt":'Your Trips',
+  "your_transactions_txt":'Your Transactions',
+  //-
+
+  "set_pickup_rop_off_txt":'Set Pickup - Drop off',
+  "from_txt":'From',
+  "loading..._txt":'Loading...',
+  "to_txt":'To',
+  "where_To?_txt":"Where to? ",
+  "confirm_drop_off_spot_txt":"Confirm Drop off spot",
+  "confirm_pick_up_spot_txt":"Confirm Pick up spot",
+  //-
+
+  "set_location_on_map_txt":'Set Location on map',
+  "choose_txt":"Choose",
+  //-
+
+  "start_trip_txt":"ابدأ الرحلة",
+  "pay_btn":"ادفع",
+  "Set_your_pickup-Drop_Off_spot_txt":"حدد نقطة الإلتقاط - الوصول",
+  "Start_Your_Trip._txt":"ابدأ رحلتك",
+  "Walk_to_bus_stop_txt":"امشي حتى المحطة",
+  "Board_at_Route_txt":"احجز في الباص ",
+  "Change_to_txt":"غير الى ",
+  "Get_off_at_txt":"انزل في ",
+
+
 
 };
 
@@ -117,10 +198,6 @@ Map<String,String> hi ={
   'setting_title':'स्थापना',
   'btn_contact':'संपर्क करें',
   'btn_aboutUs':'About Us'
-
-
-
-
 
 
 };

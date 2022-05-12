@@ -346,9 +346,12 @@ class ProfileScreen extends StatelessWidget {
                                               ],
                                               value:controller.appLocal ,
                                               onChanged: (val){
+                                                print(val.toString());
                                                 controller.changeLang(val.toString());
                                                 Get.updateLocale(Locale(val.toString()));
                                                 controller.changeDIR(val.toString());
+                                                print(Get.deviceLocale);
+                                                print(Get.locale);
                                               },
                                             ),
                                           ),

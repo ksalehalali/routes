@@ -35,9 +35,8 @@ class HelpScreen extends StatelessWidget {
                 padding: EdgeInsets.only(left: 16.0, right: 16.0, bottom: 16.0),
                 width: Get.width,
                 color: Colors.white,
-                alignment: Alignment.topLeft,
                 child: Text(
-                  'Help',
+                  'help_txt'.tr,
                   style: TextStyle(
                       fontSize: 32,
                       color: Colors.black,
@@ -52,7 +51,7 @@ class HelpScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
                 color: Color.fromRGBO(240, 240, 240, 1),
                 child: Text(
-                  "All Topics"
+                  "all_topics_txt".tr
                 ),
               ),
               SizedBox(height: 16.0,),
@@ -71,7 +70,7 @@ class HelpScreen extends StatelessWidget {
                     SizedBox(width: 16,),
                     Container(
                       child: Text(
-                        "Help with a trip"
+                        "help_with_a_trip_txt".tr
                       ),
                     ),
                     Spacer(),
@@ -110,7 +109,7 @@ class HelpScreen extends StatelessWidget {
                       SizedBox(width: 16,),
                       Container(
                         child: Text(
-                            "Account and Payment Options"
+                            "account_and_payment_options".tr,
                         ),
                       ),
                       Spacer(),
@@ -134,7 +133,7 @@ class HelpScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
                 color: Color.fromRGBO(240, 240, 240, 1),
                 child: Text(
-                    "Need help now?"
+                    "need_help_now".tr,
                 ),
               ),
               SizedBox(height: 16.0,),
@@ -159,7 +158,7 @@ class HelpScreen extends StatelessWidget {
                       SizedBox(width: 16,),
                       Container(
                         child: Text(
-                            "Call Support"
+                            "call_support".tr,
                         ),
                       ),
                       Spacer(),

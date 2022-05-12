@@ -94,7 +94,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           child: Icon(Icons.arrow_back)),
                       Center(
                         child: Text(
-                          "Set Pickup - Drop off ",
+                          "set_pickup_rop_off_txt".tr,
                           style: TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,
@@ -119,7 +119,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       SizedBox(
                         width: 8.0,
                       ),
-                      Text('From',style: TextStyle(color: Colors.grey),),
+                      Text('from_txt'.tr,style: TextStyle(color: Colors.grey,fontSize: 16),),
                       SizedBox(
                         width: 8.0,
                       ),
@@ -151,7 +151,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                           .gotMyLocation.value ==
                                       true
                                   ? locationController.pickUpAddress.value
-                                  : 'Loading...',
+                                  : 'loading..._txt'.tr,
                               hintStyle: TextStyle(
                                   overflow: TextOverflow.ellipsis,
                                   color: locationController
@@ -187,7 +187,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       SizedBox(
                         width: 8.0,
                       ),
-                      Text('To',style: TextStyle(color: Colors.grey,fontSize: 15),),
+                      Text('to_txt'.tr,style: TextStyle(color: Colors.grey,fontSize: 16),),
 
                       SizedBox(
                         width: 8.0,
@@ -214,7 +214,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           },
                           controller: dropOffController,
                           decoration: InputDecoration(
-                            hintText: "Where To? ",
+                            hintText: "where_To?_txt".tr,
                             hintStyle: TextStyle(
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -283,7 +283,7 @@ class PredictionTile extends StatelessWidget {
         if (placePredictions!.placeId == '0') {
           initialPoint.latitude = locationController.currentLocation.value.latitude;
           initialPoint.longitude = locationController.currentLocation.value.longitude;
-          locationController.buttonString.value = ' Confirm Drop off spot';
+          locationController.buttonString.value = 'confirm_drop_off_spot_txt'.tr;
           locationController.startAddingDropOff.value = true;
           locationController.startAddingPickUpStatus(false);
           locationController.startAddingDropOffStatus(true);
@@ -302,7 +302,7 @@ class PredictionTile extends StatelessWidget {
 
           if (pickUpFilling == false) {
 
-            locationController.buttonString.value = 'Confirm Drop off spot';
+            locationController.buttonString.value = 'confirm_drop_off_spot_txt'.tr;
             locationController.updatePickUpLocationAddress(address);
 
             trip.endPointAddress =
@@ -313,7 +313,7 @@ class PredictionTile extends StatelessWidget {
                 (route) => false);
           } else {
            locationController.updateDropOffLocationAddress(address);
-            locationController.buttonString.value = 'Confirm Pick up spot';
+            locationController.buttonString.value = 'confirm_pick_up_spot_txt'.tr;
 
             trip.startPointAddress =
                 "${placePredictions!.mainText!} ,${placePredictions!.secondText!}";

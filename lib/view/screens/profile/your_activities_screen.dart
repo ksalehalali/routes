@@ -28,7 +28,7 @@ class _YourActivitiesScreenState extends State<YourActivitiesScreen> {
           ),
         ),
         title: Text(
-          'Your Activities',
+          'your_activities'.tr,
           style: TextStyle(color: Colors.blue[900]),
         ),
         centerTitle: true,
@@ -43,7 +43,7 @@ class _YourActivitiesScreenState extends State<YourActivitiesScreen> {
             Padding(
               padding: const EdgeInsets.all(12.0),
               child: Text(
-                'History',
+                'history_txt'.tr,
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
               ),
             ),
@@ -63,7 +63,7 @@ class _YourActivitiesScreenState extends State<YourActivitiesScreen> {
                     SizedBox(
                       width: 4.0,
                     ),
-                    Text('Trips'),
+                    Text('trips_txt'.tr),
                     Spacer(),
                     Icon(Icons.arrow_forward_ios_outlined),
                   ],
@@ -83,7 +83,7 @@ class _YourActivitiesScreenState extends State<YourActivitiesScreen> {
                     SizedBox(
                       width: 4.0,
                     ),
-                    Text('Transactions'),
+                    Text('transactions_txt'.tr),
                     Spacer(),
                     Icon(Icons.arrow_forward_ios_outlined),
                   ],
