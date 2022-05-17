@@ -80,14 +80,14 @@ Map<String,String> ar ={
   "choose_txt":"اختر",
   //-
 
-  "start_trip_txt":"Start trip",
-  "pay_btn":"Pay",
-  "Set_your_pickup-Drop_Off_spot_txt":"Set your pickup - Drop Off spot",
-  "Start_Your_Trip._txt":"Start your trip",
-  "Walk_to_bus_stop_txt":"Walk to bus stop",
-  "Board_at_Route_txt":"Board at Route ",
-  "Change_to_txt":"Change to ",
-  "Get_off_at_txt":"Get off at ",
+  "start_trip_txt":"ابدأ الرحلة",
+  "Set_your_pickup-Drop_Off_spot_txt":"حدد نقطة الإلتقاط - الوصول",
+  "Start_Your_Trip._txt":"ابدأ رحلتك",
+  "Start:_txt":"البداية : ",
+  "Walk_to_bus_stop_txt":"امشي حتى المحطة",
+  "Board_at_Route_txt":"احجز في الباص ",
+  "Change_to_txt":"غير الى ",
+  "Get_off_at_txt":"انزل في ",
 
 };
 
@@ -171,16 +171,16 @@ Map<String,String> en ={
   "choose_txt":"Choose",
   //-
 
-  "start_trip_txt":"ابدأ الرحلة",
-  "pay_btn":"ادفع",
-  "Set_your_pickup-Drop_Off_spot_txt":"حدد نقطة الإلتقاط - الوصول",
-  "Start_Your_Trip._txt":"ابدأ رحلتك",
-  "Walk_to_bus_stop_txt":"امشي حتى المحطة",
-  "Board_at_Route_txt":"احجز في الباص ",
-  "Change_to_txt":"غير الى ",
-  "Get_off_at_txt":"انزل في ",
 
+  "start_trip_txt":"Start trip",
+  "Set_your_pickup-Drop_Off_spot_txt":"Set your pickup - Drop Off spot",
+  "Start_Your_Trip._txt":"Start your trip",
+  "Start:_txt":"Start : ",
 
+  "Walk_to_bus_stop_txt":"Walk to bus stop",
+  "Board_at_Route_txt":"Board at Route ",
+  "Change_to_txt":"Change to ",
+  "Get_off_at_txt":"Get off at ",
 
 };
 

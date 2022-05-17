@@ -1,4 +1,5 @@
 
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
@@ -341,17 +342,20 @@ class ProfileScreen extends StatelessWidget {
                                               items: [
                                                 DropdownMenuItem(child: Text('EN'),value: 'en',),
                                                 DropdownMenuItem(child: Text('AR'),value: 'ar',),
-                                                DropdownMenuItem(child: Text('HI'),value: 'hi',)
+                                               // DropdownMenuItem(child: Text('HI'),value: 'hi',)
 
                                               ],
                                               value:controller.appLocal ,
-                                              onChanged: (val){
+                                              onChanged: (val)async{
                                                 print(val.toString());
                                                 controller.changeLang(val.toString());
                                                 Get.updateLocale(Locale(val.toString()));
                                                 controller.changeDIR(val.toString());
                                                 print(Get.deviceLocale);
                                                 print(Get.locale);
+                                                SharedPreferences prefs = await SharedPreferences.getInstance();
+
+                                                await prefs.setString('lang', val.toString());
                                               },
                                             ),
                                           ),

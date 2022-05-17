@@ -105,9 +105,12 @@ class LoginController extends GetxController {
           storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], loginCredentials[1], jsonResponse["description"]["id"]);
           user.accessToken = jsonResponse["description"]["token"];
           print(jsonResponse["description"]["token"]);
+          saveInstallationForPromoters(promoterId);
+
+
           Get.offAll(MainScreen(indexOfScreen: 0,));
           phoneNum.value = "";
-//      "96551027146",
+
           passwordController.text = "";
 
         } else {
@@ -181,8 +184,11 @@ class LoginController extends GetxController {
         user.accessToken = jsonResponse["description"]["token"];
         user.name = jsonResponse["description"]["name"];
         print(jsonResponse["description"]["token"]);
+
+        //call func to save installation
+        saveInstallationForPromoters(promoterId);
 //        Get.offAll(MainScreen(indexOfScreen: 0,));
-     Timer(Duration(milliseconds: 500), (){
+     Timer(Duration(milliseconds: 200), (){
        Get.to(MainScreen(indexOfScreen: 0,));
      });
 
@@ -204,7 +210,32 @@ class LoginController extends GetxController {
 
 
   }
+  //
+  Future saveInstallationForPromoters(String promoterIdN) async {
 
+    print('from url =............== $promoterIdN');
+
+    var headers = {
+      'Authorization': 'bearer ${user.accessToken}',
+      'Content-Type': 'application/json'
+    };
+    var request = http.Request('POST', Uri.parse('https://route.click68.com/api/AddPromoterInstallation'));
+    request.body = json.encode({
+      "PromoterID": promoterIdN
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print('save installation for p done ---');
+      print(await response.stream.bytesToString());
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+
+  }
 
   Future<void> storeUserLoginPreference(token, username, password, id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();

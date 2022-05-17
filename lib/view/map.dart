@@ -951,13 +951,26 @@ class _MapState extends State<Map> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(
-                                            width: screenSize.width * 0.7 - 20,
-                                            child: Text(
-                                              Get.locale =='ar'?"البداية : ${trip.startPointAddress}" :"Start : ${trip.startPointAddress}",
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                              style: TextStyle(fontSize: 14),
-                                            )),
+                                          width: screenSize.width * 0.7 - 20,
+                                          child: Row(
+                                            children: [
+                                              Text(
+                                                "Start:_txt".tr ,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 1,
+                                                style: TextStyle(fontSize: 14),
+                                              ),
+                                              SizedBox(
+                                                width: screenSize.width * 0.5,
+                                                child: Text(
+                                                  trip.startPointAddress,
+                                                  overflow: TextOverflow.ellipsis,
+                                                  maxLines: 1,
+                                                  style: TextStyle(fontSize: 14),
+                                                ),
+                                              )
+                                            ],
+                                          ),),
                                         SizedBox(
                                           height: screenSize.height * 0.1 - 69,
                                         ),
@@ -1668,12 +1681,25 @@ class _MapState extends State<Map> {
                                   children: [
                                     SizedBox(
                                         width: screenSize.width * 0.7 - 20,
-                                        child: Text(
-                                          Get.locale =="ar"?"البداية : ${trip.startPointAddress}" :"Start : ${trip.startPointAddress}",
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 1,
-                                          style: TextStyle(fontSize: 14),
-                                        )),
+                                        child: Row(
+                                      children: [
+                                         Text(
+                                            "Start:_txt".tr ,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 1,
+                                              style: TextStyle(fontSize: 14),
+                                            ),
+                                        SizedBox(
+                                          width: screenSize.width * 0.5,
+                                          child: Text(
+                                           trip.startPointAddress,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: TextStyle(fontSize: 14),
+                                          ),
+                                        )
+                                      ],
+                                    ),),
                                     SizedBox(
                                       height: screenSize.height * 0.1 - 62,
                                     ),
@@ -1686,11 +1712,21 @@ class _MapState extends State<Map> {
                                     SizedBox(
                                       height: screenSize.height * 0.1 - 62,
                                     ),
-                                    Text(
-                                      Get.locale =="ar"?'احجز في الباص ${routeMapController.tripRouteData["description"]["res"][0]['route'].toString()}' :'Board at Route ${routeMapController.tripRouteData["description"]["res"][0]['route'].toString()}',
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          color: Colors.black),
+                                    Row(
+                                      children: [
+                                        Text(
+                                           'Board_at_Route_txt'.tr,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.black),
+                                        ),
+                                        Text(
+                                         routeMapController.tripRouteData["description"]["res"][0]['route'].toString(),
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colors.black),
+                                        ),
+                                      ],
                                     ),
                                     SizedBox(
                                       width: screenSize.width * 0.7 - 20,

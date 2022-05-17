@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'local_storage_lang.dart';
 
@@ -38,4 +39,11 @@ void changeDIR(String dir){
 
     }
 }
+
+
+
+@override
+  // TODO: implement onStart
+  get onStart => super.onStart;
+
 }

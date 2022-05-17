@@ -15,6 +15,7 @@ import 'package:location/location.dart' as loc ;
 import '../../Assistants/assistantMethods.dart';
 import '../../Assistants/globals.dart';
 import '../../Data/current_data.dart';
+import '../../controller/lang_controller.dart';
 import '../../controller/location_controller.dart';
 import '../../controller/payment_controller.dart';
 import '../../controller/route_map_controller.dart';
@@ -44,6 +45,7 @@ class _MainScreenState extends State<MainScreen> {
   final PageStorageBucket bucket = PageStorageBucket();
   Widget currentScreen = Home();
   final StartUpController startUpController = Get.find();
+  final LangController langController = Get.find();
 
   int? currentTp = 0;
   @override
@@ -51,10 +53,22 @@ class _MainScreenState extends State<MainScreen> {
     // TODO: implement initState
     super.initState();
     locatePosition();
-
+    autoLang();
   }
 
+  void autoLang()async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
+    var lang = await prefs.getString('lang');
+    print("lang ====== lang === $lang");
+    if(lang !=null){
+      langController.changeLang(lang);
+      Get.updateLocale(Locale(lang));
+      langController.changeDIR(lang);
+      print(Get.deviceLocale);
+      print(Get.locale);
+    }
+  }
   var location = loc.Location();
   final routeMapController = Get.put(RouteMapController());
   geo.Position? currentPosition;
