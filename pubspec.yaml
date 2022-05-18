@@ -46,10 +46,9 @@ dependencies:
   qr_flutter: ^4.0.0
   fluttertoast:
   shared_preferences: ^2.0.13
-  location:
+  location: ^4.4.0
   sliding_up_panel: ^2.0.0+1
   latlong2:
-  qr_code_scanner: ^0.6.1
   image_picker: ^0.8.4+8
   azstore: ^1.0.1
   flutter_countdown_timer: ^4.1.0
@@ -69,6 +68,9 @@ dependencies:
   cloud_firestore:
   share:
   get_it: ^4.0.2
+  qr_code_scanner:
+  firebase_messaging: ^11.4.0
+  flutter_local_notifications: ^9.5.3+1
 
 dev_dependencies:
   flutter_test:

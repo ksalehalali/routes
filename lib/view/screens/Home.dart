@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'package:delayed_display/delayed_display.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -8,6 +10,8 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:routes/view/screens/routes/all_routes_map.dart';
 import '../../Assistants/assistantMethods.dart';
 import '../../Assistants/globals.dart';
+import '../../main.dart';
+import '../../notifications/push_notification_service.dart';
 import '../widgets/destination_selection.dart';
 import '../widgets/headerDesgin.dart';
 import 'destination_selection_screen.dart';
@@ -19,17 +23,116 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver{
   int navIndex = 3;
   double bottomPaddingOfMap = 0;
   CameraPosition cameraPosition =CameraPosition(target: LatLng(29.370314422169248, 47.98216642044717),zoom: 14.0);
   Completer<GoogleMapController> _controllerMaps = Completer();
   bool showDisSelection = false;
+
+  //request permitions
+  requestPermssion() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+
+    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
+      print('User granted permission');
+    } else if (settings.authorizationStatus == AuthorizationStatus.provisional) {
+      print('User granted provisional permission');
+    } else {
+      print('User declined or has not accepted permission');
+    }
+  }
+
+  /// initial message from terminate
+  Future<void> initialMessage() async {
+    await FirebaseMessaging.instance.getInitialMessage().then((message) {
+      if (message != null) {
+        print('init message Ok ,terminate');
+      }
+    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     AssistantMethods.getCurrentOnLineUserInfo();
+    WidgetsBinding.instance!.addObserver(this);
+
+    //notifi
+    //PushNotificationService.initialize2(context);
+   // initialMessage();
+   // requestPermssion();
+    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+    //   RemoteNotification? notification = message.notification;
+    //   AndroidNotification? androidNotification = message.notification?.android;
+    //   if(notification != null){
+    //     print("data from message1 : ${message.data['payment_id']}");
+    //     if(message.data['payment_id'] == "s"){
+    //       //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>PaymentSuccessFulScreen()), (route) => false);
+    //     }else if (message.data['payment_id'] == "f"){
+    //      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>PaymentFailureScreen()), (route) => false);
+    //
+    //     }
+    //   }
+    //   if (notification != null && androidNotification != null) {
+    //     //pushNotificationService.retrieveRideRequestInfo(pushNotificationService.getRideRequestId(message.data),context);
+    //     print("data from message and : ${message.data['payment_id']}");
+    //     flutterLocalNotificationsPlugin.show(
+    //         notification.hashCode,
+    //         notification.title,
+    //         notification.body,
+    //         NotificationDetails(
+    //             android: AndroidNotificationDetails(channel.id, channel.name,
+    //                 channelDescription: channel.description,
+    //                 color: Colors.blue,
+    //                 playSound: true,
+    //                 icon: '@mipmap/ic_launcher')));
+    //   }
+    // });
+
+    //in open
+    // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message){
+    //   RemoteNotification? notification = message.notification;
+    //   AndroidNotification? androidNotification = message.notification?.android;
+    //   if(notification != null){
+    //     print("data from message on open : ${message.data['payment_id']}");
+    //     if(message.data['payment_id'] == "s"){
+    //      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>PaymentSuccessFulScreen()), (route) => false);
+    //     }else if (message.data['payment_id'] == "f"){
+    //      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>PaymentFailureScreen()), (route) => false);
+    //
+    //     }
+    //   }
+    //   if (notification != null && androidNotification != null) {
+    //     //pushNotificationService.retrieveRideRequestInfo(pushNotificationService.getRideRequestId(message.data),context);
+    //
+    //     showDialog(context: context, builder: (_){
+    //       return AlertDialog(
+    //         title: Text(notification.title!),
+    //         content:SingleChildScrollView(
+    //           child: Column(
+    //             crossAxisAlignment: CrossAxisAlignment.start,
+    //             children: [
+    //               Text("from terminate ${notification.body!}"),
+    //
+    //             ],
+    //           ),
+    //         ),
+    //       );
+    //     });
+    //   }
+    // });
+
   }
   //
   void locatePosition() async {
@@ -46,6 +149,15 @@ class _HomeState extends State<Home> {
     // String address = await assistantMethods.searchCoordinateAddress(
     //     position, context, false);
     // print(address);
+  }
+
+
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    WidgetsBinding.instance!.removeObserver(this);
   }
   @override
   Widget build(BuildContext context) {

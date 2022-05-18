@@ -26,10 +26,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.routes.khaled.routes</string>
+			<string>com.routes.khaled.routes2</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>routesbusapp.page.link</string>
+				<string>routesme.page.link</string>
 			</array>
 		</dict>
 	</array>
@@ -37,7 +37,7 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FirebaseDynamicLinksCustomDomains</key>
 	<array>
-		<string>https://routesbusapp.page.link</string>
+		<string>https://routesme.page.link</string>
 	</array>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
@@ -59,6 +59,12 @@
 	<string>Can we use your microphone?</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Can we save to your library?</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>processing</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
