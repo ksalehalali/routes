@@ -29,6 +29,28 @@ class PaymentController extends GetxController {
   var allTransSorted = <TransactionModel>[].obs;
 
 
+  getPaymentCode()async{
+    var data;
+    var headers = {
+      'Authorization': 'bearer ${user.accessToken}'
+    };
+    var request = http.Request('GET', Uri.parse('https://route.click68.com/api/PaymentCode'));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var json = jsonDecode(await response.stream.bytesToString());
+      data = json['description'];
+      user.PaymentCode = data;
+
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+    return data;
+  }
   Future<bool> pay(bool isDirect) async {
     var headers = {
       'Authorization': 'bearer ${user.accessToken}',

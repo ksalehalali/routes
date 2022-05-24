@@ -10,8 +10,9 @@ class User {
   String? accessToken;
   String? fcmToken;
   double? totalBalance;
+  String? PaymentCode;
 
-  User({this.phone,this.name,this.email,this.id,this.avatarUrl,this.accessToken,this.fcmToken,this.totalBalance});
+  User({this.phone,this.name,this.email,this.id,this.avatarUrl,this.accessToken,this.fcmToken,this.totalBalance,this.PaymentCode});
 
   User.fromSnapshot(){
     id ='';
@@ -19,6 +20,7 @@ class User {
     name = '';
     phone = '';
     avatarUrl = '';
+    PaymentCode = '';
 
 
   }

@@ -19,7 +19,7 @@ import 'controller/lang_controller.dart';
 import 'controller/location_controller.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:geolocator/geolocator.dart' as geo;
-import 'package:location/location.dart' as loc ;
+import 'package:location/location.dart' as loc;
 
 import 'controller/payment_controller.dart';
 import 'controller/start_up_controller.dart';
@@ -33,8 +33,6 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-
-
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title
@@ -43,8 +41,7 @@ const AndroidNotificationChannel channel = AndroidNotificationChannel(
     playSound: true);
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-FlutterLocalNotificationsPlugin();
-
+    FlutterLocalNotificationsPlugin();
 
 ///on backGround
 /// To verify things are working, check out the native platform logs.
@@ -65,47 +62,56 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
               color: Colors.blue,
               playSound: true,
               icon: '@mipmap/ic_launcher')));
-
-
 }
-
 
 Future<void> _handleBackgroundMessaging(RemoteMessage message) async {
   print(message.data);
 }
 
-Future<void> main()async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   await flutterLocalNotificationsPlugin
       .resolvePlatformSpecificImplementation<
-      AndroidFlutterLocalNotificationsPlugin>()
+          AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
 
   await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
       alert: true, badge: true, sound: true);
 
-
-  final controller =Get.putAsync(() async => LocationController(),permanent: true);
-  final paymentController =Get.putAsync(() async => PaymentController(),permanent: true);
-  final tripsController =Get.putAsync(() async => TripController(),permanent: true);
-  final transactionsController =Get.putAsync(() async => TransactionsController(),permanent: true);
-  final langController =Get.putAsync(() async => LangController(),permanent: true);
+  final controller =
+      Get.putAsync(() async => LocationController(), permanent: true);
+  final paymentController =
+      Get.putAsync(() async => PaymentController(), permanent: true);
+  final tripsController =
+      Get.putAsync(() async => TripController(), permanent: true);
+  final transactionsController =
+      Get.putAsync(() async => TransactionsController(), permanent: true);
+  final langController =
+      Get.putAsync(() async => LangController(), permanent: true);
   setupLocator();
-  MFSDK.init( 'rLtt6JWvbUHDDhsZnfpAhpYk4dxYDQkbcPTyGaKp2TYqQgG7FGZ5Th_WD53Oq8Ebz6A53njUoo1w3pjU1D4vs_ZMqFiz_j0urb_BH9Oq9VZoKFoJEDAbRZepGcQanImyYrry7Kt6MnMdgfG5jn4HngWoRdKduNNyP4kzcp3mRv7x00ahkm9LAK7ZRieg7k1PDAnBIOG3EyVSJ5kK4WLMvYr7sCwHbHcu4A5WwelxYK0GMJy37bNAarSJDFQsJ2ZvJjvMDmfWwDVFEVe_5tOomfVNt6bOg9mexbGjMrnHBnKnZR1vQbBtQieDlQepzTZMuQrSuKn-t5XZM7V6fCW7oP-uXGX-sMOajeX65JOf6XVpk29DP6ro8WTAflCDANC193yof8-f5_EYY-3hXhJj7RBXmizDpneEQDSaSz5sFk0sV5qPcARJ9zGG73vuGFyenjPPmtDtXtpx35A-BVcOSBYVIWe9kndG3nclfefjKEuZ3m4jL9Gg1h2JBvmXSMYiZtp9MR5I6pvbvylU_PP5xJFSjVTIz7IQSjcVGO41npnwIxRXNRxFOdIUHn0tjQ-7LwvEcTXyPsHXcMD8WtgBh-wxR8aKX7WPSsT1O8d8reb2aR7K3rkV3K82K_0OgawImEpwSvp9MNKynEAJQS6ZHe_J_l77652xwPNxMRTMASk1ZsJL',MFCountry.KUWAIT,MFEnvironment.TEST);
+  MFSDK.init(
+      'rLtt6JWvbUHDDhsZnfpAhpYk4dxYDQkbcPTyGaKp2TYqQgG7FGZ5Th_WD53Oq8Ebz6A53njUoo1w3pjU1D4vs_ZMqFiz_j0urb_BH9Oq9VZoKFoJEDAbRZepGcQanImyYrry7Kt6MnMdgfG5jn4HngWoRdKduNNyP4kzcp3mRv7x00ahkm9LAK7ZRieg7k1PDAnBIOG3EyVSJ5kK4WLMvYr7sCwHbHcu4A5WwelxYK0GMJy37bNAarSJDFQsJ2ZvJjvMDmfWwDVFEVe_5tOomfVNt6bOg9mexbGjMrnHBnKnZR1vQbBtQieDlQepzTZMuQrSuKn-t5XZM7V6fCW7oP-uXGX-sMOajeX65JOf6XVpk29DP6ro8WTAflCDANC193yof8-f5_EYY-3hXhJj7RBXmizDpneEQDSaSz5sFk0sV5qPcARJ9zGG73vuGFyenjPPmtDtXtpx35A-BVcOSBYVIWe9kndG3nclfefjKEuZ3m4jL9Gg1h2JBvmXSMYiZtp9MR5I6pvbvylU_PP5xJFSjVTIz7IQSjcVGO41npnwIxRXNRxFOdIUHn0tjQ-7LwvEcTXyPsHXcMD8WtgBh-wxR8aKX7WPSsT1O8d8reb2aR7K3rkV3K82K_0OgawImEpwSvp9MNKynEAJQS6ZHe_J_l77652xwPNxMRTMASk1ZsJL',
+      MFCountry.KUWAIT,
+      MFEnvironment.TEST);
   await GetStorage.init();
 
-  runApp( GetMaterialApp(
-    locale: Locale('en'),
-    fallbackLocale: Locale('en'),
-    translations: Localization(),
-    debugShowCheckedModeBanner: false,
-    theme: ThemeData(),
-    home:  MYApp()
-  ),);
+  final fcmToken = await FirebaseMessaging.instance.getToken();
+  print("FCM token: " + fcmToken!);
+
+  runApp(
+    GetMaterialApp(
+        locale: Locale('en'),
+        fallbackLocale: Locale('en'),
+        translations: Localization(),
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(),
+        home: MYApp()),
+  );
 }
+
 class MYApp extends StatefulWidget {
   const MYApp({Key? key}) : super(key: key);
 
@@ -115,9 +121,9 @@ class MYApp extends StatefulWidget {
 
 class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
   final startUpController = Get.put(StartUpController());
-   late final AnimationController _controller;
+  late final AnimationController _controller;
   static const locationChannel = MethodChannel('location');
-  final arguments = {'name':'khaled'};
+  final arguments = {'name': 'khaled'};
 
   @override
   void initState() {
@@ -127,85 +133,94 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
 
     startUpController.fetchUserLoginPreference();
     getLocation();
-    Timer(Duration(milliseconds: 100),() {
+    Timer(Duration(milliseconds: 100), () {
       getCurrentLocationFromChannel();
     });
+
+
     FirebaseMessaging.instance.getInitialMessage();
-///in forground
+
+    ///in forground
     FirebaseMessaging.onMessage.listen((event) {
-      if(event.notification !=null){
+      if (event.notification != null) {
         print(event.notification!.title);
         print(event.notification!.body);
-
       }
     });
 
     //in onMessageOpenedApp
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message){
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
       RemoteNotification? notification = message.notification;
       AndroidNotification? androidNotification = message.notification?.android;
-      if(notification != null){
+      if (notification != null) {
         print("data from message on open : ${message.data['payment_id']}");
-        if(message.data['payment_id'] == "s"){
-
-        }else if (message.data['payment_id'] == "f"){
-
-        }
+        if (message.data['payment_id'] == "s") {
+        } else if (message.data['payment_id'] == "f") {}
       }
       if (notification != null && androidNotification != null) {
-
-        showDialog(context: context, builder: (_){
-          return AlertDialog(
-            title: Text(notification.title!),
-            content:SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text("from terminate ${notification.body!}"),
-
-                ],
-              ),
-            ),
-          );
-        });
+        showDialog(
+            context: context,
+            builder: (_) {
+              return AlertDialog(
+                title: Text(notification.title!),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("from terminate ${notification.body!}"),
+                    ],
+                  ),
+                ),
+              );
+            });
       }
     });
   }
+
   var assistantMethods = AssistantMethods();
 
-  Future getCurrentLocationFromChannel()async{
+  Future getCurrentLocationFromChannel() async {
     var value;
-    try{
-      value = await locationChannel.invokeMethod("getCurrentLocation",arguments);
+    try {
+      value =
+          await locationChannel.invokeMethod("getCurrentLocation", arguments);
       var lat = value['lat'];
       var lng = value['lng'];
-      if(lng >0.0){
+      if (lng > 0.0) {
         print("value  , main :: ${value.toString()}");
         locationController.changePickUpAddress('Current Location');
-        currentPosition = geo.Position(latitude:lat ,longitude:lng ,accuracy:0.0 ,altitude:lat ,speedAccuracy:0.0 ,heading:0.0 ,timestamp:DateTime.now(),speed:0.0 ,);
-        String address =
-        await assistantMethods.searchCoordinateAddress(currentPosition!,true);
+        currentPosition = geo.Position(
+          latitude: lat,
+          longitude: lng,
+          accuracy: 0.0,
+          altitude: lat,
+          speedAccuracy: 0.0,
+          heading: 0.0,
+          timestamp: DateTime.now(),
+          speed: 0.0,
+        );
+        String address = await assistantMethods.searchCoordinateAddress(
+            currentPosition!, true);
         trip.startPointAddress = address;
         trip.startPoint = LocationModel(lat, lng);
         locationController.gotMyLocation(true);
         locationController.changePickUpAddress(address);
         locationController.addPickUp.value = true;
-      }else{
+      } else {
         print('Wrong coordinates ###');
       }
-
-    }catch(err){
+    } catch (err) {
       print(err);
     }
-
   }
+
   var location = loc.Location();
   geo.Position? currentPosition;
   double bottomPaddingOfMap = 0;
   late loc.PermissionStatus _permissionGranted;
   final LocationController locationController = Get.find();
 
-  Future getLocation()async{
+  Future getLocation() async {
     loc.Location location = loc.Location.instance;
 
     geo.Position? currentPos;
@@ -213,18 +228,27 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
     _permissionGranted = permissionStatus;
     if (_permissionGranted != loc.PermissionStatus.granted) {
       final loc.PermissionStatus permissionStatusReqResult =
-      await location.requestPermission();
+          await location.requestPermission();
 
       _permissionGranted = permissionStatusReqResult;
     }
     loc.LocationData loca = await location.getLocation();
     print('loca ...............  $loca');
 
-    if(loca.latitude !=null){
+    if (loca.latitude != null) {
       locationController.changePickUpAddress('Current Location');
-      currentPosition = geo.Position(latitude:loca.latitude! ,longitude:loca.longitude! ,accuracy:loca.accuracy! ,altitude:loca.altitude! ,speedAccuracy:loca.speedAccuracy! ,heading:loca.heading! ,timestamp:DateTime.now(),speed:loca.speed! ,);
-      String address =
-      await assistantMethods.searchCoordinateAddress(currentPosition!,true);
+      currentPosition = geo.Position(
+        latitude: loca.latitude!,
+        longitude: loca.longitude!,
+        accuracy: loca.accuracy!,
+        altitude: loca.altitude!,
+        speedAccuracy: loca.speedAccuracy!,
+        heading: loca.heading!,
+        timestamp: DateTime.now(),
+        speed: loca.speed!,
+      );
+      String address = await assistantMethods.searchCoordinateAddress(
+          currentPosition!, true);
       trip.startPointAddress = address;
       trip.startPoint = LocationModel(loca.latitude!, loca.longitude!);
       locationController.gotMyLocation(true);
@@ -232,7 +256,8 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
       locationController.addPickUp.value = true;
     }
 
-    geo.Position position = await geo.Geolocator.getCurrentPosition(desiredAccuracy: geo.LocationAccuracy.high);
+    geo.Position position = await geo.Geolocator.getCurrentPosition(
+        desiredAccuracy: geo.LocationAccuracy.high);
     locationController.gotMyLocation(true);
     locationController.addPickUp.value = true;
     locationController.changePickUpAddress('Current Location');
@@ -241,47 +266,44 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
     LatLng latLngPosition = LatLng(position.latitude, position.longitude);
 
     String address =
-    await assistantMethods.searchCoordinateAddress(position,true);
+        await assistantMethods.searchCoordinateAddress(position, true);
     trip.startPointAddress = address;
-    trip.startPoint = LocationModel(latLngPosition.latitude, latLngPosition.longitude);
+    trip.startPoint =
+        LocationModel(latLngPosition.latitude, latLngPosition.longitude);
     locationController.gotMyLocation(true);
     locationController.changePickUpAddress(address);
     locationController.addPickUp.value = true;
-
   }
+
   @override
   void dispose() {
     // TODO: implement dispose
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
-
             routes_color2,
             routes_color,
-          ]
-          )
-          ,
-          color: Colors.white
-      ),
+          ]),
+          color: Colors.white),
       child: SafeArea(
         left: false,
         right: false,
         child: Container(
           decoration: BoxDecoration(
               gradient: LinearGradient(colors: [
-
                 routes_color6,
                 routes_color,
-              ]
-              )
-              ,
-              color: Colors.white
+              ]),
+              color: Colors.white),
+          child: Image.asset(
+            'assets/animation/ROUTES-Animated Logo.gif',
+            fit: BoxFit.fill,
           ),
-          child: Image.asset('assets/animation/ROUTES-Animated Logo.gif',fit: BoxFit.fill,),
           // child: Lottie.asset(
           //   'assets/animation/17314-bus.json',
           //   height: 122,
@@ -299,5 +321,3 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
     );
   }
 }
-
-

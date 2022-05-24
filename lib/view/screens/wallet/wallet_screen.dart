@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/credit_card_widget.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'package:routes/Assistants/globals.dart';
 import 'package:routes/model/transaction_model.dart';
 
+import '../../../Data/current_data.dart';
 import '../../../controller/payment_controller.dart';
 import '../../widgets/dialogs.dart';
 import 'balance_calculator.dart';
@@ -118,9 +121,52 @@ class _WalletScreenState extends State<WalletScreen> {
                 ],
               ),
               SizedBox(
-                height: screenSize.height * 0.1 - 22,
+                height: screenSize.height * 0.1 - 42,
               ),
 
+              Container(
+                child: ElevatedButton(
+                  onPressed: () async{
+                    await walletController.getPaymentCode();
+                    Get.dialog(Dialog(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(
+                          15.0,
+                        ),
+                      ),
+                      elevation: 0,
+                      backgroundColor: Colors.transparent,
+                      child: Container(
+                      height:360,
+                        color: Colors.white,
+                        child: Center(
+                          child: QrImage(
+                            data: "{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\",\"paymentCode\":\"${user.PaymentCode}\"}",
+                            version: QrVersions.auto,
+                            size: 250.0,
+                          ),
+                        ),
+                      )
+                    ));
+                    print("{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\",\"paymentCode\":\"${user.PaymentCode}\"}");
+                  },
+                  child: Text(
+                    "pay_btn".tr,
+                    style: TextStyle(
+                        fontSize: 17,
+                        letterSpacing: 1
+                    ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+
+                      maximumSize: Size(Get.size.width -90,Get.size.width -90),
+                      minimumSize: Size(Get.size.width -90, 40),primary: routes_color2,
+                      onPrimary: Colors.white,
+                      alignment: Alignment.center
+                  ),
+                ),
+
+              ),
               SizedBox(
                 height: 12.0,
               ),

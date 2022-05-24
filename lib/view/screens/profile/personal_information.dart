@@ -7,6 +7,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:routes/view/screens/profile/personal_information_edit.dart';
 import '../../../Assistants/globals.dart';
 import '../../../Data/current_data.dart';
+import '../../../controller/payment_controller.dart';
 import '../../../controller/personal_information_controller.dart';
 
 
@@ -16,9 +17,17 @@ class PersonalInformation extends StatefulWidget {
 }
 
 class _PersonalInformationState extends State<PersonalInformation> {
+  final PaymentController paymentController = Get.find();
 
   final personalInfoController = Get.put(PersonalInformationController());
+  var payCode ='';
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    payCode = paymentController.getPaymentCode();
 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -143,7 +152,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                 SizedBox(height: 32.0,),
 
                 QrImage(
-                  data: "{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\"}",
+                  data: "{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\"},\"paymentCode\":\"${user.PaymentCode}\"}",
                   version: QrVersions.auto,
                   size: 200.0,
                 ),
