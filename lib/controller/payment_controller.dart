@@ -34,7 +34,7 @@ class PaymentController extends GetxController {
     var headers = {
       'Authorization': 'bearer ${user.accessToken}'
     };
-    var request = http.Request('GET', Uri.parse('https://route.click68.com/api/PaymentCode'));
+    var request = http.Request('GET', Uri.parse('https://route.click68.com/api/divice/PaymentCode'));
 
     request.headers.addAll(headers);
 
@@ -43,10 +43,13 @@ class PaymentController extends GetxController {
     if (response.statusCode == 200) {
       var json = jsonDecode(await response.stream.bytesToString());
       data = json['description'];
-      user.PaymentCode = data;
+      user.PaymentCode = data['paymentCode'].toString();
+      print('payment code ====== $data');
 
     }
     else {
+      print('payment code ====== ERROR');
+
       print(response.reasonPhrase);
     }
     return data;

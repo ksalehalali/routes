@@ -35,7 +35,7 @@ class PushNotificationService {
   static final FlutterLocalNotificationsPlugin _notificationsPlugin =
   FlutterLocalNotificationsPlugin();
 
-  static void initialize2(BuildContext context) {
+  static void initialize2() {
     final InitializationSettings initializationSettings =
     InitializationSettings(
         android: AndroidInitializationSettings("@mipmap/ic_launcher"));
@@ -54,8 +54,8 @@ class PushNotificationService {
 
       final NotificationDetails notificationDetails = NotificationDetails(
           android: AndroidNotificationDetails(
-            "routes-pay",
-            "routes-pay channel",
+            "routes.khaled",
+            "routes channel",
             importance: Importance.max,
             priority: Priority.high,
           ),iOS: IOSNotificationDetails()

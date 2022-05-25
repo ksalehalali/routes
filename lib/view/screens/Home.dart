@@ -66,7 +66,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
     // TODO: implement initState
     super.initState();
     AssistantMethods.getCurrentOnLineUserInfo();
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
 
     //notifi
     //PushNotificationService.initialize2(context);
@@ -157,7 +157,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
   }
   @override
   Widget build(BuildContext context) {

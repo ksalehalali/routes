@@ -68,7 +68,7 @@ dependencies:
   cloud_firestore:
   share:
   get_it: ^4.0.2
-  qr_code_scanner:
+  qr_code_scanner: ^0.7.0
   firebase_messaging: ^11.2.4
   flutter_local_notifications: ^9.1.5
 
@@ -83,7 +83,11 @@ flutter_native_splash:
   color: "#000000"
   image: assets/images/routes/Startup-Logo2.png
 
-
+dependency_overrides:
+  qr_code_scanner:
+    git:
+      url: https://github.com/X-SLAYER/qr_code_scanner.git
+      ref: flutter-beta
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your
