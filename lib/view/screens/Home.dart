@@ -66,7 +66,52 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
     // TODO: implement initState
     super.initState();
     AssistantMethods.getCurrentOnLineUserInfo();
-    WidgetsBinding.instance.addObserver(this);
+
+
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+     if(message!.notification !=null){
+       print('from init msg ,terminated state---= ${message.notification!.title}');
+       print(message.notification!.body);
+     }
+    });
+
+    ///in forground
+    FirebaseMessaging.onMessage.listen((event) {
+      if (event.notification != null) {
+        print('msg on forground ');
+        print(event.notification!.title);
+        print(event.notification!.body);
+      }
+    });
+
+    //in onMessageOpenedApp
+    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
+      RemoteNotification? notification = message.notification;
+      AndroidNotification? androidNotification = message.notification?.android;
+      if (notification != null) {
+        print("data from message on open : ${message.data['payment_id']}");
+        if (message.data['payment_id'] == "s") {
+        } else if (message.data['payment_id'] == "f") {}
+      }
+      if (notification != null && androidNotification != null) {
+        showDialog(
+            context: context,
+            builder: (_) {
+              return AlertDialog(
+                title: Text(notification.title!),
+                content: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("from terminate ${notification.body!}"),
+                    ],
+                  ),
+                ),
+              );
+            });
+      }
+    });
+
 
     //notifi
     //PushNotificationService.initialize2(context);
@@ -157,7 +202,6 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
   void dispose() {
     // TODO: implement dispose
     super.dispose();
-    WidgetsBinding.instance.removeObserver(this);
   }
   @override
   Widget build(BuildContext context) {

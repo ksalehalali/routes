@@ -46,7 +46,6 @@ final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 ///on backGround
 /// To verify things are working, check out the native platform logs.
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp();
   print('message :: $message');
   print('Handling a background message ${message.messageId}');
   RemoteNotification? notification = message.notification;
@@ -64,22 +63,13 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
               icon: '@mipmap/ic_launcher')));
 }
 
-Future<void> _handleBackgroundMessaging(RemoteMessage message) async {
-  print(message.data);
-}
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  await flutterLocalNotificationsPlugin
-      .resolvePlatformSpecificImplementation<
-          AndroidFlutterLocalNotificationsPlugin>()
-      ?.createNotificationChannel(channel);
 
-  await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
-      alert: true, badge: true, sound: true);
 
   final controller =
       Get.putAsync(() async => LocationController(), permanent: true);
@@ -138,43 +128,6 @@ class _MYAppState extends State<MYApp> with TickerProviderStateMixin {
     });
 
 
-    FirebaseMessaging.instance.getInitialMessage();
-
-    ///in forground
-    FirebaseMessaging.onMessage.listen((event) {
-      if (event.notification != null) {
-        print(event.notification!.title);
-        print(event.notification!.body);
-      }
-    });
-
-    //in onMessageOpenedApp
-    FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? androidNotification = message.notification?.android;
-      if (notification != null) {
-        print("data from message on open : ${message.data['payment_id']}");
-        if (message.data['payment_id'] == "s") {
-        } else if (message.data['payment_id'] == "f") {}
-      }
-      if (notification != null && androidNotification != null) {
-        showDialog(
-            context: context,
-            builder: (_) {
-              return AlertDialog(
-                title: Text(notification.title!),
-                content: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("from terminate ${notification.body!}"),
-                    ],
-                  ),
-                ),
-              );
-            });
-      }
-    });
   }
 
   var assistantMethods = AssistantMethods();
