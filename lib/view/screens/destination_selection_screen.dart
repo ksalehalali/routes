@@ -60,6 +60,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = Get.size;
 
     return Scaffold(
       body: Column(
@@ -77,7 +78,7 @@ class _SearchScreenState extends State<SearchScreen> {
             ]),
             child: Padding(
               padding: EdgeInsets.only(
-                  left: 25.0, top: 20.0, right: 25.0, bottom: 20.0),
+                  left: 12.0, top: 20.0, right: 12.0, bottom: 20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -126,7 +127,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       Spacer(),
                       Obx(() {
                         return SizedBox(
-                          width: 280,
+                          width:screenSize.width <400? 270:280,
                           height: 35,
                           child: TextFormField(
                             controller: pickUpController,
@@ -164,7 +165,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               border: InputBorder.none,
                               isDense: true,
                               contentPadding: EdgeInsets.only(
-                                  left: 9.0, top: 7.0, bottom: 7.0),
+                                  left: 9.0, top: 7.0, bottom: 2.0),
                             ),
                           ),
                         );
@@ -190,12 +191,12 @@ class _SearchScreenState extends State<SearchScreen> {
                       Text('to_txt'.tr,style: TextStyle(color: Colors.grey,fontSize: 16),),
 
                       SizedBox(
-                        width: 8.0,
+                        width: 18.0,
                       ),
                       Spacer(),
 
                       SizedBox(
-                        width: 280,
+                        width:screenSize.width < 400? 270:280,
                         height: 35,
                         child: TextFormField(
                           focusNode: focusNodeDropOff,

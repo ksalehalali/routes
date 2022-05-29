@@ -206,7 +206,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
   @override
   Widget build(BuildContext context) {
     final screenSize = Get.size;
-    print(screenSize.height * .4,);
+    print(screenSize.height ,);
     print(screenSize.width ,);
     return Container(
       decoration: BoxDecoration(
