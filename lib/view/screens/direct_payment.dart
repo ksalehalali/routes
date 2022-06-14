@@ -8,6 +8,7 @@ import '../../controller/location_controller.dart';
 import '../../controller/payment_controller.dart';
 import '../widgets/QRCodeScanner.dart';
 import '../widgets/headerDesgin.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DirectPayment extends StatefulWidget {
   @override
@@ -43,37 +44,39 @@ class _DirectPaymentState extends State<DirectPayment> {
               children: [
                 Positioned(
                     top: 0.0,
+                    width: screenSize.width,
+
                     child: SizedBox(
-                        height: screenSize.height*0.1+11,
-                        width: screenSize.width,
+                        height: screenSize.height*0.1+11.h,
+                        width: screenSize.width.w,
                         child: Header(screenSize))),
                Positioned(
-                  top:screenSize.height *0.1 +50,
+                  top:screenSize.height *0.1 +50.h,
                   child: SizedBox(
-                    height: screenSize.height,
-                    width: screenSize.width,
+                    height: screenSize.height.h,
+                    width: screenSize.width.w,
                     child: Center(
                       child: Column(
                         children: [
-                          SizedBox(height: 16,),
+                          SizedBox(height: 16.h,),
                           Container(
-                            margin: EdgeInsets.symmetric(horizontal: 16.0),
+                            margin: EdgeInsets.symmetric(horizontal: 16.0.h),
                             child: Text(
                               "start_pay_txt".tr,
                               textAlign: TextAlign.center,
                               style: TextStyle(
-                                fontSize: 18,
+                                fontSize: 18.sp,
                               ),
                             ),
                           ),
-                          SizedBox(height: 16,),
+                          SizedBox(height: 16.h,),
                           DelayedDisplay(
                             child: Image.asset(
                               "${assetsDir}scanqrcode2.png",
                              // width: MediaQuery.of(context).size.width * 0.66,
                             ),
                           ),
-                         SizedBox(height: screenSize.height*0.1-20,),
+                         SizedBox(height: screenSize.height*0.1-20.h,),
                           // QR SCAN BUTTON
                           Container(
                             child: ElevatedButton(
@@ -92,27 +95,27 @@ class _DirectPaymentState extends State<DirectPayment> {
                                 timeInSecForIosWeb: 1,
                                 backgroundColor: Colors.white70,
                                 textColor: Colors.black,
-                                fontSize: 16.0);
+                                fontSize: 16.0.sp);
                                 }
                               },
                               child: Text(
                                 "scan_btn".tr,
                                 style: TextStyle(
-                                  fontSize: 17,
+                                  fontSize: 17.sp,
                                   letterSpacing: 1
                                 ),
                               ),
                               style: ElevatedButton.styleFrom(
 
-                                  maximumSize: Size(Get.size.width -90,Get.size.width -90),
-                                  minimumSize: Size(Get.size.width -90, 40),primary: routes_color2,
+                                  maximumSize: Size(Get.size.width -90.w,Get.size.width -90.w),
+                                  minimumSize: Size(Get.size.width -90.w, 40.w),primary: routes_color2,
                                   onPrimary: Colors.white,
                                   alignment: Alignment.center
                               ),
                             ),
 
                           ),
-                          SizedBox(height: 32,)
+                          SizedBox(height: 32.h,)
                         ],
                       ),
                     ),

@@ -29,7 +29,7 @@ class PaymentController extends GetxController {
   var allTransSorted = <TransactionModel>[].obs;
 
 
-  getPaymentCode()async{
+  Future<String> getPaymentCode()async{
     var data;
     var headers = {
       'Authorization': 'bearer ${user.accessToken}'
@@ -52,7 +52,7 @@ class PaymentController extends GetxController {
 
       print(response.reasonPhrase);
     }
-    return data;
+    return data['description'];
   }
   Future<bool> pay(bool isDirect) async {
     var headers = {

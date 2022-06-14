@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:routes/view/screens/routes/search_widget.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../Assistants/globals.dart';
 import '../../../Data/routes_data.dart';
@@ -57,7 +58,7 @@ class FilterListRoutesState extends State<FilterListRoutes> {
 
   Widget buildRouteItem(RouteModel route) => Column(
     children: [
-      Container(width: 300,height: 1,color: routes_color,padding: EdgeInsets.zero,),
+      Container(width: 300.w,height: 1.h,color: routes_color,padding: EdgeInsets.zero,),
       ListTile(
 
         onTap: (){
@@ -65,7 +66,7 @@ print(route.name);
 allRoutesController.getStationsRoute(route.id);
 
         },
-            leading: Text(route.name,style: TextStyle(fontSize: 17,fontWeight: FontWeight.bold),),
+            leading: Text(route.name,style: TextStyle(fontSize: 17.sp,fontWeight: FontWeight.bold),),
             title: Text(route.from_To),
             subtitle: Text(route.company),
           ),

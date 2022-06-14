@@ -11,6 +11,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart' as google_maps;
 import 'package:latlong2/latlong.dart';
 import 'package:location/location.dart' as loc;
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../Assistants/assistantMethods.dart';
 import '../../../Assistants/globals.dart';
@@ -87,7 +88,7 @@ class _AllRoutesMapState extends State<AllRoutesMap> {
               mapToolbarEnabled: true,
               myLocationEnabled: true,
               myLocationButtonEnabled: true,
-              padding: EdgeInsets.only(bottom: 136, top: 30),
+              padding: EdgeInsets.only(bottom: 186.h, top: 30.h),
               markers: {...allRouteController.markersStations},
               // {
               //
@@ -149,11 +150,12 @@ class _AllRoutesMapState extends State<AllRoutesMap> {
 
 
           Obx(()=> AnimatedPositioned(
-                top:allRouteController.isSearching.value ==true ? screenSize.height -410:screenSize.height -330,
+                top:allRouteController.isSearching.value ==true ? screenSize.height -410.h:screenSize.height -330.h,
+                width: screenSize.width,
                 duration: 400.milliseconds,
                 child: Container(child: SizedBox(
-                    width: screenSize.width,
-                    height: screenSize.height,
+                    width: screenSize.width.w,
+                    height: screenSize.height.h,
                     child: FilterListRoutes()))),
           )
         ]),

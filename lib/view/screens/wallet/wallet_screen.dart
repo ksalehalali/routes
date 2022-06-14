@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:routes/Assistants/globals.dart';
 import 'package:routes/model/transaction_model.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../Data/current_data.dart';
 import '../../../controller/payment_controller.dart';
@@ -59,7 +60,7 @@ class _WalletScreenState extends State<WalletScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: screenSize.height * .1 - 70,
+                height: screenSize.height * .1 - 70.h,
               ),
               Row(
                 children: [
@@ -69,24 +70,24 @@ class _WalletScreenState extends State<WalletScreen> {
                       Text(
                         'available_balance_txt'.tr,
                         style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w500),
+                            fontSize: 15.sp, fontWeight: FontWeight.w500),
                       ),
                       SizedBox(
-                        height: 5.0,
+                        height: 5.0.h,
                       ),
                       Obx(
                         () => walletController.gotMyBalance.value == true
                             ? Text(
                                 walletController.myBalance.value,
                                 style: TextStyle(
-                                    fontSize: 17, fontWeight: FontWeight.bold),
+                                    fontSize: 17.sp, fontWeight: FontWeight.bold),
                               )
                             : SizedBox(
-                                height: 18,
-                                width: 18,
+                                height: 18.h,
+                                width: 18.w,
                                 child: CircularProgressIndicator.adaptive(
                                   backgroundColor: Colors.black,
-                                  strokeWidth: 3,
+                                  strokeWidth: 3.w,
                                 )),
                       ),
                     ],
@@ -105,10 +106,10 @@ class _WalletScreenState extends State<WalletScreen> {
                         Icon(
                           Icons.add_box_sharp,
                           color: Colors.green[900],
-                          size: 28,
+                          size: 28.sp,
                         ),
                         SizedBox(
-                          height: 5.0,
+                          height: 5.0.h,
                         ),
                         Text(
                           'add_redit_btn'.tr,
@@ -121,7 +122,7 @@ class _WalletScreenState extends State<WalletScreen> {
                 ],
               ),
               SizedBox(
-                height: screenSize.height * 0.1 - 42,
+                height: screenSize.height * 0.1 - 42.h,
               ),
 
               Container(
@@ -137,13 +138,13 @@ class _WalletScreenState extends State<WalletScreen> {
                       elevation: 0,
                       backgroundColor: Colors.transparent,
                       child: Container(
-                      height:360,
+                      height:360.h,
                         color: Colors.white,
                         child: Center(
                           child: QrImage(
                             data: "{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\",\"paymentCode\":\"${user.PaymentCode}\"}",
                             version: QrVersions.auto,
-                            size: 250.0,
+                            size: 250.0.sp,
                           ),
                         ),
                       )
@@ -153,14 +154,14 @@ class _WalletScreenState extends State<WalletScreen> {
                   child: Text(
                     "pay_btn".tr,
                     style: TextStyle(
-                        fontSize: 17,
+                        fontSize: 17.sp,
                         letterSpacing: 1
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
 
-                      maximumSize: Size(Get.size.width -90,Get.size.width -90),
-                      minimumSize: Size(Get.size.width -90, 40),primary: routes_color2,
+                      maximumSize: Size(Get.size.width -90.w,Get.size.width -90.w),
+                      minimumSize: Size(Get.size.width -90.w, 40.w),primary: routes_color2,
                       onPrimary: Colors.white,
                       alignment: Alignment.center
                   ),
@@ -168,7 +169,7 @@ class _WalletScreenState extends State<WalletScreen> {
 
               ),
               SizedBox(
-                height: 12.0,
+                height: 12.0.h,
               ),
               //trans3131
 
@@ -181,7 +182,7 @@ class _WalletScreenState extends State<WalletScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 10.0,),
+                      SizedBox(height: 10.0.h,),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -203,11 +204,11 @@ class _WalletScreenState extends State<WalletScreen> {
                                 AnimatedContainer(duration: 11.seconds,
                                     curve: Curves.easeIn,
                                     child: Text('payments_txt'.tr,style: TextStyle(color: _color,fontWeight: FontWeight.w600))),
-                                SizedBox(height: 10.0,),
+                                SizedBox(height: 10.0.h,),
                                 AnimatedContainer(
                                   curve: Curves.easeInOut,
-                                  width:screenSize.width/2-15,
-                                  height: 2.5,
+                                  width:screenSize.width/2-15.w,
+                                  height: 2.5.h,
                                   color: _color,
                                   duration: 900.milliseconds ,
 
@@ -233,11 +234,11 @@ class _WalletScreenState extends State<WalletScreen> {
                                     duration: 14.seconds,
 
                                     child: Text('recharges_txt'.tr,style: TextStyle(color: _color2,fontWeight: FontWeight.w600),)),
-                                SizedBox(height: 10.0,),
+                                SizedBox(height: 10.0.h,),
                                 AnimatedContainer(
                                   curve: Curves.easeInOut,
-                                  width: screenSize.width/2-15,
-                                  height: 2.5,
+                                  width: screenSize.width/2-15.w,
+                                  height: 2.5.h,
                                   color: _color2,
                                   duration: 900.milliseconds ,
 
@@ -249,13 +250,13 @@ class _WalletScreenState extends State<WalletScreen> {
                       ),
 
                       SizedBox(
-                        height: screenSize.height * 0.1 - 62,
+                        height: screenSize.height * 0.1 - 62.h,
                       ),
                        Obx(()=> (walletController.gotPayments.value ==false&&walletController.gotRecharges.value==false)?Center(child: Image.asset('assets/animation/Logo animated-loop-fast.gif',fit: BoxFit.fill,color: routes_color,),):Container()),
                       showPayments?SizedBox(
-                        height: screenSize.height-200,
+                        height: screenSize.height-200.h,
                         child: Padding(
-                          padding: const EdgeInsets.only(bottom: 122.0),
+                          padding:  EdgeInsets.only(bottom: 122.0.h),
                           child: CustomScrollView(
                             slivers: [
                               Obx(()=> SliverList(delegate: SliverChildBuilderDelegate((context,index){
@@ -269,7 +270,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                           showDialog(context: context, builder: (context)=>CustomDialog(payment:  walletController.payments[index],fromPaymentLists: false,failedPay: false,));
                                         },
                                       ),
-                                      Divider(thickness: 1,height: 10,),
+                                      Divider(thickness: 1,height: 10.h,),
                                     ],
                                   );
                                 },childCount:walletController.payments.length ),),
@@ -281,9 +282,9 @@ class _WalletScreenState extends State<WalletScreen> {
                       ):Container(),
 
                       showRecharges?SizedBox(
-                          height: screenSize.height-200,
+                          height: screenSize.height-200.h,
                           child: Padding(
-                            padding: const EdgeInsets.only(bottom: 122.0),
+                            padding:  EdgeInsets.only(bottom: 122.0.h),
                             child: CustomScrollView(
                               slivers: [
                                 Obx(()=> SliverList(delegate: SliverChildBuilderDelegate((context,index){
@@ -298,7 +299,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                         subtitle:  Text(DateFormat('yyyy-MM-dd  HH:mm :ss').format(DateTime.parse(walletController.recharges[index].createdDate!)),style: TextStyle(height: 2),),
                                         trailing:  Text(walletController.recharges[index].invoiceValue!.toStringAsFixed(3),style: TextStyle(color:routes_color,fontWeight: FontWeight.w600),),
                                       ),
-                                      Divider(thickness: 1,height: 10,)
+                                      Divider(thickness: 1,height: 10.h,)
                                     ],
                                   );
                                 },childCount:walletController.recharges.length ),),
@@ -309,10 +310,10 @@ class _WalletScreenState extends State<WalletScreen> {
 
                       ):Container(),
                       SizedBox(
-                        height: 10.0,
+                        height: 10.0.h,
                       ),
                       Container(
-                        width: screenSize.width - 20,
+                        width: screenSize.width - 20.w,
                         height: 2,
                         color: Colors.grey[300],
                       ),

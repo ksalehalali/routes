@@ -187,8 +187,8 @@ class LoginController extends GetxController {
 
         //call func to save installation
         saveInstallationForPromoters(promoterId);
-//        Get.offAll(MainScreen(indexOfScreen: 0,));
-     Timer(Duration(milliseconds: 200), (){
+
+     Timer(const Duration(milliseconds: 200), (){
        Get.to(MainScreen(indexOfScreen: 0,));
      });
 

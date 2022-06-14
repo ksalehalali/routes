@@ -15,6 +15,8 @@ import '../../notifications/push_notification_service.dart';
 import '../widgets/destination_selection.dart';
 import '../widgets/headerDesgin.dart';
 import 'destination_selection_screen.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -54,9 +56,10 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
 
   /// initial message from terminate
   Future<void> initialMessage() async {
-    await FirebaseMessaging.instance.getInitialMessage().then((message) {
-      if (message != null) {
-        print('init message Ok ,terminate');
+    FirebaseMessaging.instance.getInitialMessage().then((message) {
+      if(message!.notification !=null){
+        print('from init msg ,terminated state---= ${message.notification!.title}');
+        print(message.notification!.body);
       }
     });
   }
@@ -66,14 +69,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
     // TODO: implement initState
     super.initState();
     AssistantMethods.getCurrentOnLineUserInfo();
+    initialMessage();
+    requestPermssion();
 
-
-    FirebaseMessaging.instance.getInitialMessage().then((message) {
-     if(message!.notification !=null){
-       print('from init msg ,terminated state---= ${message.notification!.title}');
-       print(message.notification!.body);
-     }
-    });
 
     ///in forground
     FirebaseMessaging.onMessage.listen((event) {
@@ -113,70 +111,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
     });
 
 
-    //notifi
-    //PushNotificationService.initialize2(context);
-   // initialMessage();
-   // requestPermssion();
-    // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-    //   RemoteNotification? notification = message.notification;
-    //   AndroidNotification? androidNotification = message.notification?.android;
-    //   if(notification != null){
-    //     print("data from message1 : ${message.data['payment_id']}");
-    //     if(message.data['payment_id'] == "s"){
-    //       //Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>PaymentSuccessFulScreen()), (route) => false);
-    //     }else if (message.data['payment_id'] == "f"){
-    //      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>PaymentFailureScreen()), (route) => false);
-    //
-    //     }
-    //   }
-    //   if (notification != null && androidNotification != null) {
-    //     //pushNotificationService.retrieveRideRequestInfo(pushNotificationService.getRideRequestId(message.data),context);
-    //     print("data from message and : ${message.data['payment_id']}");
-    //     flutterLocalNotificationsPlugin.show(
-    //         notification.hashCode,
-    //         notification.title,
-    //         notification.body,
-    //         NotificationDetails(
-    //             android: AndroidNotificationDetails(channel.id, channel.name,
-    //                 channelDescription: channel.description,
-    //                 color: Colors.blue,
-    //                 playSound: true,
-    //                 icon: '@mipmap/ic_launcher')));
-    //   }
-    // });
 
-    //in open
-    // FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message){
-    //   RemoteNotification? notification = message.notification;
-    //   AndroidNotification? androidNotification = message.notification?.android;
-    //   if(notification != null){
-    //     print("data from message on open : ${message.data['payment_id']}");
-    //     if(message.data['payment_id'] == "s"){
-    //      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>PaymentSuccessFulScreen()), (route) => false);
-    //     }else if (message.data['payment_id'] == "f"){
-    //      // Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>PaymentFailureScreen()), (route) => false);
-    //
-    //     }
-    //   }
-    //   if (notification != null && androidNotification != null) {
-    //     //pushNotificationService.retrieveRideRequestInfo(pushNotificationService.getRideRequestId(message.data),context);
-    //
-    //     showDialog(context: context, builder: (_){
-    //       return AlertDialog(
-    //         title: Text(notification.title!),
-    //         content:SingleChildScrollView(
-    //           child: Column(
-    //             crossAxisAlignment: CrossAxisAlignment.start,
-    //             children: [
-    //               Text("from terminate ${notification.body!}"),
-    //
-    //             ],
-    //           ),
-    //         ),
-    //       );
-    //     });
-    //   }
-    // });
 
   }
   //
@@ -209,6 +144,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
     print(screenSize.height ,);
     print(screenSize.width ,);
     return Container(
+
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
 
@@ -224,30 +160,25 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
         child: Scaffold(
           body: Stack(
             children: [
-              SizedBox(
-                  height: screenSize.height ,
-                  width: screenSize.width,
-                  child: DelayedDisplay(
-                    child: GoogleMap(initialCameraPosition: cameraPosition,
-                      mapToolbarEnabled: true,
+              GoogleMap(initialCameraPosition: cameraPosition,
+                mapToolbarEnabled: true,
 
-                      padding: EdgeInsets.only(top: 100,bottom: 140),
-                      myLocationEnabled: true,
-                      myLocationButtonEnabled: true,
+                padding: EdgeInsets.only(top: 100.h,bottom: 160.h),
+                myLocationEnabled: true,
+                myLocationButtonEnabled: true,
 
-                      onMapCreated: (GoogleMapController controller) {
-                        _controllerMaps.complete(controller);
-                        homeMapController = controller;
-                        setState(() {
-                          bottomPaddingOfMap = 320.0;
-                        });
-                        locatePosition();
-                      },
-                    ),
-                  ),
+                onMapCreated: (GoogleMapController controller) {
+                  _controllerMaps.complete(controller);
+                  homeMapController = controller;
+                  setState(() {
+                    bottomPaddingOfMap = 320.0;
+                  });
+                  locatePosition();
+                },
               ),
             Positioned(
-                top: screenSize.height *0.7-28,
+                top: screenSize.height.h *0.7-28.h,
+width: screenSize.width,
                 child: Container(
                   decoration: BoxDecoration(
                     color: Colors.grey[50],
@@ -261,17 +192,17 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
                         )
                       ]
                   ),
-                  height: screenSize.height *0.2+80,
-                  width: screenSize.width,
+                  height: screenSize.height.h *0.2+80.h,
+                  width: screenSize.width.w,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Center(
                         child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0),
+                          padding:  EdgeInsets.only(top: 8.0.h),
                           child: Container(
-                            width: 38.0,
-                            height: 5.0,
+                            width: 38.0.w,
+                            height: 5.0.h,
                             decoration: BoxDecoration(
                                 color: Colors.grey[400],
                                 borderRadius: BorderRadius.circular(5.0)),
@@ -280,7 +211,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
                       ),
                       Padding(
                         padding: const EdgeInsets.all(22.0),
-                        child: Text('where_to_txt'.tr,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[900],fontSize: 22),),
+                        child: Text('where_to_txt'.tr,style: TextStyle(fontWeight: FontWeight.w500,color: Colors.grey[900],fontSize: 22.sp),),
                       ),
 
 
@@ -290,7 +221,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
                             Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchScreen()));
                           },
                           child: Container(
-                            margin: EdgeInsets.only(top: 1,right: 22,left: 22),
+                            margin: EdgeInsets.only(top: 1.h,right: 22.w,left: 22.w),
                             padding: EdgeInsets.all(6),
                             decoration: BoxDecoration(
                               color: routes_color7.withOpacity(0.1),
@@ -298,9 +229,9 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
                             ),
                             child: Row(
                               children: [
-                                SizedBox(width: 8.0,),
-                                SvgPicture.asset("assets/icons/search.svg", width: 28, color: Colors.grey[900],),
-                                SizedBox(width: 8.0,),
+                                SizedBox(width: 8.0.w,),
+                                SvgPicture.asset("assets/icons/search.svg", width: 28.w, color: Colors.grey[900],),
+                                SizedBox(width: 8.0.w,),
                                 Text('enter_your_destination_txt'.tr,style: TextStyle(fontWeight: FontWeight.w400,color: Colors.grey[500]),)
                               ],
                             ),
@@ -314,9 +245,11 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
               ),
               Positioned(
                   top: 0.0,
+                  width: screenSize.width,
+
                   child: SizedBox(
-                      height: screenSize.height*0.1,
-                      width: screenSize.width,
+                      height: screenSize.height*0.1.h,
+                      width: screenSize.width.w,
                       child: Header(screenSize))),
             ],
           ),

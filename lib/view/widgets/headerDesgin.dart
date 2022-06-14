@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../Assistants/globals.dart';
 
 Widget Header (size){
   return Container(
     width: double.infinity,
-    height: size.height *0.1,
+    height: size.height *0.1.h,
 
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: [
@@ -27,8 +28,8 @@ Widget Header (size){
         ]
     ),
     child: Padding(
-      padding: const EdgeInsets.only(top: 19.0,bottom: 12),
-      child: Image.asset('assets/images/routes/logo_white_300.png',height: 30,width: 30,fit: BoxFit.contain,),
+      padding:  EdgeInsets.only(top: 19.0.h,bottom: 12.h),
+      child: Image.asset('assets/images/routes/logo_white_300.png',height: 30.h,width: 30.w,fit: BoxFit.contain,),
     )
   );
 }

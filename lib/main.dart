@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:lottie/lottie.dart';
@@ -92,14 +94,26 @@ Future<void> main() async {
   print("FCM token: " + fcmToken!);
 
   runApp(
-    GetMaterialApp(
-        locale: Locale('en'),
-        fallbackLocale: Locale('en'),
-        translations: Localization(),
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(),
-        home: MYApp()),
-  );
+    DevicePreview(
+      enabled: false,
+        builder: (context){
+          final screen = Get.size;
+          return ScreenUtilInit(
+        designSize:  Size(390, 815),
+
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context , child) {
+        return GetMaterialApp(
+            builder: DevicePreview.appBuilder,
+            locale: Locale('en'),
+            fallbackLocale: Locale('en'),
+            translations: Localization(),
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(),
+            home: MYApp());
+      } );}
+  ));
 }
 
 class MYApp extends StatefulWidget {

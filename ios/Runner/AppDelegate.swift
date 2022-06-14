@@ -14,7 +14,10 @@ import Firebase
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
   ) -> Bool {
       FirebaseApp.configure()
-      
+
+      if #available(iOS 10.0, *) {
+            UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
+          }
       let controller : FlutterViewController = window?.rootViewController as! FlutterViewController
       
       let METHOD_CHANNEL_NAME = "location"

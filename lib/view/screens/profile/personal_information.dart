@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -25,8 +26,10 @@ class _PersonalInformationState extends State<PersonalInformation> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    payCode = paymentController.getPaymentCode();
 
+  }
+  getPaymentCode()async{
+    payCode =await paymentController.getPaymentCode();
   }
   @override
   Widget build(BuildContext context) {
@@ -60,11 +63,11 @@ class _PersonalInformationState extends State<PersonalInformation> {
               children: [
                 // EDIT PROFILE PICTURE
                 Obx(() =>  Container(
-                  margin: EdgeInsets.symmetric(vertical: 16.0),
+                  margin: EdgeInsets.symmetric(vertical: 16.0.h),
                   alignment: Alignment.center,
                   // If no profile picture is fetched, a placeholder Image will be displayed
                   child: personalInfoController.profilePicture.value.path == "" ?
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 40,
                     backgroundImage: NetworkImage(
                       'https://www.pngkey.com/png/full/349-3499617_person-placeholder-person-placeholder.png',
@@ -79,10 +82,10 @@ class _PersonalInformationState extends State<PersonalInformation> {
                   ),
                 ),
                 ),
-                SizedBox(height: 46.0,),
+                SizedBox(height: 46.0.h,),
                 // EDIT NAME
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 14.0),
+                  margin: EdgeInsets.symmetric(horizontal: 14.0.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -92,7 +95,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                           color: Colors.grey
                         ),
                       ),
-                      SizedBox(height: 4.0,),
+                      SizedBox(height: 4.0.h,),
                       Obx(() => TextField(
                         enabled: false,
                         decoration: InputDecoration(
@@ -103,7 +106,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                     ],
                   ),
                 ),
-                SizedBox(height: 32.0,),
+                SizedBox(height: 32.0.h,),
 //            // EDIT PHONE
 //            Container(
 //              margin: EdgeInsets.symmetric(horizontal: 8.0),
@@ -128,7 +131,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
 //            SizedBox(height: 32.0,),
                 // EDIT EMAIL
                 Container(
-                  margin: EdgeInsets.symmetric(horizontal: 14.0),
+                  margin: EdgeInsets.symmetric(horizontal: 14.0.w),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -138,7 +141,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                             color: Colors.grey
                         ),
                       ),
-                      SizedBox(height: 4.0,),
+                      SizedBox(height: 4.0.h,),
                       Obx(() => TextField(
                         enabled: false,
                         decoration: InputDecoration(
@@ -149,13 +152,15 @@ class _PersonalInformationState extends State<PersonalInformation> {
                     ],
                   ),
                 ),
-                SizedBox(height: 32.0,),
+                SizedBox(height: 32.0.h,),
 
                 QrImage(
-                  data: "{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\"},\"paymentCode\":\"${user.PaymentCode}\"}",
+                  data: "{\"userId\":\"${user.id!}\",\"userName\":\"${user.name}\",\"paymentCode\":\"${user.PaymentCode}\"}",
                   version: QrVersions.auto,
-                  size: 200.0,
+                  size: 300.0.sp,
                 ),
+
+                SizedBox(height: 12.h,)
               ],
             ),
           ),
