@@ -46,8 +46,7 @@ class PaymentController extends GetxController {
       user.PaymentCode = data['paymentCode'].toString();
       print('payment code ====== $data');
 
-    }
-    else {
+    } else {
       print('payment code ====== ERROR');
 
       print(response.reasonPhrase);
