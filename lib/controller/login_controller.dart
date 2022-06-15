@@ -105,7 +105,6 @@ class LoginController extends GetxController {
           storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], loginCredentials[1], jsonResponse["description"]["id"]);
           user.accessToken = jsonResponse["description"]["token"];
           print(jsonResponse["description"]["token"]);
-          saveInstallationForPromoters(promoterId);
 
 
           Get.offAll(MainScreen(indexOfScreen: 0,));
@@ -186,7 +185,7 @@ class LoginController extends GetxController {
         print(jsonResponse["description"]["token"]);
 
         //call func to save installation
-        saveInstallationForPromoters(promoterId);
+        //saveInstallationForPromoters(promoterId);
 
      Timer(const Duration(milliseconds: 200), (){
        Get.to(MainScreen(indexOfScreen: 0,));

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:share/share.dart';
 
 import '../../../Assistants/firebase_dynamic_link.dart';
 
@@ -112,7 +111,7 @@ class _AboutUsState extends State<AboutUs> {
                   // ROW CALL SUPPORT
                   GestureDetector(
                     onTap: () {
-                      FirebaseDynamicLinkService.createDynamicLink(false, '');
+                     // FirebaseDynamicLinkService.createDynamicLink(false, '');
                     },
                     child: Container(
                       color: Colors.white,

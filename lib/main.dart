@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -94,25 +94,20 @@ Future<void> main() async {
   print("FCM token: " + fcmToken!);
 
   runApp(
-    DevicePreview(
-      enabled: false,
-        builder: (context){
-          final screen = Get.size;
-          return ScreenUtilInit(
+    ScreenUtilInit(
         designSize:  Size(390, 815),
 
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context , child) {
         return GetMaterialApp(
-            builder: DevicePreview.appBuilder,
             locale: Locale('en'),
             fallbackLocale: Locale('en'),
             translations: Localization(),
             debugShowCheckedModeBanner: false,
             theme: ThemeData(),
             home: MYApp());
-      } );}
+      }
   ));
 }
 

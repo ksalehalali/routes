@@ -8,7 +8,6 @@ import 'package:routes/controller/start_up_controller.dart';
 import 'package:routes/view/screens/profile/profile_screen.dart';
 import 'package:routes/view/screens/routes/all_routes_map.dart';
 import 'package:routes/view/screens/wallet/wallet_screen.dart';
-import 'package:share/share.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:location/location.dart' as loc ;
 

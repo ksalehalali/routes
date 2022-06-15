@@ -40,11 +40,11 @@ class PushNotificationService {
     InitializationSettings(
         android: AndroidInitializationSettings("@mipmap/ic_launcher"));
 
-    _notificationsPlugin.initialize(initializationSettings,onSelectNotification: (String? route) async{
-      if(route != null){
-        //Navigator.of(context).pushNamed(route);
-      }
-    });
+    // _notificationsPlugin.initialize(initializationSettings,onSelectNotification: (String? route) async{
+    //   if(route != null){
+    //     //Navigator.of(context).pushNamed(route);
+    //   }
+    // });
   }
 
   static void display(RemoteMessage message) async {
@@ -58,7 +58,7 @@ class PushNotificationService {
             "routes channel",
             importance: Importance.max,
             priority: Priority.high,
-          ),iOS: IOSNotificationDetails()
+          ),iOS: DarwinNotificationDetails()
       );
 
 
