@@ -10,7 +10,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:routes/view/screens/routes/all_routes_map.dart';
 import '../../Assistants/assistantMethods.dart';
 import '../../Assistants/globals.dart';
-import '../../main.dart';
 import '../../notifications/push_notification_service.dart';
 import '../widgets/destination_selection.dart';
 import '../widgets/headerDesgin.dart';
@@ -31,6 +30,15 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
   CameraPosition cameraPosition =CameraPosition(target: LatLng(29.370314422169248, 47.98216642044717),zoom: 14.0);
   Completer<GoogleMapController> _controllerMaps = Completer();
   bool showDisSelection = false;
+
+  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+  FlutterLocalNotificationsPlugin();
+  static const AndroidNotificationChannel channel = AndroidNotificationChannel(
+      'high_importance_channel', // id
+      'High Importance Notifications', // title
+      // description
+      importance: Importance.high,
+      playSound: true);
 
   //request permitions
   requestPermssion() async {
@@ -60,6 +68,20 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
       if(message!.notification !=null){
         print('from init msg ,terminated state---= ${message.notification!.title}');
         print(message.notification!.body);
+
+        // RemoteNotification? notification = message.notification;
+        // AndroidNotification? androidNotification = message.notification?.android;
+        //
+        // flutterLocalNotificationsPlugin.show(
+        //     notification.hashCode,
+        //     notification!.title,
+        //     notification.body,
+        //     NotificationDetails(
+        //         android: AndroidNotificationDetails(channel.id, channel.name,
+        //             channelDescription: channel.description,
+        //             color: Colors.blue,
+        //             playSound: true,
+        //             icon: '@mipmap/ic_launcher')));
       }
     });
   }
@@ -79,6 +101,26 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
         print('msg on forground ');
         print(event.notification!.title);
         print(event.notification!.body);
+
+        // RemoteNotification? notification = event.notification;
+        // AndroidNotification? androidNotification = event.notification?.android;
+        //
+        // flutterLocalNotificationsPlugin.show(
+        //     notification.hashCode,
+        //     notification!.title,
+        //     notification.body,
+        //     NotificationDetails(
+        //         android: AndroidNotificationDetails(channel.id, channel.name,
+        //             channelDescription: channel.description,
+        //             color: Colors.blue,
+        //             playSound: true,
+        //             icon: '@mipmap/ic_launcher'),iOS:const DarwinNotificationDetails(
+        //       subtitle:  'aaa',
+        //
+        //
+        //
+        //     ) ));
+
       }
     });
 
@@ -89,6 +131,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver{
       if (notification != null) {
         print("data from message on open : ${message.data['payment_id']}");
         if (message.data['payment_id'] == "s") {
+
         } else if (message.data['payment_id'] == "f") {}
       }
       if (notification != null && androidNotification != null) {

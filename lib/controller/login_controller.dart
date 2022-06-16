@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -135,6 +136,8 @@ class LoginController extends GetxController {
 
   Future<void> makeAutoLoginRequest (username, password) async{
 
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+    print(" 0000000000 FCM token: " + fcmToken!);
 
     var head = {
       "Accept": "application/json",
@@ -144,7 +147,8 @@ class LoginController extends GetxController {
     var response = await http.post(Uri.parse(baseURL + "/api/Login"), body: jsonEncode(
       {
         "UserName": username,
-        "Password": password
+        "Password": password,
+        "FCMToken":fcmToken
       },
     ), headers: head
     ).timeout(const Duration(seconds: 20), onTimeout:(){

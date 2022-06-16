@@ -90,8 +90,7 @@ Future<void> main() async {
       MFEnvironment.TEST);
   await GetStorage.init();
 
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-  print("FCM token: " + fcmToken!);
+
 
   runApp(
     ScreenUtilInit(
