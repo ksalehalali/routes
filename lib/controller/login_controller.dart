@@ -39,6 +39,8 @@ class LoginController extends GetxController {
 
   Future<void> makeLoginRequest () async{
 //  isLoginLoading.value = true;
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+    print(" 0000000000 FCM token: " + fcmToken!);
     loginIcon.value = Container(
       child: CircularProgressIndicator(),
     );
@@ -69,7 +71,8 @@ class LoginController extends GetxController {
       var response = await http.post(Uri.parse(baseURL + "/api/Login"), body: jsonEncode(
         {
           "UserName": loginCredentials[0],
-          "Password": loginCredentials[1]
+          "Password": loginCredentials[1],
+          "FCMToken":fcmToken
         },
       ), headers: head
       ).timeout(const Duration(seconds: 20), onTimeout:(){
