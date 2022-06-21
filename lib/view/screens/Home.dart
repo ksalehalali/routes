@@ -103,7 +103,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 },
               ),
               Positioned(
-                top: screenSize.height.h * 0.7 - 28.h,
+                top: screenSize.height.h * 0.7 - 68.h,
                 width: screenSize.width,
                 child: Container(
                   decoration: BoxDecoration(

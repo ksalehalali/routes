@@ -63,7 +63,7 @@ class _DirectPaymentState extends State<DirectPayment> {
                         children: [
                           SizedBox(height: 16.h,),
                           Container(
-                            margin: EdgeInsets.symmetric(horizontal: 16.0.h),
+                            margin: EdgeInsets.symmetric(horizontal: 22.0.h),
                             child: Text(
                               "start_pay_txt".tr,
                               textAlign: TextAlign.center,
@@ -79,52 +79,19 @@ class _DirectPaymentState extends State<DirectPayment> {
                              // width: MediaQuery.of(context).size.width * 0.66,
                             ),
                           ),
-                         SizedBox(height: screenSize.height*0.1-20.h,),
+                         SizedBox(height: screenSize.height*0.1-30.h,),
                           // QR SCAN BUTTON
-                          Container(
+                          DelayedDisplay(
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                // ElevatedButton(
-                                //   onPressed: () async{
-                                //     String balance = await checkWallet();
-                                //     double balanceNum = double.parse(balance);
-                                //     if(balanceNum >= 0.200) {
-                                //      setState(() {
-                                //        paymentController.openCam.value =true;
-                                //      });
-                                //     } else {
-                                //     Fluttertoast.showToast(
-                                //     msg: "msg_0_balance".tr,
-                                //     toastLength: Toast.LENGTH_SHORT,
-                                //     gravity: ToastGravity.CENTER,
-                                //     timeInSecForIosWeb: 1,
-                                //     backgroundColor: Colors.white70,
-                                //     textColor: Colors.black,
-                                //     fontSize: 16.0.sp);
-                                //     }
-                                //   },
-                                //   child: Text(
-                                //     "scan_btn".tr,
-                                //     style: TextStyle(
-                                //       fontSize: 17.sp,
-                                //       letterSpacing: 1
-                                //     ),
-                                //   ),
-                                //   style: ElevatedButton.styleFrom(
-                                //
-                                //       maximumSize: Size(Get.size.width -90.w,Get.size.width -90.w),
-                                //       minimumSize: Size(Get.size.width -90.w, 40.w),primary: routes_color2,
-                                //       onPrimary: Colors.white,
-                                //       alignment: Alignment.center
-                                //   ),
-                                // ),
+
                                 OutlinedButton.icon(
                                   style: ButtonStyle(
                                     backgroundColor:MaterialStateProperty.all(Colors.white),
                                     foregroundColor: MaterialStateProperty.all(routes_color),
-                                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12,horizontal: 6)),
+                                    padding: MaterialStateProperty.all(EdgeInsets.symmetric(vertical: 12.h,horizontal: 6.w)),
 
                                   ) ,
                                   onPressed: ()async{
@@ -147,12 +114,13 @@ class _DirectPaymentState extends State<DirectPayment> {
                                 }, label: Text(
                                   "Pay via scan QR code_txt".tr,
                                   style: TextStyle(
-                                      fontSize: 14.sp,
+                                      fontSize: 13.sp,
                                       letterSpacing: 0,
                                       fontWeight: FontWeight.bold
 
                                   ),
                                 ), icon: Icon(Icons.qr_code), ),
+                                SizedBox(width:screenSize.width *0.1-26.w,),
                                 OutlinedButton.icon(
                                   style: ButtonStyle(
                                     backgroundColor:MaterialStateProperty.all(Colors.white),
@@ -186,14 +154,13 @@ class _DirectPaymentState extends State<DirectPayment> {
                                 label:Text(
                                   "Pay via show QR code_txt".tr,
                                   style: TextStyle(
-                                      fontSize: 14.sp,
+                                      fontSize: 13.sp,
                                       letterSpacing: 0,
                                     fontWeight: FontWeight.bold
                                   ),
                                 ), ),
                               ],
                             ),
-
                           ),
                           SizedBox(height: 32.h,)
                         ],
