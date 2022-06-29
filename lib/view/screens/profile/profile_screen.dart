@@ -13,9 +13,9 @@ import '../../../controller/lang_controller.dart';
 import '../../../controller/personal_information_controller.dart';
 import '../../../controller/start_up_controller.dart';
 import '../Auth/login.dart';
-import '../Home.dart';
-import 'about_us.dart';
 import 'your_activities_screen.dart';
+import 'package:share_plus/share_plus.dart';
+
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({Key? key}) : super(key: key);
@@ -262,7 +262,7 @@ class ProfileScreen extends StatelessWidget {
                             padding:  EdgeInsets.symmetric(horizontal: 8.0.w,vertical: 12.h),
                             child: InkWell(
                               onTap: () {
-                                FirebaseDynamicLinkService.createDynamicLink(false, user.id!);
+                                Share.share('https://routesme.page.link/all', subject: 'share!');
 
                               },
                               child: Row(

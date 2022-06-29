@@ -72,6 +72,7 @@ class RouteMapController extends GetxController {
   var isMultiMode = false.obs;
   var firstTurn = true.obs;
   var isLongTrip = false.obs;
+  var showStops =false.obs;
 
   var stationLocationPoints = <LatLng>[].obs;
   var stationLocationPoints2 = <LatLng>[].obs;

@@ -1,11 +1,8 @@
 import 'dart:async';
-
-import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
@@ -35,42 +32,19 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 
-const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'high_importance_channel', // id
-    'High Importance Notifications', // title
-    // description
-    importance: Importance.high,
-    playSound: true);
+import 'notifications/push_notification_service.dart';
 
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
 
-///on backGround
-/// To verify things are working, check out the native platform logs.
-Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  print('message :: $message');
-  print('Handling a background message ${message.messageId}');
-  RemoteNotification? notification = message.notification;
-  AndroidNotification? androidNotification = message.notification?.android;
 
-  flutterLocalNotificationsPlugin.show(
-      notification.hashCode,
-      notification!.title,
-      notification.body,
-      NotificationDetails(
-          android: AndroidNotificationDetails(channel.id, channel.name,
-              channelDescription: channel.description,
-              color: Colors.blue,
-              playSound: true,
-              icon: '@mipmap/ic_launcher')));
-}
+
+PushNotificationService pushNotificationService = PushNotificationService();
 
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
 
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  FirebaseMessaging.onBackgroundMessage(pushNotificationService.firebaseMessagingBackgroundHandler);
 
 
   final controller =
@@ -90,29 +64,23 @@ Future<void> main() async {
       MFEnvironment.TEST);
   await GetStorage.init();
 
-  final fcmToken = await FirebaseMessaging.instance.getToken();
-  print("FCM token: " + fcmToken!);
+
 
   runApp(
-    DevicePreview(
-      enabled: false,
-        builder: (context){
-          final screen = Get.size;
-          return ScreenUtilInit(
+    ScreenUtilInit(
         designSize:  Size(390, 815),
 
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context , child) {
         return GetMaterialApp(
-            builder: DevicePreview.appBuilder,
             locale: Locale('en'),
             fallbackLocale: Locale('en'),
             translations: Localization(),
             debugShowCheckedModeBanner: false,
             theme: ThemeData(),
             home: MYApp());
-      } );}
+      }
   ));
 }
 

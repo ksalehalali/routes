@@ -6,9 +6,6 @@ import 'package:flutter_countdown_timer/countdown_timer_controller.dart';
 import 'package:flutter_countdown_timer/flutter_countdown_timer.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/src/extension_navigation.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -258,7 +255,7 @@ class SignUpController extends GetxController {
           Navigator.pop(context, 'OK');
           //add the installation to promoter
 
-          saveInstallationForPromoters(promoterId);
+          //saveInstallationForPromoters(promoterId);
 
           Get.to(()=>MainScreen(indexOfScreen: 0,));
         } else{

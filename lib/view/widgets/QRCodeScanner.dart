@@ -10,7 +10,6 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import '../../Data/current_data.dart';
 import '../../controller/payment_controller.dart';
-import 'package:routes/view/map.dart';
 
 class QRScanner extends StatefulWidget {
   final bool isDirectPay;

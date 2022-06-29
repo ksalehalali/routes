@@ -2,12 +2,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:routes/controller/route_map_controller.dart';
-import 'package:routes/model/transaction_model.dart';
-
 import '../Data/current_data.dart';
 import '../model/charge_toSave_model.dart';
 import '../model/payment_saved_model.dart';
+import '../model/transaction_model.dart';
 import '../view/map.dart';
 import '../view/widgets/dialogs.dart';
 class PaymentController extends GetxController {
@@ -27,6 +25,7 @@ class PaymentController extends GetxController {
   int indexA = 0;
   int indexB = 0;
   var allTransSorted = <TransactionModel>[].obs;
+  var ticketPayed= false.obs;
 
 
   Future<String> getPaymentCode()async{
@@ -53,13 +52,12 @@ class PaymentController extends GetxController {
     }
     return data['description'];
   }
-  Future<bool> pay(bool isDirect) async {
+  Future pay(bool isDirect) async {
     var headers = {
       'Authorization': 'bearer ${user.accessToken}',
       'Content-Type': 'application/json'
     };
     var request = http.Request('POST', Uri.parse('https://route.click68.com/api/PaymentMyWallet'));
-
     if(isDirect ==false){
       request.body = json.encode({
         "api_key": "\$FhlF]3;.OIic&{>H;_DeW}|:wQ,A8",
@@ -77,63 +75,66 @@ class PaymentController extends GetxController {
       });
     }
 
-    request.headers.addAll(headers);
+    if(ticketPayed.value ==false){
+      request.headers.addAll(headers);
 
-    http.StreamedResponse response = await request.send();
-    var jsonResponse = jsonDecode(await response.stream.bytesToString());
-    print(jsonResponse);
+      http.StreamedResponse response = await request.send();
+      var jsonResponse = jsonDecode(await response.stream.bytesToString());
+      print(jsonResponse);
 
-    if (jsonResponse['status']== true) {
-      if(isDirect==true){
-        directPaymentDone.value = true;
-        directPaymentFailed.value =false;
-      }{
-        paymentFailed.value =false;
-        paymentDone.value = true;
-      }
+      if (jsonResponse['status']== true) {
+        if(isDirect==true){
+          directPaymentDone.value = true;
+          directPaymentFailed.value =false;
+        }{
+          paymentFailed.value =false;
+          paymentDone.value = true;
+        }
 
-      user.totalBalance = double.parse(jsonResponse['description']['total']);
-       paymentSaved.id = jsonResponse['description']['paymentId'];
-       paymentSaved.routeName = jsonResponse['description']['routeName'];
-       paymentSaved.userName = jsonResponse['description']['userName'];
-      print('value payed :: ${jsonResponse}');
-
-     if(isDirect ==false) panelController.open();
-      openCam.value =false;
-
-      Get.dialog(CustomDialog(
-        fromPaymentLists: false,
-        failedPay: false,
-        payment: PaymentSaved(
-            id:  paymentSaved.id,
-            routeName: paymentSaved.routeName,
-            userName: paymentSaved.userName,
-            date: DateTime.now().toString(),
-            createdDate: DateTime.now().toString(),
-            value: paymentSaved.value),
-      ));
-      update();
-      return true;
-    }
-    else {
-      openCam.value =false;
-      Get.dialog(CustomDialog(fromPaymentLists: false, failedPay: true));
-      var json = jsonDecode(await response.stream.bytesToString());
-      print(json);
-      if(isDirect==true){
-        directPaymentDone.value = false;
-        directPaymentFailed.value =true;
+        user.totalBalance = double.parse(jsonResponse['description']['total']);
+        paymentSaved.id = jsonResponse['description']['paymentId'];
+        paymentSaved.routeName = jsonResponse['description']['routeName'];
+        paymentSaved.userName = jsonResponse['description']['userName'];
+        print('value payed :: ${jsonResponse}');
+        ticketPayed.value =true;
+        if(isDirect ==false) panelController.open();
         openCam.value =false;
 
-      }{
-        paymentDone.value = false;
-        paymentFailed.value =true;
-        openCam.value =false;
-
+        Get.dialog(CustomDialog(
+          fromPaymentLists: false,
+          failedPay: false,
+          payment: PaymentSaved(
+              id:  paymentSaved.id,
+              routeName: paymentSaved.routeName,
+              userName: paymentSaved.userName,
+              date: DateTime.now().toString(),
+              createdDate: DateTime.now().toString(),
+              value: paymentSaved.value),
+        ));
+        update();
+        return true;
       }
-update();
-      return false;
+      else {
+        openCam.value =false;
+        Get.dialog(CustomDialog(fromPaymentLists: false, failedPay: true));
+        var json = jsonDecode(await response.stream.bytesToString());
+        print(json);
+        if(isDirect==true){
+          directPaymentDone.value = false;
+          directPaymentFailed.value =true;
+          openCam.value =false;
+
+        }{
+          paymentDone.value = false;
+          paymentFailed.value =true;
+          openCam.value =false;
+
+        }
+        update();
+        return false;
+      }
     }
+
   }
 
   Future<bool> recharge({required double invoiceValue,required int invoiceId,required String paymentGateway}) async {

@@ -262,7 +262,7 @@ class _BalanceCalculatorState extends State<BalanceCalculator> {
 
             return;
           }else if(isSend==true&&isDelete==false && amount >= 100 ){
-            if(!Get.isSnackbarOpen!){
+            if(!Get.isSnackbarOpen){
               Get.snackbar(
                   "Invalid Value", "Please Choose Your Vehicle",
                   colorText: Colors.red,

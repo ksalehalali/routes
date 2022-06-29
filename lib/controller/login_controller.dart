@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -19,11 +20,11 @@ import '../view/screens/main_screen.dart';
 
 class LoginController extends GetxController {
   var isLoginLoading = false.obs;
+  var installationSaved = false.obs;
+
   var loginIcon = new Container(
       child: Icon(
-        Icons.arrow_forward,
-      )
-  ).obs;
+        Icons.arrow_forward,)).obs;
 
   final usernameController = new TextEditingController();
   final passwordController = new TextEditingController();
@@ -38,6 +39,8 @@ class LoginController extends GetxController {
 
   Future<void> makeLoginRequest () async{
 //  isLoginLoading.value = true;
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+    print(" 0000000000 FCM token: " + fcmToken!);
     loginIcon.value = Container(
       child: CircularProgressIndicator(),
     );
@@ -68,7 +71,8 @@ class LoginController extends GetxController {
       var response = await http.post(Uri.parse(baseURL + "/api/Login"), body: jsonEncode(
         {
           "UserName": loginCredentials[0],
-          "Password": loginCredentials[1]
+          "Password": loginCredentials[1],
+          "FCMToken":fcmToken
         },
       ), headers: head
       ).timeout(const Duration(seconds: 20), onTimeout:(){
@@ -105,7 +109,14 @@ class LoginController extends GetxController {
           storeUserLoginPreference(jsonResponse["description"]["token"], jsonResponse["description"]["userName"], loginCredentials[1], jsonResponse["description"]["id"]);
           user.accessToken = jsonResponse["description"]["token"];
           print(jsonResponse["description"]["token"]);
-          saveInstallationForPromoters(promoterId);
+
+          //call func to save installation
+          if(installationSaved.value){
+
+          }else{
+            saveInstallationForPromoters(promoterId);
+            installationSaved.value =true;
+          }
 
 
           Get.offAll(MainScreen(indexOfScreen: 0,));
@@ -136,6 +147,8 @@ class LoginController extends GetxController {
 
   Future<void> makeAutoLoginRequest (username, password) async{
 
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+    print(" 0000000000 FCM token: " + fcmToken!);
 
     var head = {
       "Accept": "application/json",
@@ -145,7 +158,8 @@ class LoginController extends GetxController {
     var response = await http.post(Uri.parse(baseURL + "/api/Login"), body: jsonEncode(
       {
         "UserName": username,
-        "Password": password
+        "Password": password,
+        "FCMToken":fcmToken
       },
     ), headers: head
     ).timeout(const Duration(seconds: 20), onTimeout:(){
@@ -186,7 +200,12 @@ class LoginController extends GetxController {
         print(jsonResponse["description"]["token"]);
 
         //call func to save installation
-        saveInstallationForPromoters(promoterId);
+        if(installationSaved.value){
+
+        }else{
+          saveInstallationForPromoters(promoterId);
+          installationSaved.value =true;
+        }
 
      Timer(const Duration(milliseconds: 200), (){
        Get.to(MainScreen(indexOfScreen: 0,));

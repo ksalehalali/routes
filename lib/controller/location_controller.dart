@@ -101,7 +101,13 @@ class LocationController extends GetxController {
         print('failed');
         return;
       }
+      if (res["features"].length <1) {
+        print('failed');
+        return;
+      }
       if (res["features"] != null) {
+        print("res features  ===== :: ${res["features"]}");
+
         print(res['status']);
         var predictions = res["features"];
 
