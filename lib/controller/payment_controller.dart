@@ -53,6 +53,7 @@ class PaymentController extends GetxController {
     return data['description'];
   }
   Future pay(bool isDirect) async {
+    print('paying ticket');
     var headers = {
       'Authorization': 'bearer ${user.accessToken}',
       'Content-Type': 'application/json'

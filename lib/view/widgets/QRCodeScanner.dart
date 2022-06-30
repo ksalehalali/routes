@@ -24,7 +24,7 @@ class QRScanner extends StatefulWidget {
 class _QRScannerState extends State<QRScanner> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   final PaymentController paymentController = Get.find();
-
+  bool payDone =false;
   Barcode? result;
   QRViewController? controller;
 
@@ -90,23 +90,29 @@ class _QRScannerState extends State<QRScanner> {
       paymentSaved.value = json['value'];
 
      if(widget.isDirectPay ==true){
-
       // for(int i =0; i<200;i++){
       //  Timer(5.milliseconds, ()async{
-         var pay = await paymentController.pay(true);
-         if (pay == true) {
-           print(pay);
-         } else {
-           print(pay);
-         }
+        if(paymentController.ticketPayed.value ==false){
+          var pay = await paymentController.pay(true);
+          if (pay == true) {
+            print(pay);
+            payDone=true;
+          } else {
+            print(pay);
+          }
+        }
+
       // });
      // }
      }else{
-       var pay = await paymentController.pay(false);
-       if (pay == true) {
-         print(pay);
-       } else {
-         print(pay);
+       if(paymentController.ticketPayed.value ==false){
+         var pay = await paymentController.pay(false);
+         if (pay == true) {
+           print(pay);
+           payDone=true;
+         } else {
+           print(pay);
+         }
        }
      }
 
